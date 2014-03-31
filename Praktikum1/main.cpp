@@ -5,11 +5,11 @@
 
 using namespace std;
 
-const int count = 1000;
+const int count = 10;
 
 int main()
 {
-    Node<float>* root = new Node<float>(0);
+    Node<int>* root = new Node<int>(0);
 
     // Random C++ Generator
     default_random_engine generator;
@@ -17,7 +17,16 @@ int main()
     uniform_int_distribution<int> distribution(count * -1, count);
 
     for(int i = count; i >= 0; --i) {
-        root->Insert(new Node<float>(distribution(generator)));
+        root->Insert(new Node<int>(distribution(generator)));
+    }
+
+    Node<int>::Iterator i(root);
+    Node<int>* n = i.previous();
+
+    if(n == NULL) {
+        cout << "next not found!" << endl;
+    } else {
+        cout << "next is: " << n->GetKey() << endl;
     }
 
     root->Print();

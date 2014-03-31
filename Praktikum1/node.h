@@ -2,11 +2,13 @@
 #define NODE_H
 
 #include <iostream>
+#include <stack>
 
 template<typename key_T>
 class Node
 {
 public:
+
     Node();
     Node(key_T key);
 
@@ -18,11 +20,80 @@ public:
     void Print();
     void Print(std::ostream &os);
 
+    class Iterator
+    {
+    private:
+        key_T m_key;
+        Node<key_T>* m_root;
+        Node<key_T>* m_position;
+        std::stack<Node<key_T>*> s;
+
+    public:
+        Iterator(Node<key_T>* root)
+        {
+            m_root = m_position = root;
+            m_key = root->GetKey();
+            s.push(root);
+        }
+
+        Node<key_T>* getFirst()
+        {
+            while(s.top()->m_left) {
+                s.push(s.top()->m_left);
+            }
+            m_key = s.top()->GetKey();
+            return s.top();
+        }
+
+
+        Node<key_T>* getLast()
+        {
+            while(s.top()->m_right) {
+                s.push(s.top()->m_right);
+            }
+            m_key = s.top()->GetKey();
+            return s.top();
+        }
+
+        Node<key_T>* next()
+        {
+            if(s.size() == 0) {
+                std::cout << "fail";
+                return NULL;
+            } else if(s.top()->m_right && s.top()->m_right->GetKey() != m_key) {
+                s.push(s.top()->m_right);
+                return getFirst();
+            } else {
+                s.pop();
+                Iterator::next();
+            }
+            return NULL;
+        }
+
+        Node<key_T>* previous()
+        {
+            if(s.size() == 0) {
+                std::cout << "fail";
+                return NULL;
+            } else if(s.top()->m_left && s.top()->m_left->GetKey() != m_key) {
+                s.push(s.top()->m_left);
+                return getLast();
+            } else {
+                s.pop();
+                Iterator::next();
+            }
+            return NULL;
+        }
+    };
+
 private:
     key_T m_key;
     Node* m_left;
     Node* m_right;
+
 };
+
+
 
 template<typename key_t>
 Node<key_t>::Node()
@@ -34,8 +105,8 @@ template<typename key_t>
 Node<key_t>::Node(key_t key)
 {
     m_key = key;
-    m_left = 0;
-    m_right = 0;
+    m_left = NULL;
+    m_right = NULL;
 }
 
 template<typename key_t>
@@ -89,7 +160,7 @@ Node<key_t>* Node<key_t>::Search(key_t key)
     if(key == m_key) {
         return this;
     } else {
-        return 0;
+        return NULL;
     }
 }
 
