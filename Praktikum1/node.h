@@ -110,7 +110,7 @@ void Node<key_t>::Print(std::ostream &os)
     }
 
     // print myself
-    ios << m_key << " ";
+    os << m_key << " ";
 
     // now print all right Nodes
     if(m_right) {
