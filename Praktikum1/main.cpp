@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int count = 10;
+const int count = 1000;
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
     }
 
     Node<int>::Iterator i(root);
-    Node<int>* n = i.previous();
+    Node<int>* n = i.next();
 
     if(n == NULL) {
         cout << "next not found!" << endl;
