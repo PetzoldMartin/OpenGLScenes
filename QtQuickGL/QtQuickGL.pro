@@ -2,7 +2,9 @@ TEMPLATE = app
 
 QT += qml quick
 
-SOURCES += main.cpp
+SOURCES += \
+    src/render/window_gl.cpp \
+    src/main.cpp
 
 RESOURCES += qml.qrc
 
@@ -11,3 +13,6 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    src/render/window_gl.h
