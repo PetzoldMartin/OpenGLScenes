@@ -13,6 +13,7 @@ private:
 public slots:
     void OnsceneGraphInitialized();
     void OnafterRendering();
+    void OnBeforeQt();
 };
 
 #endif // WINDOW_GL_H
