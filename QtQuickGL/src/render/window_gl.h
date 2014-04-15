@@ -5,14 +5,17 @@
 #include <QOpenGLFramebufferObject>
 #include <QtQuick/QQuickView>
 #include <QQmlApplicationEngine>
+#include <QOpenGLShaderProgram>
 
 class WindowGL : public QQuickView
 {
 private:
-    QOpenGLFramebufferObject *fbo;
+    QOpenGLFramebufferObject *fbo_render;
+    QOpenGLShaderProgram* shader;
 public slots:
+    WindowGL();
     void OnsceneGraphInitialized();
-    void OnafterRendering();
+    void OnafterQt();
     void OnBeforeQt();
 };
 
