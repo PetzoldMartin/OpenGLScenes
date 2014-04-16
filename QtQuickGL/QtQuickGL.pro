@@ -4,7 +4,9 @@ QT += qml quick
 
 SOURCES += \
     src/render/window_gl.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/render/render_engine.cpp \
+    src/render/object/drawable.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,7 +17,9 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    src/render/window_gl.h
+    src/render/window_gl.h \
+    src/render/render_engine.h \
+    src/render/object/drawable.h
 
 OTHER_FILES += \
     data/shader/basic.frag \
