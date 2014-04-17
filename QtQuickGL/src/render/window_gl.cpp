@@ -27,6 +27,11 @@ void WindowGL::OnsceneGraphInitialized()
     shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString("data/shader/basic.vert"));
     shader->link();
 
+    // test
+    for(int i = 10; i >= 0; --i) {
+        cout << i << endl;
+    }
+
 }
 
 void WindowGL::OnBeforeQt()

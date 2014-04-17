@@ -11,7 +11,7 @@ public:
 
     void Draw();
 
-    void SetVertices(float* vertices, int size_t);
+    void SetVertices(float* vertices, int count);
     void SetColors(float* colors, int size_t);
     void SetIndices(int* indices, int size_t);
 
