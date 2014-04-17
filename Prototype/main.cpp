@@ -448,8 +448,8 @@ int main(int argc, char** argv)
     QSurfaceFormat format;
     format.setSamples(4);           // allow multisampling
     format.setDepthBufferSize(24);  // allow depth buffering with 24 bit
-    format.setVersion(2,0);         // set prefered GL version -> GLSL
-    format.setProfile(QSurfaceFormat::CompatibilityProfile);
+    format.setVersion(3,3);         // set prefered GL version -> GLSL
+    format.setProfile(QSurfaceFormat::CoreProfile);
 
     MyGLWindow window;
     window.resize(640,480);
