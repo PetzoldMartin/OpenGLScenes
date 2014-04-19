@@ -1,31 +1,36 @@
-import QtQuick 2.2
+import QtQuick 2.0
+import OpenGLUnderQML 1.0
 
+Item {
 
-Rectangle {
-    id:bbox
-    width: 720
-    height: 576
-    color: "#88888888"
-    Text {
-        text: qsTr("Hello World")
-        anchors.centerIn: parent
-    }
-    MouseArea {
-        anchors.rightMargin: -52
-        anchors.bottomMargin: -28
-        anchors.leftMargin: 52
-        anchors.topMargin: 28
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
+    width: 320
+    height: 480
+
+    WindowGL {
+        SequentialAnimation on t {
+            NumberAnimation { to: 1; duration: 2500; easing.type: Easing.InQuad }
+            NumberAnimation { to: 0; duration: 2500; easing.type: Easing.OutQuad }
+            loops: Animation.Infinite
+            running: true
         }
     }
+    Rectangle {
+        color: Qt.rgba(1, 1, 1, 0.7)
+        radius: 10
+        border.width: 1
+        border.color: "white"
+        anchors.fill: label
+        anchors.margins: -10
+    }
 
-    Item {
-        id: item_opengl
-        x: 256
-        y: 305
-        width: 200
-        height: 200
+    Text {
+        id: label
+        color: "black"
+        wrapMode: Text.WordWrap
+        text: "The background here is rendered with raw OpenGL using the 'beforeRender()' signal in QQuickWindow. This text label and its border is rendered using QML"
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.margins: 20
     }
 }

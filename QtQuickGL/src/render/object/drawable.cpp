@@ -3,6 +3,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
+#include <QOpenGLShaderProgram>
 
 Drawable::Drawable(QObject* parent)
 {
@@ -28,7 +29,16 @@ void Drawable::Upload()
     m_vao->bind();
 
     m_vertexBuffer->bind();
-    //glVertex
+    m_shader->setAttributeBuffer("in_position", GL_FLOAT, 0, 3, 0);
+    m_vertexBuffer->release();
+
+    m_colorBuffer->bind();
+    m_shader->setAttributeBuffer("in_color", GL_FLOAT, 0, 4, 0);
+    m_colorBuffer->release();
+
+    m_indexBuffer->bind();
+
+
 
     m_vao->release();
 }
