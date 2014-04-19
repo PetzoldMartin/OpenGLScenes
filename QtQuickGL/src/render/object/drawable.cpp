@@ -1,5 +1,9 @@
 #include "drawable.h"
 
+#include <QOpenGLFunctions>
+#include <QOpenGLBuffer>
+#include <QOpenGLVertexArrayObject>
+
 Drawable::Drawable(QObject* parent)
 {
     // Create VertexArrayObject
@@ -19,19 +23,39 @@ Drawable::Drawable(QObject* parent)
     m_indexBuffer->create();
 }
 
+void Drawable::Upload()
+{
+    m_vao->bind();
+
+    m_vertexBuffer->bind();
+    //glVertex
+
+    m_vao->release();
+}
+
 void Drawable::SetVertices(float *vertices, int count)
 {
-    m_vertexBuffer->bind();
-    m_vertexBuffer->write(0, vertices, count);
-    m_vertexBuffer->release();
+    writeBuffer(m_vertexBuffer, vertices, count);
 }
 
-void Drawable::SetColors(float *colors, int size_t)
+void Drawable::SetColors(float *colors, int count)
 {
-
+    writeBuffer(m_colorBuffer, colors, count);
 }
 
-void Drawable::SetIndices(int *indices, int size_t)
+void Drawable::SetIndices(int *indices, int count)
 {
+    writeBuffer(m_indexBuffer, indices, count);
+}
 
+void Drawable::SetShader(QOpenGLShaderProgram *shader)
+{
+    m_shader = shader;
+}
+
+void Drawable::writeBuffer(QOpenGLBuffer* buffer, void *data, int count)
+{
+    buffer->bind();
+    buffer->write(0, data, count);
+    buffer->release();
 }

@@ -11,6 +11,6 @@ RenderEngine::RenderEngine()
 void RenderEngine::Render()
 {
     for(int i = drawables.size() -1; i >= 0; --i) {
-        drawables[i]->Draw();
+        //drawables[i]->Draw();
     }
 }
