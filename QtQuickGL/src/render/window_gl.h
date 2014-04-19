@@ -1,22 +1,36 @@
 #ifndef WINDOW_GL_H
 #define WINDOW_GL_H
 
-#include <QtGui/QGuiApplication>
-#include <QOpenGLFramebufferObject>
-#include <QtQuick/QQuickView>
-#include <QQmlApplicationEngine>
-#include <QOpenGLShaderProgram>
+#include <QtQuick/QQuickItem>
+#include <QtGui/QOpenGLShaderProgram>
 
-class WindowGL : public QQuickView
+class WindowGL : public QQuickItem
 {
-private:
-    QOpenGLFramebufferObject *fbo_render;
-    QOpenGLShaderProgram* shader;
-public slots:
+    Q_OBJECT
+    Q_PROPERTY(qreal t READ t WRITE setT NOTIFY tChanged)
+public:
     WindowGL();
-    void OnsceneGraphInitialized();
-    void OnafterQt();
-    void OnBeforeQt();
+
+    qreal t() const { return m_t; }
+    void setT(qreal t);
+
+signals:
+    void tChanged();
+
+public slots:
+    void Initialize();
+    void Render();
+    void Cleanup();
+    void Sync();
+
+private slots:
+    void handleWindowChanged(QQuickWindow *win);
+
+private:
+    QOpenGLShaderProgram* shader;
+
+    qreal m_t;
+    qreal m_thread_t;
 };
 
 #endif // WINDOW_GL_H

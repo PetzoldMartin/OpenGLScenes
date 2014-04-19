@@ -1,9 +1,5 @@
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QFileInfo>
-#include <QDebug>
-#include <QtGui/QGuiApplication>
-#include <QOpenGLFramebufferObject>
+#include <QtQuick/QQuickView>
 
 #include "render/window_gl.h"
 
@@ -11,18 +7,13 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    WindowGL myWindowGL;
+    qmlRegisterType<WindowGL>("OpenGLUnderQML", 1, 0, "WindowGL");
 
-    QObject::connect(&myWindowGL,&QQuickWindow::sceneGraphInitialized,&myWindowGL,&WindowGL::OnsceneGraphInitialized,Qt::DirectConnection);
-    QObject::connect(&myWindowGL, &QQuickWindow::beforeRendering, &myWindowGL, &WindowGL::OnBeforeQt, Qt::DirectConnection);
-    QObject::connect(&myWindowGL,&QQuickWindow::afterRendering,&myWindowGL,&WindowGL::OnafterQt,Qt::DirectConnection);
+    QQuickView view;
+    view.setResizeMode(QQuickView::SizeRootObjectToView);
+    view.setSource(QUrl("qrc:///qml/main.qml"));
+    view.show();
 
-    myWindowGL.setSource(QUrl(QStringLiteral("qrc:///qml/main.qml")));
-    myWindowGL.show();
-
-
-    QFileInfo info("glsl/basic.vert");
-       qDebug() << info.absoluteFilePath();
 
     return app.exec();
 }
