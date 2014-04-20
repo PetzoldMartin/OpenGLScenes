@@ -31,6 +31,8 @@ private:
 
     QOpenGLShaderProgram *m_shader;
 
+    short m_indexCount;
+
     void writeBuffer(QOpenGLBuffer *buffer, void* data, int count);
 };
 

@@ -1,4 +1,7 @@
 #include "window_gl.h"
+#include "src/render/render_engine.h"
+#include "src/io/console.h"
+
 #include <iostream>
 #include <QtQuick/QQuickWindow>
 #include <QtGui/QOpenGLShaderProgram>
@@ -8,10 +11,11 @@
 using namespace std;
 
 WindowGL::WindowGL()
-    //: m_t(0)
-    //, m_thread_t(0)
+    : m_t(0)
+    , m_thread_t(0)
 {
     connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
+
 }
 
 
@@ -37,18 +41,9 @@ void WindowGL::handleWindowChanged(QQuickWindow *win)
 
 void WindowGL::Initialize()
 {
-    cout << "SceneGraphInitialized" << endl;
-    //fbo_render = new QOpenGLFramebufferObject(200,150,QOpenGLFramebufferObject::CombinedDepthStencil, GL_TEXTURE_2D,GL_RGBA8);
-    //setRenderTarget(fbo_render);
-    shader = new QOpenGLShaderProgram(parent());
-    shader->addShaderFromSourceFile(QOpenGLShader::Fragment, QString("data/shader/basic.frag"));
-    shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString("data/shader/basic.vert"));
-    shader->link();
+    Console::Write("Initialize RenderEngine");
+    m_engine = new RenderEngine(parent()->parent());
 
-    // test
-    for(int i = 10; i >= 0; --i) {
-        cout << i << endl;
-    }
 
     connect(window()->openglContext(), SIGNAL(aboutToBeDestroyed()), this, SLOT(Cleanup()), Qt::DirectConnection);
 }
@@ -57,18 +52,7 @@ void WindowGL::Initialize()
 
 void WindowGL::Render()
 {
-    shader->bind();
-
-    glBegin(GL_QUADS);
-    {
-        glVertex2d(1.0,1.0);
-        glVertex2d(-1.0,1.0);
-        glVertex2d(-1.0,-1.0);
-        glVertex2d(1.0,-1.0);
-    }
-    glEnd();
-
-    shader->release();
+    m_engine->Render();
 }
 
 void WindowGL::Cleanup()
