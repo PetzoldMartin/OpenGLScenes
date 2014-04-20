@@ -1,12 +1,17 @@
 #include "drawable.h"
+#include "src/io/console.h"
 
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
 
+
+
 Drawable::Drawable(QObject* parent)
 {
+    m_shader = NULL;
+
     // Create VertexArrayObject
     m_vao = new QOpenGLVertexArrayObject(parent);
     m_vao->create();
@@ -24,8 +29,14 @@ Drawable::Drawable(QObject* parent)
     m_indexBuffer->create();
 }
 
-void Drawable::Upload()
+void Drawable::Build()
 {
+    // first check for wrong usage
+    if(m_shader == NULL) {
+        Console::WriteError("No Shader assigned for a Drawable!");
+        return;
+    }
+
     m_vao->bind();
 
     m_vertexBuffer->bind();
@@ -37,8 +48,6 @@ void Drawable::Upload()
     m_colorBuffer->release();
 
     m_indexBuffer->bind();
-
-
 
     m_vao->release();
 }

@@ -6,7 +6,8 @@ SOURCES += \
     src/render/window_gl.cpp \
     src/main.cpp \
     src/render/render_engine.cpp \
-    src/render/object/drawable.cpp
+    src/render/object/drawable.cpp \
+    src/io/console.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,7 +20,8 @@ include(deployment.pri)
 HEADERS += \
     src/render/window_gl.h \
     src/render/render_engine.h \
-    src/render/object/drawable.h
+    src/render/object/drawable.h \
+    src/io/console.h
 
 OTHER_FILES += \
     data/shader/basic.frag \
