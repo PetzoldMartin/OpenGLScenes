@@ -2,7 +2,8 @@
 #define WINDOW_GL_H
 
 #include <QtQuick/QQuickItem>
-#include <QtGui/QOpenGLShaderProgram>
+
+class RenderEngine;
 
 class WindowGL : public QQuickItem
 {
@@ -27,7 +28,8 @@ private slots:
     void handleWindowChanged(QQuickWindow *win);
 
 private:
-    QOpenGLShaderProgram* shader;
+
+    RenderEngine* m_engine;
 
     qreal m_t;
     qreal m_thread_t;

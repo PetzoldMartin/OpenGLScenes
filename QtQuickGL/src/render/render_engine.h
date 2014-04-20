@@ -5,6 +5,8 @@
 
 // Forward Declarations
 class Drawable;
+class QObject;
+class QOpenGLShaderProgram;
 
 ///
 /// \brief The RenderEngine class
@@ -13,7 +15,7 @@ class Drawable;
 class RenderEngine
 {
 public:
-    RenderEngine();
+    RenderEngine(QObject *parent);
 
     ///
     /// \brief Render all Drawables
@@ -22,6 +24,7 @@ public:
 
 private:
     std::list<Drawable*> drawables;
+    QOpenGLShaderProgram* shader;
 
 };
 

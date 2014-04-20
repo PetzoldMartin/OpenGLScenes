@@ -1,16 +1,53 @@
 #include "render_engine.h"
+#include "src/render/object/drawable.h"
 
 #include <iostream>
+#include <QForeachContainer>
+#include <QOpenGLShaderProgram>
 
 using namespace std;
 
-RenderEngine::RenderEngine()
+RenderEngine::RenderEngine(QObject* parent)
 {
+
+    // create a shader
+    shader = new QOpenGLShaderProgram(parent);
+    shader->addShaderFromSourceFile(QOpenGLShader::Fragment, QString("data/shader/basic.frag"));
+    shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString("data/shader/basic.vert"));
+    shader->link();
+
+
+    float* vert = new float[8];
+    int i = -1;
+
+    vert[++i] = +1.0;
+    vert[++i] = +1.0;
+    vert[++i] = -1.0;
+    vert[++i] = +1.0;
+    vert[++i] = -1.0;
+    vert[++i] = -1.0;
+    vert[++i] = +1.0;
+    vert[++i] = -1.0;
+
+    int* indi = new int[4];
+    indi[0] = 0;
+    indi[1] = 1;
+    indi[2] = 2;
+    indi[3] = 3;
+
+    Drawable* d = new Drawable(parent);
+    d->SetVertices(vert, 8*4);
+    d->SetIndices(indi, 4*4);
+    d->SetShader(shader);
+    d->Build();
+
+    drawables.push_back(d);
 }
 
 void RenderEngine::Render()
 {
-    for(int i = drawables.size() -1; i >= 0; --i) {
-        //drawables[i]->Draw();
+    //iterator i = drawables.begin();
+    foreach (Drawable* drawable, drawables) {
+        drawable->Draw();
     }
 }
