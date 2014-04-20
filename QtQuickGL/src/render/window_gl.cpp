@@ -59,11 +59,12 @@ void WindowGL::Render()
 {
     shader->bind();
 
-    glBegin(GL_TRIANGLES);
+    glBegin(GL_QUADS);
     {
-        glVertex2d(0.5,1.0);
-        glVertex2d(-0.5,0.0);
-        glVertex2d(0.5,0.0);
+        glVertex2d(1.0,1.0);
+        glVertex2d(-1.0,1.0);
+        glVertex2d(-1.0,-1.0);
+        glVertex2d(1.0,-1.0);
     }
     glEnd();
 
