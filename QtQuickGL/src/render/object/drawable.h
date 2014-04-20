@@ -15,7 +15,7 @@ public:
     Drawable(QObject *parent);
 
     void Draw();
-    void Upload();
+    void Build();
 
     void SetVertices(float *vertices, int count);
     void SetColors(float *colors, int count);
