@@ -15,7 +15,7 @@ Item {
         }
     }
     Rectangle {
-        color: Qt.rgba(1, 1, 1, 0.7)
+        color: Qt.rgba(0, 0, 0, 0.5)
         radius: 10
         border.width: 1
         border.color: "white"
@@ -25,7 +25,7 @@ Item {
 
     Text {
         id: label
-        color: "black"
+        color: "white"
         wrapMode: Text.WordWrap
         text: "The background here is rendered with raw OpenGL using the 'beforeRender()' signal in QQuickWindow. This text label and its border is rendered using QML"
         anchors.right: parent.right
