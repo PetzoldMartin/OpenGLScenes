@@ -3,9 +3,9 @@
 #include "src/io/console.h"
 
 #include <iostream>
-#include <QtQuick/QQuickWindow>
-#include <QtGui/QOpenGLShaderProgram>
-#include <QtGui/QOpenGLContext>
+#include <QQuickWindow>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLContext>
 
 
 using namespace std;

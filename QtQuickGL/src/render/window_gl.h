@@ -1,7 +1,7 @@
 #ifndef WINDOW_GL_H
 #define WINDOW_GL_H
 
-#include <QtQuick/QQuickItem>
+#include <QQuickItem>
 
 class RenderEngine;
 

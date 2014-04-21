@@ -19,7 +19,7 @@ public:
 
     void SetVertices(float *vertices, int count);
     void SetColors(float *colors, int count);
-    void SetIndices(int *indices, int count);
+    void SetIndices(unsigned int *indices, int count);
     void SetShader(QOpenGLShaderProgram *shader);
 
 private:

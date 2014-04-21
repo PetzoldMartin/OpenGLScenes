@@ -29,15 +29,15 @@ RenderEngine::RenderEngine(QObject* parent)
     vert[++i] = +1.0;
     vert[++i] = -1.0;
 
-    int* indi = new int[4];
+    unsigned int* indi = new unsigned int[4];
     indi[0] = 0;
     indi[1] = 1;
     indi[2] = 2;
     indi[3] = 3;
 
     Drawable* d = new Drawable(parent);
-    d->SetVertices(vert, 8*4);
-    d->SetIndices(indi, 4*4);
+    d->SetVertices(vert,8);
+    d->SetIndices(indi,4);
     d->SetShader(shader);
     d->Build();
 
