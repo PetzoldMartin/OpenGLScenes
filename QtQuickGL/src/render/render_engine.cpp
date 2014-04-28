@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QForeachContainer>
 #include <QOpenGLShaderProgram>
+#include <QMatrix4x4>
 
 using namespace std;
 
@@ -35,10 +36,15 @@ RenderEngine::RenderEngine(QObject* parent)
     indi[2] = 2;
     indi[3] = 3;
 
+    QMatrix4x4 *modelMatrix = new QMatrix4x4();
+    modelMatrix->setToIdentity();
+    modelMatrix->scale(1.0f);
+
     Drawable* d = new Drawable(parent);
     d->SetVertices(vert,8);
     d->SetIndices(indi,4);
     d->SetShader(shader);
+    d->SetModelMatrix(modelMatrix);
     d->Build();
 
     drawables.push_back(d);

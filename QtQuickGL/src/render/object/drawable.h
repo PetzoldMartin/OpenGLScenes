@@ -5,6 +5,7 @@
 class QOpenGLVertexArrayObject;
 class QOpenGLBuffer;
 class QOpenGLShaderProgram;
+class QMatrix4x4;
 class QObject;
 
 /// \brief The Drawable class
@@ -21,6 +22,7 @@ public:
     void SetColors(float *colors, int count);
     void SetIndices(unsigned int *indices, int count);
     void SetShader(QOpenGLShaderProgram *shader);
+    void SetModelMatrix(QMatrix4x4 *matrix);
 
 private:
     QOpenGLVertexArrayObject *m_vao;
@@ -30,6 +32,7 @@ private:
     QOpenGLBuffer *m_indexBuffer;
 
     QOpenGLShaderProgram *m_shader;
+    QMatrix4x4 *m_modelMatrix;
 
     short m_indexCount;
 
