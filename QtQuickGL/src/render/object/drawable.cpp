@@ -18,9 +18,6 @@ Drawable::Drawable(QObject* parent)
     m_modelMatrix = NULL;
     m_indexCount = 0;
     m_parent = parent;
-    m_isValid = false;
-
-
 }
 
 void Drawable::Draw()
@@ -83,7 +80,6 @@ void Drawable::Build()
     }
 
     m_vao->release();
-    m_isValid = true;
 }
 
 void Drawable::SetVertices(float *vertices, int count)
@@ -125,22 +121,6 @@ void Drawable::SetShader(QOpenGLShaderProgram *shader)
 void Drawable::SetModelMatrix(QMatrix4x4 *matrix)
 {
     m_modelMatrix = matrix;
-}
-
-Drawable* Drawable::Duplicate() {
-    if(m_isValid) {
-    Drawable* d = new Drawable(m_parent);
-        d->m_colorBuffer = m_colorBuffer;
-        d->m_indexBuffer = m_indexBuffer;
-        d->m_indexCount = m_indexCount;
-        d->m_modelMatrix = m_modelMatrix;
-        d->m_shader = m_shader;
-        d->m_vao = m_vao;
-        return d;
-    } else {
-        Console::WriteError("Tryed to Duplicating an unvalid Drawable! Returning NULL!");
-        return NULL;
-    }
 }
 
 void Drawable::writeBuffer(QOpenGLBuffer* buffer, void *data, int count)

@@ -8,14 +8,11 @@
 Factory::Factory(QObject *parent)
 {
     m_parent = parent;
+    createBasicRectange();
 }
 
 Drawable* Factory::GenRectangle(float width, float height, QOpenGLShaderProgram *shader) {
 
-}
-
-
-void Factory::createBasicRectange(QOpenGLShaderProgram *shader) {
     float* vert = new float[8];
     int i = -1;
 
@@ -36,12 +33,20 @@ void Factory::createBasicRectange(QOpenGLShaderProgram *shader) {
 
     QMatrix4x4 *modelMatrix = new QMatrix4x4();
     modelMatrix->setToIdentity();
-    modelMatrix->scale(1.0f);
+    modelMatrix->scale(width, height);
 
-    Drawable* d = new Drawable(m_parent);
-    d->SetVertices(vert,8);
-    d->SetIndices(indi,4);
-    d->SetShader(shader);
-    d->SetModelMatrix(modelMatrix);
-    d->Build();
+    Drawable *rect = new Drawable(m_parent);
+
+    rect->SetVertices(vert,8);
+    rect->SetIndices(indi,4);
+    rect->SetModelMatrix(modelMatrix);
+    rect->SetShader(shader);
+    rect->Build();
+
+    return rect;
+}
+
+
+void Factory::createBasicRectange() {
+
 }
