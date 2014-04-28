@@ -24,6 +24,7 @@ public:
     void SetShader(QOpenGLShaderProgram *shader);
     void SetModelMatrix(QMatrix4x4 *matrix);
 
+    Drawable *Duplicate();
 private:
     QOpenGLVertexArrayObject *m_vao;
 
@@ -33,6 +34,8 @@ private:
 
     QOpenGLShaderProgram *m_shader;
     QMatrix4x4 *m_modelMatrix;
+    QObject *m_parent;
+    bool m_isValid;
 
     short m_indexCount;
 
