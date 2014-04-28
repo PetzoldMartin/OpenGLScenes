@@ -13,7 +13,8 @@ public:
     Drawable *GenRectangle(float width, float height, QOpenGLShaderProgram *shader);
 private:
     QObject *m_parent;
-    void createBasicRectange(QOpenGLShaderProgram *shader);
+
+    void createBasicRectange();
 };
 
 #endif // FACTORY_H

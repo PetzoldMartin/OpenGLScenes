@@ -1,5 +1,6 @@
 #include "render_engine.h"
 #include "src/render/object/drawable.h"
+#include "src/render/object/factory.h"
 
 #include <iostream>
 #include <QForeachContainer>
@@ -18,36 +19,9 @@ RenderEngine::RenderEngine(QObject* parent)
     shader->link();
 
 
-    float* vert = new float[8];
-    int i = -1;
+    m_factory = new Factory(parent);
 
-    vert[++i] = +1.0;
-    vert[++i] = +1.0;
-    vert[++i] = -1.0;
-    vert[++i] = +1.0;
-    vert[++i] = -1.0;
-    vert[++i] = -1.0;
-    vert[++i] = +1.0;
-    vert[++i] = -1.0;
-
-    unsigned int* indi = new unsigned int[4];
-    indi[0] = 0;
-    indi[1] = 1;
-    indi[2] = 2;
-    indi[3] = 3;
-
-    QMatrix4x4 *modelMatrix = new QMatrix4x4();
-    modelMatrix->setToIdentity();
-    modelMatrix->scale(1.0f);
-
-    Drawable* d = new Drawable(parent);
-    d->SetVertices(vert,8);
-    d->SetIndices(indi,4);
-    d->SetShader(shader);
-    d->SetModelMatrix(modelMatrix);
-    d->Build();
-
-    drawables.push_back(d);
+    drawables.push_back(m_factory->GenRectangle(1.0f,1.0f,shader));
 }
 
 void RenderEngine::Render()

@@ -7,6 +7,7 @@
 class Drawable;
 class QObject;
 class QOpenGLShaderProgram;
+class Factory;
 
 ///
 /// \brief The RenderEngine class
@@ -25,6 +26,7 @@ public:
 private:
     std::list<Drawable*> drawables;
     QOpenGLShaderProgram* shader;
+    Factory *m_factory;
 
 };
 
