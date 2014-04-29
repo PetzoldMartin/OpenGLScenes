@@ -1,9 +1,11 @@
 #include "render_engine.h"
 #include "src/render/object/drawable.h"
+#include "src/render/object/factory.h"
 
 #include <iostream>
 #include <QForeachContainer>
 #include <QOpenGLShaderProgram>
+#include <QMatrix4x4>
 
 using namespace std;
 
@@ -16,37 +18,37 @@ RenderEngine::RenderEngine(QObject* parent)
     shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString("data/shader/basic.vert"));
     shader->link();
 
+    m_factory = new Factory(parent);
 
-    float* vert = new float[8];
-    int i = -1;
+    m_projM = new QMatrix4x4();
+    m_projM->setToIdentity();
+    m_projM->scale(480.0f / 320.0f, 1.0f, 1.0f);
 
-    vert[++i] = +1.0;
-    vert[++i] = +1.0;
-    vert[++i] = -1.0;
-    vert[++i] = +1.0;
-    vert[++i] = -1.0;
-    vert[++i] = -1.0;
-    vert[++i] = +1.0;
-    vert[++i] = -1.0;
+    shader->bind();
+    shader->setUniformValue("projMatrix", *m_projM);
+    shader->release();
 
-    unsigned int* indi = new unsigned int[4];
-    indi[0] = 0;
-    indi[1] = 1;
-    indi[2] = 2;
-    indi[3] = 3;
+    drawables.push_back(m_factory->GenRectangle(1.0f,1.0f,shader));
 
-    Drawable* d = new Drawable(parent);
-    d->SetVertices(vert,8);
-    d->SetIndices(indi,4);
-    d->SetShader(shader);
-    d->Build();
-
-    drawables.push_back(d);
+    // init gl stuff
+    glClearColor(0.0f,0.0f,0.0f,0.0f);
 }
 
-void RenderEngine::Render()
+void RenderEngine::Render(float width, float height)
 {
-    //iterator i = drawables.begin();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // set projection matrix
+    //TODO: this can be made in a window has changed method
+    m_projM->setToIdentity();
+    m_projM->scale(height / width, 1.0f, 1.0f);
+
+    shader->bind();
+    shader->setUniformValue("projMatrix", *m_projM);
+    shader->release();
+    ///////////////////////////////////////////////////////
+
+    // Draw all Drawables
     foreach (Drawable* drawable, drawables) {
         drawable->Draw();
     }

@@ -7,6 +7,8 @@
 class Drawable;
 class QObject;
 class QOpenGLShaderProgram;
+class Factory;
+class QMatrix4x4;
 
 ///
 /// \brief The RenderEngine class
@@ -20,11 +22,13 @@ public:
     ///
     /// \brief Render all Drawables
     ///
-    void Render();
+    void Render(float width, float height);
 
 private:
     std::list<Drawable*> drawables;
     QOpenGLShaderProgram* shader;
+    Factory *m_factory;
+    QMatrix4x4* m_projM;
 
 };
 
