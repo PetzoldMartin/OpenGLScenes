@@ -6,8 +6,6 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
 
-
-
 Drawable::Drawable(QObject* parent)
 {
     m_shader = NULL;
@@ -31,17 +29,6 @@ void Drawable::Draw()
     m_indexBuffer->release();
     m_vao->release();
 
-    /*
-    glBegin(GL_QUADS);
-    {
-        glVertex2d(1.0,1.0);
-        glVertex2d(-1.0,1.0);
-        glVertex2d(-1.0,-1.0);
-        glVertex2d(1.0,-1.0);
-    }
-    glEnd();
-    */
-
     m_shader->release();
 }
 
@@ -57,7 +44,6 @@ void Drawable::Build()
         Console::WriteError("No Indices are assigned for this Drawable!");
         return;
     }
-
 
     // Now Build the VertexArrayObject
     m_vao->bind();
@@ -77,7 +63,6 @@ void Drawable::Build()
         m_shader->setAttributeBuffer(in_color, GL_FLOAT, 0, 4, 0);
         m_colorBuffer->release();
     }
-
     m_vao->release();
 }
 
