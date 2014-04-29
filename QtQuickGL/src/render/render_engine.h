@@ -22,8 +22,9 @@ public:
     ///
     /// \brief Render all Drawables
     ///
-    void Render(float width, float height);
+    void Render();
 
+    void Resize(float w, float height);
 private:
     std::list<Drawable*> drawables;
     QOpenGLShaderProgram* shader;
