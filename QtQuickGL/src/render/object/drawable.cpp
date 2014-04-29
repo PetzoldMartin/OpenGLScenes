@@ -5,6 +5,7 @@
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
+#include <QMatrix4x4>
 
 Drawable::Drawable(QObject* parent)
 {
@@ -12,10 +13,9 @@ Drawable::Drawable(QObject* parent)
     m_vertexBuffer = NULL;
     m_colorBuffer = NULL;
     m_indexBuffer = NULL;
+    m_modelMatrix = NULL;
     m_indexCount = 0;
-
-    m_vao = new QOpenGLVertexArrayObject(parent);
-    m_vao->create();
+    m_parent = parent;
 }
 
 void Drawable::Draw()
@@ -23,6 +23,8 @@ void Drawable::Draw()
     m_shader->bind();
     m_vao->bind();
     m_indexBuffer->bind();
+
+    m_shader->setUniformValue("modelMatrix", *m_modelMatrix);
 
     glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, NULL);
     //glDrawArrays(GL_QUADS, 0, 4);
@@ -44,6 +46,17 @@ void Drawable::Build()
         Console::WriteError("No Indices are assigned for this Drawable!");
         return;
     }
+
+    if(m_modelMatrix == NULL) {
+        Console::WriteError("No ModelMatrix is assigned to this Drawable!");
+        return;
+    }
+
+    m_vao = new QOpenGLVertexArrayObject(m_parent);
+    m_vao->create();
+
+    // set uniform variable
+    m_shader->setUniformValue("modelMatrix", *m_modelMatrix);
 
     // Now Build the VertexArrayObject
     m_vao->bind();
@@ -100,6 +113,11 @@ void Drawable::SetIndices(unsigned int *indices, int count)
 void Drawable::SetShader(QOpenGLShaderProgram *shader)
 {
     m_shader = shader;
+}
+
+void Drawable::SetModelMatrix(QMatrix4x4 *matrix)
+{
+    m_modelMatrix = matrix;
 }
 
 void Drawable::writeBuffer(QOpenGLBuffer* buffer, void *data, int count)
