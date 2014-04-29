@@ -15,6 +15,7 @@ public:
     qreal t() const { return m_t; }
     void setT(qreal t);
 
+
 signals:
     void tChanged();
 
@@ -23,6 +24,7 @@ public slots:
     void Render();
     void Cleanup();
     void Sync();
+    void windowChanged();
 
 private slots:
     void handleWindowChanged(QQuickWindow *win);
