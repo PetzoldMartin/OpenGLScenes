@@ -18,15 +18,31 @@ RenderEngine::RenderEngine(QObject* parent)
     shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString("data/shader/basic.vert"));
     shader->link();
 
-
     m_factory = new Factory(parent);
+
+    m_projM = new QMatrix4x4();
+    m_projM->setToIdentity();
+    m_projM->scale(480.0f / 320.0f, 1.0f, 1.0f);
+
+    shader->bind();
+    shader->setUniformValue("projMatrix", *m_projM);
+    shader->release();
 
     drawables.push_back(m_factory->GenRectangle(1.0f,1.0f,shader));
 }
 
-void RenderEngine::Render()
+void RenderEngine::Render(float width, float height)
 {
-    //iterator i = drawables.begin();
+    //TODO: this can be made in a window has changed method
+    m_projM->setToIdentity();
+    m_projM->scale(height / width, 1.0f, 1.0f);
+
+    shader->bind();
+    shader->setUniformValue("projMatrix", *m_projM);
+    shader->release();
+    ///////////////////////////////////////////////////////
+
+    // Draw all Drawables
     foreach (Drawable* drawable, drawables) {
         drawable->Draw();
     }

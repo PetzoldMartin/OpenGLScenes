@@ -15,7 +15,6 @@ WindowGL::WindowGL()
     , m_thread_t(0)
 {
     connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
-
 }
 
 
@@ -36,6 +35,7 @@ void WindowGL::handleWindowChanged(QQuickWindow *win)
         connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(Sync()), Qt::DirectConnection);
         connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(Initialize()), Qt::DirectConnection);
         win->setClearBeforeRendering(false);
+        Console::Write("change");
     }
 }
 
@@ -52,7 +52,10 @@ void WindowGL::Initialize()
 
 void WindowGL::Render()
 {
-    m_engine->Render();
+    //TODO: make this better
+    float height = (float)window()->size().height();
+    float width = (float)window()->size().width();
+    m_engine->Render(width, height);
 }
 
 void WindowGL::Cleanup()
