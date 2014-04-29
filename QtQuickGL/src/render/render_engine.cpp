@@ -29,10 +29,16 @@ RenderEngine::RenderEngine(QObject* parent)
     shader->release();
 
     drawables.push_back(m_factory->GenRectangle(1.0f,1.0f,shader));
+
+    // init gl stuff
+    glClearColor(0.0f,0.0f,0.0f,0.0f);
 }
 
 void RenderEngine::Render(float width, float height)
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // set projection matrix
     //TODO: this can be made in a window has changed method
     m_projM->setToIdentity();
     m_projM->scale(height / width, 1.0f, 1.0f);
