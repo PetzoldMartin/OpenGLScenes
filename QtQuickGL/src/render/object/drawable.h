@@ -18,8 +18,8 @@ public:
     void Draw();
     void Build();
 
-    void SetVertices(float *vertices, int count);
-    void SetColors(float *colors, int count);
+    void SetVertices(void *vertices, int count);
+    void SetColors(void *colors, int count);
     void SetIndices(unsigned int *indices, int count);
     void SetShader(QOpenGLShaderProgram *shader);
     void SetModelMatrix(QMatrix4x4 *matrix);

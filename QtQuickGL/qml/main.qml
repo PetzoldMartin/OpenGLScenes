@@ -33,4 +33,15 @@ Item {
         anchors.bottom: parent.bottom
         anchors.margins: 20
     }
+
+    Text {
+        id: text1
+        x: 75
+        y: 238
+        width: 68
+        height: 47
+        text: qsTr("Das ist text")
+        wrapMode: Text.NoWrap
+        font.pixelSize: 12
+    }
 }

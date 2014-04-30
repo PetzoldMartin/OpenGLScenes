@@ -79,7 +79,7 @@ void Drawable::Build()
     m_vao->release();
 }
 
-void Drawable::SetVertices(float *vertices, int count)
+void Drawable::SetVertices(void *vertices, int count)
 {
     // Create a VertexBuffer if it is the first Time
     if(m_vertexBuffer == NULL) {
@@ -89,7 +89,7 @@ void Drawable::SetVertices(float *vertices, int count)
     writeBuffer(m_vertexBuffer, vertices, sizeof(float) * count);
 }
 
-void Drawable::SetColors(float *colors, int count)
+void Drawable::SetColors(void *colors, int count)
 {
     // Create a ColorBuffer if it is the first Time
     if(m_colorBuffer == NULL) {

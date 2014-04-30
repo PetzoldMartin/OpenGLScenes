@@ -30,6 +30,8 @@ private:
     QOpenGLShaderProgram* shader;
     Factory *m_factory;
     QMatrix4x4* m_projM;
+    float timer;
+    float tinv;
 
 };
 

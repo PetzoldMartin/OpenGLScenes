@@ -1,7 +1,8 @@
-//uniform sampler2D qt_Texture0;
-//varying vec4 qt_TexCoord0;
+uniform float time;
+varying vec4 out_color;
 
 void main(void)
 {
-    gl_FragColor =  vec4(gl_FragCoord.x / 320.0, gl_FragCoord.y / 480.0, 1.0,1.0);
+    gl_FragColor = out_color;
+
 }
