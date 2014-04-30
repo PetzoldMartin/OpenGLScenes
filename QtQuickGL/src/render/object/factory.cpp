@@ -4,6 +4,9 @@
 
 #include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
+#include <QVector3D>
+#include <QVector4D>
+#include <QDataStream>
 
 Factory::Factory(QObject *parent)
 {
@@ -14,6 +17,12 @@ Factory::Factory(QObject *parent)
 Drawable* Factory::GenRectangle(float width, float height, QOpenGLShaderProgram *shader) {
 
     float* vert = new float[8];
+    QVector4D colors[4];
+    colors[0] = QVector4D(1.0, 0.25, 0.0, 1.0);
+    colors[1] = QVector4D(0.0, 0.75, 1.0, 1.0);
+    colors[2] = QVector4D(0.75, 1.0, 0.0, 1.0);
+    colors[3] = QVector4D(0.75, 0.00, 1.0, 1.0);
+
     int i = -1;
 
     vert[++i] = +0.5;
@@ -39,6 +48,7 @@ Drawable* Factory::GenRectangle(float width, float height, QOpenGLShaderProgram 
 
     rect->SetVertices(vert,8);
     rect->SetIndices(indi,4);
+    rect->SetColors(colors,16);
     rect->SetModelMatrix(modelMatrix);
     rect->SetShader(shader);
     rect->Build();

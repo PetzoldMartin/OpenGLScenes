@@ -6,6 +6,8 @@
 #include <QForeachContainer>
 #include <QOpenGLShaderProgram>
 #include <QMatrix4x4>
+#include <QDateTime>
+#include <math.h>
 
 using namespace std;
 
@@ -28,7 +30,9 @@ RenderEngine::RenderEngine(QObject* parent)
     shader->setUniformValue("projMatrix", *m_projM);
     shader->release();
 
-    drawables.push_back(m_factory->GenRectangle(1.0f,1.0f,shader));
+    drawables.push_back(m_factory->GenRectangle(2.0f,2.0f,shader));
+    timer = 0.5f;
+    tinv = 1.0f;
 }
 
 void RenderEngine::Resize(float width, float height) {
@@ -44,10 +48,15 @@ void RenderEngine::Render()
 
     shader->bind();
     shader->setUniformValue("projMatrix", *m_projM);
+    shader->setUniformValue("time",timer );
     shader->release();
 
     // Draw all Drawables
     foreach (Drawable* drawable, drawables) {
         drawable->Draw();
     }
+    timer += 0.01 * tinv;
+    if(timer > 1.0f || timer < 0.0f)
+        tinv *= -1.0;
+
 }
