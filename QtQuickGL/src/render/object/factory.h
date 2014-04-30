@@ -4,13 +4,14 @@
 class QObject;
 class Drawable;
 class QOpenGLShaderProgram;
+class QVector4D;
 
 class Factory
 {
 public:
     Factory(QObject *parent);
 
-    Drawable *GenRectangle(float width, float height, QOpenGLShaderProgram *shader);
+    Drawable *GenRectangle(float width, float height, QVector4D color, QOpenGLShaderProgram *shader);
 private:
     QObject *m_parent;
 

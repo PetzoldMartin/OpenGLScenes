@@ -30,7 +30,7 @@ RenderEngine::RenderEngine(QObject* parent)
     shader->setUniformValue("projMatrix", *m_projM);
     shader->release();
 
-    drawables.push_back(m_factory->GenRectangle(2.0f,2.0f,shader));
+    drawables.push_back(m_factory->GenRectangle(2.0f,2.0f,QVector4D(0.25,1.0,0.0,1.0),shader));
     timer = 0.5f;
     tinv = 1.0f;
 }

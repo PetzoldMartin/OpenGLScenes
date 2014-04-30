@@ -4,7 +4,7 @@
 
 #include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
-#include <QVector3D>
+#include <QVector2D>
 #include <QVector4D>
 #include <QDataStream>
 
@@ -14,27 +14,22 @@ Factory::Factory(QObject *parent)
     createBasicRectange();
 }
 
-Drawable* Factory::GenRectangle(float width, float height, QOpenGLShaderProgram *shader) {
+Drawable* Factory::GenRectangle(float width, float height, QVector4D color, QOpenGLShaderProgram *shader) {
 
-    float* vert = new float[8];
+    QVector2D vert[4];
     QVector4D colors[4];
-    colors[0] = QVector4D(1.0, 0.25, 0.0, 1.0);
-    colors[1] = QVector4D(0.0, 0.75, 1.0, 1.0);
-    colors[2] = QVector4D(0.75, 1.0, 0.0, 1.0);
-    colors[3] = QVector4D(0.75, 0.00, 1.0, 1.0);
+    unsigned int indi[4];
 
-    int i = -1;
+    colors[0] = color;
+    colors[1] = color;
+    colors[2] = color;
+    colors[3] = color;
 
-    vert[++i] = +0.5;
-    vert[++i] = +0.5;
-    vert[++i] = -0.5;
-    vert[++i] = +0.5;
-    vert[++i] = -0.5;
-    vert[++i] = -0.5;
-    vert[++i] = +0.5;
-    vert[++i] = -0.5;
+    vert[0] = QVector2D(+0.5,+0.5);
+    vert[1] = QVector2D(-0.5,+0.5);
+    vert[2] = QVector2D(-0.5,-0.5);
+    vert[3] = QVector2D(+0.5,-0.5);
 
-    unsigned int* indi = new unsigned int[4];
     indi[0] = 0;
     indi[1] = 1;
     indi[2] = 2;
