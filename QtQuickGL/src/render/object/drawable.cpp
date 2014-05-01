@@ -7,7 +7,8 @@
 #include <QOpenGLShaderProgram>
 #include <QMatrix4x4>
 
-Drawable::Drawable(QObject* parent)
+
+Drawable::Drawable(QObject *parent, QMatrix4x4 *transform)
 {
     m_shader = NULL;
     m_vertexBuffer = NULL;
@@ -16,15 +17,17 @@ Drawable::Drawable(QObject* parent)
     m_modelMatrix = NULL;
     m_indexCount = 0;
     m_parent = parent;
+    m_transMatrix = transform;
 }
 
-void Drawable::Draw()
+void Drawable::Draw(QMatrix4x4 *transform)
 {
     m_shader->bind();
     m_vao->bind();
     m_indexBuffer->bind();
 
-    m_shader->setUniformValue("modelMatrix", *m_modelMatrix);
+    QMatrix4x4 t2 = *transform * *m_transMatrix;
+    m_shader->setUniformValue("modelMatrix", t2 * *m_modelMatrix);
 
     glDrawElements(GL_QUADS, 4, GL_UNSIGNED_INT, NULL);
     //glDrawArrays(GL_QUADS, 0, 4);
@@ -32,6 +35,10 @@ void Drawable::Draw()
     m_vao->release();
 
     m_shader->release();
+
+    for(unsigned int i = 0; i < m_container.size(); ++i) {
+        m_container[i]->Draw(&t2);
+    }
 }
 
 void Drawable::Build()
@@ -118,6 +125,12 @@ void Drawable::SetShader(QOpenGLShaderProgram *shader)
 void Drawable::SetModelMatrix(QMatrix4x4 *matrix)
 {
     m_modelMatrix = matrix;
+}
+
+void Drawable::AddChild(Drawable *child, QMatrix4x4 *transform)
+{
+    child->m_transMatrix = transform;
+    m_container.push_back(child);
 }
 
 void Drawable::writeBuffer(QOpenGLBuffer* buffer, void *data, int count)

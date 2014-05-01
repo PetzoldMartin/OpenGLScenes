@@ -1,6 +1,8 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
 
+#include <vector>
+
 // Forward Declaration
 class QOpenGLVertexArrayObject;
 class QOpenGLBuffer;
@@ -13,9 +15,9 @@ class QObject;
 class Drawable
 {
 public:
-    Drawable(QObject *parent);
+    Drawable(QObject *parent, QMatrix4x4 *transform);
 
-    void Draw();
+    void Draw(QMatrix4x4* transform);
     void Build();
 
     void SetVertices(void *vertices, int count);
@@ -23,6 +25,7 @@ public:
     void SetIndices(unsigned int *indices, int count);
     void SetShader(QOpenGLShaderProgram *shader);
     void SetModelMatrix(QMatrix4x4 *matrix);
+    void AddChild(Drawable *child, QMatrix4x4 *transform);
 
 private:
     QOpenGLVertexArrayObject *m_vao;
@@ -32,10 +35,13 @@ private:
     QOpenGLBuffer *m_indexBuffer;
 
     QOpenGLShaderProgram *m_shader;
-    QMatrix4x4 *m_modelMatrix;
     QObject *m_parent;
 
+    QMatrix4x4 *m_modelMatrix;
+    QMatrix4x4 *m_transMatrix;
     short m_indexCount;
+
+    std::vector<Drawable*> m_container;
 
     void writeBuffer(QOpenGLBuffer *buffer, void* data, int count);
 };

@@ -23,14 +23,18 @@ RenderEngine::RenderEngine(QObject* parent)
     m_factory = new Factory(parent);
 
     m_projM = new QMatrix4x4();
-    m_projM->setToIdentity();
-    m_projM->scale(480.0f / 320.0f, 1.0f, 1.0f);
 
-    shader->bind();
-    shader->setUniformValue("projMatrix", *m_projM);
-    shader->release();
+    Drawable *draw = m_factory->GenRectangle(10.0f,10.0f,QVector4D(0.25,1.0,0.0,1.0),shader);
+    drawables.push_back(draw);
 
-    drawables.push_back(m_factory->GenRectangle(2.0f,2.0f,QVector4D(0.25,1.0,0.0,1.0),shader));
+    Drawable *d = m_factory->GenRectangle(5.0f,5.0f,QVector4D(0.25,0.0,1.0,1.0),shader);
+
+    QMatrix4x4 *q = new QMatrix4x4();
+    q->setToIdentity();
+    q->translate(20.0f, 0.0f);
+
+    draw->AddChild(d,q);
+
     timer = 0.5f;
     tinv = 1.0f;
 }
@@ -38,7 +42,7 @@ RenderEngine::RenderEngine(QObject* parent)
 void RenderEngine::Resize(float width, float height) {
     // set projection matrix
     m_projM->setToIdentity();
-    m_projM->scale(height / width, 1.0f, 1.0f);
+    m_projM->scale(2.0f / width, 2.0f / height, 1.0f);
 }
 
 void RenderEngine::Render()
@@ -52,8 +56,10 @@ void RenderEngine::Render()
     shader->release();
 
     // Draw all Drawables
+    QMatrix4x4 world;
+    world.setToIdentity();
     foreach (Drawable* drawable, drawables) {
-        drawable->Draw();
+        drawable->Draw(&world);
     }
     timer += 0.01 * tinv;
     if(timer > 1.0f || timer < 0.0f)
