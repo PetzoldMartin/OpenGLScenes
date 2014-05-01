@@ -11,7 +11,6 @@
 Factory::Factory(QObject *parent)
 {
     m_parent = parent;
-    createBasicRectange();
 }
 
 Drawable* Factory::GenRectangle(float width, float height, QVector4D color, QOpenGLShaderProgram *shader) {
@@ -39,7 +38,7 @@ Drawable* Factory::GenRectangle(float width, float height, QVector4D color, QOpe
     modelMatrix->setToIdentity();
     modelMatrix->scale(width, height);
 
-    Drawable *rect = new Drawable(m_parent);
+    Drawable *rect = new Drawable(m_parent, new QMatrix4x4());
 
     rect->SetVertices(vert,8);
     rect->SetIndices(indi,4);
@@ -49,9 +48,4 @@ Drawable* Factory::GenRectangle(float width, float height, QVector4D color, QOpe
     rect->Build();
 
     return rect;
-}
-
-
-void Factory::createBasicRectange() {
-
 }
