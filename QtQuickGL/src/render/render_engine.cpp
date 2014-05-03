@@ -14,20 +14,16 @@ using namespace std;
 RenderEngine::RenderEngine(QObject* parent)
 {
 
-    // create a shader
-    shader = new QOpenGLShaderProgram(parent);
-    shader->addShaderFromSourceFile(QOpenGLShader::Fragment, QString("data/shader/basic.frag"));
-    shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString("data/shader/basic.vert"));
-    shader->link();
+    m_parent = parent;
 
-    m_factory = new Factory(parent);
+    m_factory = new Factory(m_parent);
 
     m_projM = new QMatrix4x4();
 
-    Drawable *draw = m_factory->GenRectangle(10.0f,10.0f,QVector4D(0.25,1.0,0.0,1.0),shader);
+    Drawable *draw = m_factory->GenRectangle(10.0f,10.0f,QVector4D(0.25,1.0,0.0,1.0),GetShader(QString("basic")));
     drawables.push_back(draw);
 
-    Drawable *d = m_factory->GenRectangle(5.0f,5.0f,QVector4D(0.25,0.0,1.0,1.0),shader);
+    Drawable *d = m_factory->GenRectangle(5.0f,5.0f,QVector4D(0.25,0.0,1.0,1.0),GetShader(QString("basic")));
 
     QMatrix4x4 *q = new QMatrix4x4();
     q->setToIdentity();
@@ -45,15 +41,33 @@ void RenderEngine::Resize(float width, float height) {
     m_projM->scale(2.0f / width, 2.0f / height, 1.0f);
 }
 
+QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
+{
+    QOpenGLShaderProgram* shader = m_shaders[name];
+
+    // if the shader does not exist create a new
+    if(shader == NULL) {
+        shader = new QOpenGLShaderProgram(m_parent);
+        shader->addShaderFromSourceFile(QOpenGLShader::Fragment, QString("data/shader/" + name + ".frag"));
+        shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString("data/shader/" + name + ".vert"));
+        shader->link();
+        m_shaders[name] = shader;
+    }
+    return shader;
+}
+
 void RenderEngine::Render()
 {
     glClearColor(0.0f,0.0f,0.0f,0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // apply uniform to shader
+    QOpenGLShaderProgram* shader = GetShader("basic");
     shader->bind();
     shader->setUniformValue("projMatrix", *m_projM);
     shader->setUniformValue("time",timer );
     shader->release();
+
 
     // Draw all Drawables
     QMatrix4x4 world;
