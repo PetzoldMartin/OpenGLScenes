@@ -1,19 +1,19 @@
 #ifndef FACTORY_H
 #define FACTORY_H
 
-class QObject;
 class Drawable;
 class QOpenGLShaderProgram;
 class QVector4D;
+class RenderEngine;
 
 class Factory
 {
 public:
-    Factory(QObject *parent);
+    Factory(RenderEngine *engine);
 
     Drawable *GenRectangle(float width, float height, QVector4D color, QOpenGLShaderProgram *shader);
 private:
-    QObject *m_parent;
+    RenderEngine *m_engine;
 };
 
 #endif // FACTORY_H

@@ -1,6 +1,7 @@
 #include "factory.h"
 
 #include "src/render/object/drawable.h"
+#include "src/render/render_engine.h"
 
 #include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
@@ -8,9 +9,9 @@
 #include <QVector4D>
 #include <QDataStream>
 
-Factory::Factory(QObject *parent)
+Factory::Factory(RenderEngine *engine)
 {
-    m_parent = parent;
+    m_engine = engine;
 }
 
 Drawable* Factory::GenRectangle(float width, float height, QVector4D color, QOpenGLShaderProgram *shader) {
@@ -38,7 +39,7 @@ Drawable* Factory::GenRectangle(float width, float height, QVector4D color, QOpe
     modelMatrix->setToIdentity();
     modelMatrix->scale(width, height);
 
-    Drawable *rect = new Drawable(m_parent, new QMatrix4x4());
+    Drawable *rect = new Drawable(m_engine, new QMatrix4x4());
 
     rect->SetVertices(vert,8);
     rect->SetIndices(indi,4);

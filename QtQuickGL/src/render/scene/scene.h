@@ -4,16 +4,19 @@
 #include <vector>
 
 class Drawable;
+class RenderEngine;
 
 class Scene
 {
 public:
-    Scene();
+    Scene(RenderEngine *engine);
     virtual void Draw() = 0;
     virtual void Update() = 0;
+    virtual void Create() = 0;
 
-private:
+protected:
     std::vector<Drawable*> m_objects;
+    RenderEngine *m_engine;
 };
 
 #endif // SCENE_H

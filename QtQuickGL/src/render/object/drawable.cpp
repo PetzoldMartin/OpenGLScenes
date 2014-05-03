@@ -1,5 +1,6 @@
 #include "drawable.h"
 #include "src/io/console.h"
+#include "src/render/render_engine.h"
 
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
@@ -8,7 +9,7 @@
 #include <QMatrix4x4>
 
 
-Drawable::Drawable(QObject *parent, QMatrix4x4 *transform)
+Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
 {
     m_shader = NULL;
     m_vertexBuffer = NULL;
@@ -16,7 +17,7 @@ Drawable::Drawable(QObject *parent, QMatrix4x4 *transform)
     m_indexBuffer = NULL;
     m_modelMatrix = NULL;
     m_indexCount = 0;
-    m_parent = parent;
+    m_engine = engine;
     m_transMatrix = transform;
 }
 
@@ -59,7 +60,7 @@ void Drawable::Build()
         return;
     }
 
-    m_vao = new QOpenGLVertexArrayObject(m_parent);
+    m_vao = new QOpenGLVertexArrayObject(m_engine->GetContext());
     m_vao->create();
 
     // set uniform variable
