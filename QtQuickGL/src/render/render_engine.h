@@ -29,6 +29,7 @@ public:
     void Resize(float w, float height);
     QOpenGLShaderProgram* GetShader(QString name);
 
+    void AddDrawable(Drawable *drawable);
 private:
     QObject* m_parent;
     std::list<Drawable*> drawables;
