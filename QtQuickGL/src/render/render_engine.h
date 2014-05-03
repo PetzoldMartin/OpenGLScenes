@@ -2,6 +2,8 @@
 #define RENDER_ENGINE_H
 
 #include <list>
+#include <map>
+#include <QString>
 
 // Forward Declarations
 class Drawable;
@@ -25,9 +27,12 @@ public:
     void Render();
 
     void Resize(float w, float height);
+    QOpenGLShaderProgram* GetShader(QString name);
+
 private:
+    QObject* m_parent;
     std::list<Drawable*> drawables;
-    QOpenGLShaderProgram* shader;
+    std::map<QString, QOpenGLShaderProgram*> m_shaders;
     Factory *m_factory;
     QMatrix4x4* m_projM;
     float timer;
