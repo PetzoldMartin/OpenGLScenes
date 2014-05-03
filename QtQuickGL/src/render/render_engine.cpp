@@ -80,3 +80,7 @@ void RenderEngine::Render()
         tinv *= -1.0;
 
 }
+
+void RenderEngine::AddDrawable(Drawable* drawable) {
+    drawables.push_back(drawable);
+}
