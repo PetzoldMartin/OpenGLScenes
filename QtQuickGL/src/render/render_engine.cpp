@@ -1,6 +1,6 @@
 #include "render_engine.h"
 #include "src/render/object/drawable.h"
-#include "src/render/object/factory.h"
+#include "src/render/scene/test_scene.h"
 
 #include <iostream>
 #include <QForeachContainer>
@@ -13,26 +13,13 @@ using namespace std;
 
 RenderEngine::RenderEngine(QObject* parent)
 {
-
     m_parent = parent;
-
-    m_factory = new Factory(m_parent);
-
     m_projM = new QMatrix4x4();
-
-    Drawable *draw = m_factory->GenRectangle(10.0f,10.0f,QVector4D(0.25,1.0,0.0,1.0),GetShader(QString("basic")));
-    drawables.push_back(draw);
-
-    Drawable *d = m_factory->GenRectangle(5.0f,5.0f,QVector4D(0.25,0.0,1.0,1.0),GetShader(QString("basic")));
-
-    QMatrix4x4 *q = new QMatrix4x4();
-    q->setToIdentity();
-    q->translate(20.0f, 0.0f);
-
-    draw->AddChild(d,q);
-
+    m_scene = new TestScene(this);
     timer = 0.5f;
     tinv = 1.0f;
+
+    m_scene->Create();
 }
 
 void RenderEngine::Resize(float width, float height) {
@@ -83,4 +70,9 @@ void RenderEngine::Render()
 
 void RenderEngine::AddDrawable(Drawable* drawable) {
     drawables.push_back(drawable);
+}
+
+QObject *RenderEngine::GetContext()
+{
+    return m_parent;
 }

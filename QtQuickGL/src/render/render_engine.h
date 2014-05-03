@@ -9,8 +9,8 @@
 class Drawable;
 class QObject;
 class QOpenGLShaderProgram;
-class Factory;
 class QMatrix4x4;
+class Scene;
 
 ///
 /// \brief The RenderEngine class
@@ -30,11 +30,12 @@ public:
     QOpenGLShaderProgram* GetShader(QString name);
 
     void AddDrawable(Drawable *drawable);
+    QObject *GetContext();
 private:
     QObject* m_parent;
+    Scene *m_scene;
     std::list<Drawable*> drawables;
     std::map<QString, QOpenGLShaderProgram*> m_shaders;
-    Factory *m_factory;
     QMatrix4x4* m_projM;
     float timer;
     float tinv;

@@ -1,5 +1,6 @@
 #include "scene.h"
 
-Scene::Scene()
+Scene::Scene(RenderEngine *engine)
 {
+    m_engine = engine;
 }

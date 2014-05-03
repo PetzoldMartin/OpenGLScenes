@@ -9,13 +9,14 @@ class QOpenGLBuffer;
 class QOpenGLShaderProgram;
 class QMatrix4x4;
 class QObject;
+class RenderEngine;
 
 /// \brief The Drawable class
 /// \author Andre Furchner
 class Drawable
 {
 public:
-    Drawable(QObject *parent, QMatrix4x4 *transform);
+    Drawable(RenderEngine *engine, QMatrix4x4 *transform);
 
     void Draw(QMatrix4x4* transform);
     void Build();
@@ -35,7 +36,7 @@ private:
     QOpenGLBuffer *m_indexBuffer;
 
     QOpenGLShaderProgram *m_shader;
-    QObject *m_parent;
+    RenderEngine *m_engine;
 
     QMatrix4x4 *m_modelMatrix;
     QMatrix4x4 *m_transMatrix;
