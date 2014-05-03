@@ -8,7 +8,9 @@ SOURCES += \
     src/render/render_engine.cpp \
     src/render/object/drawable.cpp \
     src/io/console.cpp \
-    src/render/object/factory.cpp
+    src/render/object/factory.cpp \
+    src/render/scene/scene.cpp \
+    src/render/scene/test_scene.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,7 +25,9 @@ HEADERS += \
     src/render/render_engine.h \
     src/render/object/drawable.h \
     src/io/console.h \
-    src/render/object/factory.h
+    src/render/object/factory.h \
+    src/render/scene/scene.h \
+    src/render/scene/test_scene.h
 
 OTHER_FILES += \
     data/shader/basic.frag \
