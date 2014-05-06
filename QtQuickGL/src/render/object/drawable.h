@@ -26,7 +26,10 @@ public:
     void SetIndices(unsigned int *indices, int count);
     void SetShader(QOpenGLShaderProgram *shader);
     void SetModelMatrix(QMatrix4x4 *matrix);
+    void SetTransformMatrix(QMatrix4x4 *matrix);
     void AddChild(Drawable *child, QMatrix4x4 *transform);
+
+    QMatrix4x4 *GetTransformMatrix();
 
 private:
     QOpenGLVertexArrayObject *m_vao;
