@@ -25,7 +25,7 @@ RenderEngine::RenderEngine(QObject* parent)
 void RenderEngine::Resize(float width, float height) {
     // set projection matrix
     m_projM->setToIdentity();
-    m_projM->scale(2.0f / width, 2.0f / height, 1.0f);
+    m_projM->ortho(-width*0.1,width*0.1,-height*0.1,height*0.1,-100.0f,100.f);
 }
 
 QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
@@ -45,6 +45,13 @@ QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
 
 void RenderEngine::Render()
 {
+    // UPDATE
+    m_scene->Update();
+
+
+    // RENDER
+
+
     glClearColor(0.0f,0.0f,0.0f,0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

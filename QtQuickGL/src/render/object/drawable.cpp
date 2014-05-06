@@ -73,7 +73,7 @@ void Drawable::Build()
         m_vertexBuffer->bind();
         int in_position = m_shader->attributeLocation("in_position");
         m_shader->enableAttributeArray(in_position);
-        m_shader->setAttributeBuffer(in_position, GL_FLOAT, 0, 2, 0);
+        m_shader->setAttributeBuffer(in_position, GL_FLOAT, 0, 3, 0);
         m_vertexBuffer->release();
     }
 
@@ -128,10 +128,20 @@ void Drawable::SetModelMatrix(QMatrix4x4 *matrix)
     m_modelMatrix = matrix;
 }
 
+void Drawable::SetTransformMatrix(QMatrix4x4 *matrix)
+{
+    m_transMatrix = matrix;
+}
+
 void Drawable::AddChild(Drawable *child, QMatrix4x4 *transform)
 {
     child->m_transMatrix = transform;
     m_container.push_back(child);
+}
+
+QMatrix4x4 *Drawable::GetTransformMatrix()
+{
+    return m_transMatrix;
 }
 
 void Drawable::writeBuffer(QOpenGLBuffer* buffer, void *data, int count)
