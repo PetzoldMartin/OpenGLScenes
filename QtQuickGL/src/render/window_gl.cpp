@@ -56,7 +56,7 @@ void WindowGL::render()
 
 void WindowGL::cleanup()
 {
-    //TODO: DELETE SHIT
+    delete m_engine;
 }
 
 
@@ -64,5 +64,5 @@ void WindowGL::cleanup()
 // GUI thread into the rendering thread.
 void WindowGL::sync()
 {
-    //m_thread_t = m_t;
+    //TODO Sync Shit!!!
 }
