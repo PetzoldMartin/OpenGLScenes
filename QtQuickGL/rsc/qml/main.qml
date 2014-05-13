@@ -2,6 +2,7 @@ import QtQuick 2.0
 import OpenGLUnderQML 1.0
 
 Item {
+    id: item1
 
     width: 320
     height: 480
@@ -43,5 +44,16 @@ Item {
         text: qsTr("Das ist text")
         wrapMode: Text.NoWrap
         font.pixelSize: 12
+    }
+
+    MouseArea {
+        id: mouseArea1
+        anchors.fill: parent
+
+        onDoubleClicked: {
+            console.log("guit")
+            Qt.quit()
+        }
+
     }
 }

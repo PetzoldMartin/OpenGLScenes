@@ -12,7 +12,8 @@ SOURCES += \
     src/render/scene/scene.cpp \
     src/render/scene/test_scene.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += \
+    rsc/resource.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -30,12 +31,6 @@ HEADERS += \
     src/render/scene/test_scene.h
 
 OTHER_FILES += \
-    data/shader/basic.frag \
-    data/shader/basic.vert
-
-# Copy Files
-copydata.commands = $(COPY_DIR) $$PWD/data $$OUT_PWD
-first.depends = $(first) copydata
-export(first.depends)
-export(copydata.commands)
-QMAKE_EXTRA_TARGETS += first copydata
+    rsc/qml/main.qml \
+    rsc/shader/basic.frag \
+    rsc/shader/basic.vert \
