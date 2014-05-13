@@ -18,7 +18,7 @@ void TestScene::Create()
     m_d1 = m_factory->GenRectangle(10.0f,10.0f,QVector4D(0.25,1.0,0.0,1.0),m_engine->GetShader(QString("basic")));
 
 
-    for(int i = 0; i < 500; ++i) {
+    for(int i = 0; i < 10; ++i) {
         float r = (float)(qrand() % 255) / 255;
         float g = (float)(qrand() % 255) / 255;
         float b = (float)(qrand() % 255) / 255;
@@ -29,7 +29,6 @@ void TestScene::Create()
         q->setToIdentity();
         q->rotate((float)i * 360.0 / 10.0,0.0f,0.0f,1.0f);
         q->translate(20.0f, 0.0f);
-        q->scale((r+g+b)*0.5f);
 
         m_d1->AddChild(childs[i],q);
     }
@@ -44,14 +43,10 @@ void TestScene::Draw()
 
 void TestScene::Update()
 {
-    m_d1->GetTransformMatrix()->rotate(20.0f,0.0f,0.0f,1.0f);
+    m_d1->GetTransformMatrix()->rotate(2.0f,0.0f,0.0f,1.0f);
 
-    for(int i = 0; i < 500; ++i) {
-        float t = (float)(qrand() % 1000) / 1000.0f;
-        t -= 0.5f;
-        childs[i]->GetTransformMatrix()->rotate(-10.0f,0.0f,0.0f,10.0f);
-        childs[i]->GetTransformMatrix()->translate(t,0.0f,0.0f);
-        childs[i]->GetTransformMatrix()->scale(1.0f + t*0.01f);
+    for(int i = 0; i < 10; ++i) {
+        childs[i]->GetTransformMatrix()->rotate(-3.0f,0.0f,0.0f,10.0f);
     }
 }
 
