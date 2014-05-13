@@ -11,6 +11,7 @@ Item {
         id: window
         property int mouseX: 0
         property int mouseY: 0
+        property int selectedObjectId: 0
     }
 
     Rectangle {
@@ -38,20 +39,19 @@ Item {
         anchors.fill: parent
 
         onClicked: {
-            if (mouse.button == Qt.LeftButton) {
-                console.log("left button: " + mouse.x + "\t" + mouse.y)
-                window.mouseX=mouse.x
-                window.mouseY=mouse.y
+            console.log("left button: " + mouse.x + "\t" + mouse.y)
+            console.log("Delta Mouse: "+ (mouse.x-window.mouseX) + "\t" + (mouse.y-window.mouseY))
+            window.rotate(window.selectedObjectId,mouse.x-window.mouseX,mouse.y-window.mouseY)
+        }
 
-            } else if (mouse.button == Qt.RightButton) {
-                console.log("right button: " + mouse.x + "\t" + mouse.y)
-            }
+        onPressed: {
+            window.selectedObjectId = window.pickObject(mouse.x,mouse.y)
+            window.mouseX=mouse.x
+            window.mouseY=mouse.y
         }
 
         onReleased: {
-            if (mouse.button == Qt.LeftButton) {
-                console.log("Delta Mouse: "+ (mouse.x-window.mouseX) + "\t" + (mouse.y-window.mouseY))
-            }
+            //TODO
         }
 
         onDoubleClicked: {
@@ -62,7 +62,7 @@ Item {
         onWheel: {
             if (wheel.angleDelta.y != 0) {
                 console.log("wheel event: " + wheel.angleDelta.y)
-                //TODO
+                window.scale(window.selectedObjectId, wheel.angleDelta.y)
             }
         }
     }
