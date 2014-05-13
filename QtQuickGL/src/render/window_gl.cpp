@@ -44,6 +44,7 @@ void WindowGL::initialize()
 
 void WindowGL::update()
 {
+    m_engine->Update();
     window()->update();
 }
 

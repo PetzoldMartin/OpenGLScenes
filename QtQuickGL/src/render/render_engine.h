@@ -21,10 +21,10 @@ class RenderEngine
 public:
     RenderEngine(QObject *parent);
 
-    ///
     /// \brief Render all Drawables
-    ///
     void Render();
+
+    void Update();
 
     void Resize(float w, float height);
     QOpenGLShaderProgram* GetShader(QString name);

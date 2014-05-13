@@ -45,13 +45,6 @@ QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
 
 void RenderEngine::Render()
 {
-    // UPDATE
-    m_scene->Update();
-
-
-    // RENDER
-
-
     glClearColor(0.0f,0.0f,0.0f,0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -59,7 +52,6 @@ void RenderEngine::Render()
     QOpenGLShaderProgram* shader = GetShader("basic");
     shader->bind();
     shader->setUniformValue("projMatrix", *m_projM);
-    shader->setUniformValue("time",timer );
     shader->release();
 
 
@@ -69,10 +61,11 @@ void RenderEngine::Render()
     foreach (Drawable* drawable, drawables) {
         drawable->Draw(&world);
     }
-    timer += 0.01 * tinv;
-    if(timer > 1.0f || timer < 0.0f)
-        tinv *= -1.0;
+}
 
+void RenderEngine::Update()
+{
+    m_scene->Update();
 }
 
 void RenderEngine::AddDrawable(Drawable* drawable) {
