@@ -2,13 +2,15 @@ import QtQuick 2.0
 import OpenGLUnderQML 1.0
 
 Item {
-    id: item1
+    id: mainItem
 
     width: 320
     height: 480
 
     WindowGL {
         id: window
+        property int mouseX: 0
+        property int mouseY: 0
     }
 
     Rectangle {
@@ -31,39 +33,37 @@ Item {
         anchors.margins: 20
     }
 
-    Text {
-        id: text1
-        x: 75
-        y: 238
-        width: 68
-        height: 47
-        text: qsTr("Das ist text")
-        wrapMode: Text.NoWrap
-        font.pixelSize: 12
-    }
-
     MouseArea {
-        id: mouseArea1
+        id: mouseListenerArea
         anchors.fill: parent
 
         onClicked: {
-            console.log("mouse clicked")
-            if (mouse.button == Qt.RightButton) {
+            if (mouse.button == Qt.LeftButton) {
+                console.log("left button: " + mouse.x + "\t" + mouse.y)
+                window.mouseX=mouse.x
+                window.mouseY=mouse.y
 
-            glObject.changeAngle()
+            } else if (mouse.button == Qt.RightButton) {
+                console.log("right button: " + mouse.x + "\t" + mouse.y)
             }
         }
 
-        onWheel: {
-            console.log("on wheel")
-            if (wheel.angleDelta.y != 0)
-                console.log("change distance")
-            glObject.changeDistance(wheel.angleDelta.y);
+        onReleased: {
+            if (mouse.button == Qt.LeftButton) {
+                console.log("Delta Mouse: "+ (mouse.x-window.mouseX) + "\t" + (mouse.y-window.mouseY))
+            }
         }
+
         onDoubleClicked: {
             console.log("quit")
             Qt.quit()
         }
 
+        onWheel: {
+            if (wheel.angleDelta.y != 0) {
+                console.log("wheel event: " + wheel.angleDelta.y)
+                //TODO
+            }
+        }
     }
 }
