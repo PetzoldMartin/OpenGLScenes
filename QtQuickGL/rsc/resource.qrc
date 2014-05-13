@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file alias="main.qml">qml/main.qml</file>
+    </qresource>
+    <qresource prefix="/shader">
+        <file alias="basic.frag">shader/basic.frag</file>
+        <file alias="basic.vert">shader/basic.vert</file>
+    </qresource>
+    <qresource prefix="/texture"/>
+</RCC>
