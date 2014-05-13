@@ -7,34 +7,21 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLContext>
 
-
 using namespace std;
 
 WindowGL::WindowGL()
-    : m_t(0)
-    , m_thread_t(0)
 {
     connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
-}
-
-
-void WindowGL::setT(qreal t)
-{
-    if (t == m_t)
-        return;
-    m_t = t;
-    emit tChanged();
-    if (window())
-        window()->update();
 }
 
 void WindowGL::handleWindowChanged(QQuickWindow *win)
 {
     if (win) {
-        connect(win, SIGNAL(activeChanged()), this, SLOT(windowChanged()), Qt::DirectConnection);
-        connect(win, SIGNAL(beforeRendering()), this, SLOT(Render()), Qt::DirectConnection);
-        connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(Sync()), Qt::DirectConnection);
-        connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(Initialize()), Qt::DirectConnection);
+        connect(win, SIGNAL(afterRendering()), this, SLOT(update()),Qt::DirectConnection);
+        connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(windowChanged()), Qt::DirectConnection);
+        connect(win, SIGNAL(beforeRendering()), this, SLOT(render()), Qt::DirectConnection);
+        connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(sync()), Qt::DirectConnection);
+        connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(initialize()), Qt::DirectConnection);
 
         win->setClearBeforeRendering(false);
     }
@@ -46,23 +33,28 @@ void WindowGL::windowChanged() {
     m_engine->Resize(w,h);
 }
 
-void WindowGL::Initialize()
+void WindowGL::initialize()
 {
     Console::Write("Initialize RenderEngine");
     m_engine = new RenderEngine(parent()->parent());
 
 
-    connect(window()->openglContext(), SIGNAL(aboutToBeDestroyed()), this, SLOT(Cleanup()), Qt::DirectConnection);
+    connect(window()->openglContext(), SIGNAL(aboutToBeDestroyed()), this, SLOT(cleanup()), Qt::DirectConnection);
+}
+
+void WindowGL::update()
+{
+    window()->update();
 }
 
 
 
-void WindowGL::Render()
+void WindowGL::render()
 {
     m_engine->Render();
 }
 
-void WindowGL::Cleanup()
+void WindowGL::cleanup()
 {
     //TODO: DELETE SHIT
 }
@@ -70,7 +62,7 @@ void WindowGL::Cleanup()
 
 // Copy the state of the object in the
 // GUI thread into the rendering thread.
-void WindowGL::Sync()
+void WindowGL::sync()
 {
-    m_thread_t = m_t;
+    //m_thread_t = m_t;
 }
