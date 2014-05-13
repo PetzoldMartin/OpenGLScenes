@@ -31,7 +31,8 @@ void WindowGL::setT(qreal t)
 void WindowGL::handleWindowChanged(QQuickWindow *win)
 {
     if (win) {
-        connect(win, SIGNAL(activeChanged()), this, SLOT(windowChanged()), Qt::DirectConnection);
+        connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(windowChanged()), Qt::DirectConnection);
+
         connect(win, SIGNAL(beforeRendering()), this, SLOT(Render()), Qt::DirectConnection);
         connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(Sync()), Qt::DirectConnection);
         connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(Initialize()), Qt::DirectConnection);

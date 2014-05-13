@@ -50,8 +50,22 @@ Item {
         id: mouseArea1
         anchors.fill: parent
 
+        onClicked: {
+            console.log("mouse clicked")
+            if (mouse.button == Qt.RightButton) {
+
+            glObject.changeAngle()
+            }
+        }
+
+        onWheel: {
+            console.log("on wheel")
+            if (wheel.angleDelta.y != 0)
+                console.log("change distance")
+            glObject.changeDistance(wheel.angleDelta.y);
+        }
         onDoubleClicked: {
-            console.log("guit")
+            console.log("quit")
             Qt.quit()
         }
 
