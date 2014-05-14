@@ -46,8 +46,6 @@ void WindowGL::update()
     window()->update();
 }
 
-
-
 void WindowGL::render()
 {
     m_engine->Render();
@@ -66,7 +64,7 @@ void WindowGL::rotate(int id,int x,int y) {
 //    m_engine->
 }
 
-void WindowGL::scale (int delta) {
+void WindowGL::scale (int id, int delta) {
 
 }
 
