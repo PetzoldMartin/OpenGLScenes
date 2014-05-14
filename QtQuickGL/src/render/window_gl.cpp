@@ -46,6 +46,8 @@ void WindowGL::update()
     window()->update();
 }
 
+
+
 void WindowGL::render()
 {
     m_engine->Render();
@@ -56,16 +58,20 @@ void WindowGL::cleanup()
     delete m_engine;
 }
 
-int WindowGL::pickObjectId(int x, int y) {
-    return 0;
+void WindowGL::scaleView (int delta) {
+    m_engine->scaleView(delta);
 }
 
-void WindowGL::rotate(int id,int x,int y) {
-//    m_engine->
+void WindowGL::rotateView (int dx,int dy) {
+    m_engine->rotateView(dx,dy);
 }
 
-void WindowGL::scale (int id, int delta) {
+int WindowGL::pickObjectAt(int x, int y) {
+   return m_engine->pickObjectAt(x,y);
+}
 
+void WindowGL::rotateObject(int id,int dx,int dy) {
+    m_engine->rotateObject(id,dx,dy);
 }
 
 // Copy the state of the object in the

@@ -15,9 +15,14 @@ public:
 signals:
 
 public slots:
-    int pickObjectId(int x, int y);
-    void rotate(int id, int x,int y);
-    void scale (int id, int delta);
+
+    //global
+    void rotateView(int x,int y);
+    void scaleView (int delta);
+
+    //object
+    int pickObjectAt(int x, int y);
+    void rotateObject(int id,int dx,int dy);
 
     void initialize();
     void update();
