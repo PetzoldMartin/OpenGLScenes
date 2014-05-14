@@ -10,7 +10,8 @@ SOURCES += \
     src/io/console.cpp \
     src/render/object/factory.cpp \
     src/render/scene/scene.cpp \
-    src/render/scene/test_scene.cpp
+    src/render/scene/test_scene.cpp \
+    src/render/object/mesh.cpp
 
 RESOURCES += \
     rsc/resource.qrc
@@ -28,7 +29,8 @@ HEADERS += \
     src/io/console.h \
     src/render/object/factory.h \
     src/render/scene/scene.h \
-    src/render/scene/test_scene.h
+    src/render/scene/test_scene.h \
+    src/render/object/mesh.h
 
 OTHER_FILES += \
     rsc/qml/main.qml \

@@ -10,6 +10,7 @@ class QOpenGLShaderProgram;
 class QMatrix4x4;
 class QObject;
 class RenderEngine;
+class Mesh;
 
 /// \brief The Drawable class
 /// \author Andre Furchner
@@ -21,9 +22,7 @@ public:
     void Draw(QMatrix4x4* transform);
     void Build();
 
-    void SetVertices(void *vertices, int count);
-    void SetColors(void *colors, int count);
-    void SetIndices(unsigned int *indices, int count);
+    void SetMesh(Mesh *mesh);
     void SetShader(QOpenGLShaderProgram *shader);
     void SetModelMatrix(QMatrix4x4 *matrix);
     void SetTransformMatrix(QMatrix4x4 *matrix);
@@ -34,11 +33,7 @@ public:
     QMatrix4x4 *GetTransformMatrix();
 
 private:
-    QOpenGLVertexArrayObject *m_vao;
-
-    QOpenGLBuffer *m_vertexBuffer;
-    QOpenGLBuffer *m_colorBuffer;
-    QOpenGLBuffer *m_indexBuffer;
+    Mesh *m_mesh;
 
     QOpenGLShaderProgram *m_shader;
     RenderEngine *m_engine;
@@ -50,7 +45,6 @@ private:
     std::vector<Drawable*> m_container;
     int m_childCount;
 
-    void writeBuffer(QOpenGLBuffer *buffer, void* data, int count);
 };
 
 #endif // DRAWABLE_H
