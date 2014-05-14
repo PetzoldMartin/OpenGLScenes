@@ -17,6 +17,7 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
     m_indexBuffer = NULL;
     m_modelMatrix = NULL;
     m_indexCount = 0;
+    m_childCount = 0;
     m_engine = engine;
     m_transMatrix = transform;
 }
@@ -137,6 +138,17 @@ void Drawable::AddChild(Drawable *child, QMatrix4x4 *transform)
 {
     child->m_transMatrix = transform;
     m_container.push_back(child);
+    ++m_childCount;
+}
+
+Drawable *Drawable::GetChild(int index)
+{
+    return m_container[index];
+}
+
+int Drawable::GetChildCount()
+{
+    return m_childCount;
 }
 
 QMatrix4x4 *Drawable::GetTransformMatrix()
