@@ -25,7 +25,7 @@ RenderEngine::RenderEngine(QObject* parent)
 void RenderEngine::Resize(float width, float height) {
     // set projection matrix
     m_projM->setToIdentity();
-    m_projM->ortho(-width*0.1,width*0.1,-height*0.1,height*0.1,-100.0f,100.f);
+    m_projM->ortho(-width*0.02,width*0.02,-height*0.02,height*0.02,-100.0f,100.f);
 }
 
 QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
