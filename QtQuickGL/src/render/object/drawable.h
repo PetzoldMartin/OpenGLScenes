@@ -28,6 +28,8 @@ public:
     void SetModelMatrix(QMatrix4x4 *matrix);
     void SetTransformMatrix(QMatrix4x4 *matrix);
     void AddChild(Drawable *child, QMatrix4x4 *transform);
+    Drawable *GetChild(int index);
+    int GetChildCount();
 
     QMatrix4x4 *GetTransformMatrix();
 
@@ -46,6 +48,7 @@ private:
     short m_indexCount;
 
     std::vector<Drawable*> m_container;
+    int m_childCount;
 
     void writeBuffer(QOpenGLBuffer *buffer, void* data, int count);
 };

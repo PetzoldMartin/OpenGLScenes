@@ -16,7 +16,6 @@ public:
 
 private:
     Drawable *m_d1;
-    std::vector<Drawable*> childs;
     Factory *m_factory;
 };
 

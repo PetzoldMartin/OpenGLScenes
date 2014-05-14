@@ -23,14 +23,13 @@ void TestScene::Create()
         float g = (float)(qrand() % 255) / 255;
         float b = (float)(qrand() % 255) / 255;
 
+        Drawable* d2 = m_factory->GenRectangle(10.0f,10.0f,QVector4D(r,g,b,1.0),m_engine->GetShader(QString("basic")));
 
-        childs.push_back(m_factory->GenRectangle(10.0f,10.0f,QVector4D(r,g,b,1.0),m_engine->GetShader(QString("basic"))));
         QMatrix4x4 *q = new QMatrix4x4();
         q->setToIdentity();
         q->rotate((float)i * 360.0 / 10.0,0.0f,0.0f,1.0f);
         q->translate(20.0f, 0.0f);
-
-        m_d1->AddChild(childs[i],q);
+        m_d1->AddChild(d2,q);
     }
 
     m_engine->AddDrawable(m_d1);
@@ -43,10 +42,11 @@ void TestScene::Draw()
 
 void TestScene::Update()
 {
-    m_d1->GetTransformMatrix()->rotate(2.0f,0.0f,0.0f,1.0f);
+    m_d1->GetTransformMatrix()->rotate(-2.0f,0.0f,0.0f,1.0f);
 
-    for(int i = 0; i < 10; ++i) {
-        childs[i]->GetTransformMatrix()->rotate(-3.0f,0.0f,0.0f,10.0f);
+    int counti = m_d1->GetChildCount();
+    for(int i = 0; i < counti; ++i) {
+       m_d1->GetChild(i)->GetTransformMatrix()->rotate(-0.5f,0.0f,0.0f,10.0f);
     }
 }
 
