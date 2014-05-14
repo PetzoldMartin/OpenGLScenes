@@ -38,14 +38,27 @@ Item {
         id: mouseListenerArea
         anchors.fill: parent
 
-        onClicked: {
-            console.log("left button: " + mouse.x + "\t" + mouse.y)
-            console.log("Delta Mouse: "+ (mouse.x-window.mouseX) + "\t" + (mouse.y-window.mouseY))
-            window.rotate(window.selectedObjectId,mouse.x-window.mouseX,mouse.y-window.mouseY)
+        //        onClicked: {
+        //            console.log("left button: " + mouse.x + "\t" + mouse.y)
+        //            console.log("Delta Mouse: "+ (mouse.x-window.mouseX) + "\t" + (mouse.y-window.mouseY))
+        //            window.rotateView(window.selectedObjectId,mouse.x-window.mouseX,mouse.y-window.mouseY)
+        //        }
+
+
+        onMouseXChanged: {
+            console.log("DeltaX Mouse: "+ (mouse.x-window.mouseX))
+            window.rotateView(mouse.x-window.mouseX,0)
+            window.mouseX=mouse.x
+        }
+
+        onMouseYChanged:  {
+            console.log("DeltaY Mouse: "+ (mouse.y-window.mouseY))
+            window.rotateView(0,mouse.y-window.mouseY)
+            window.mouseY=mouse.y
         }
 
         onPressed: {
-            window.selectedObjectId = window.pickObjectId(mouse.x,mouse.y)
+            window.selectedObjectId = window.pickObjectAt(mouse.x,mouse.y)
             window.mouseX=mouse.x
             window.mouseY=mouse.y
         }
@@ -62,7 +75,7 @@ Item {
         onWheel: {
             if (wheel.angleDelta.y != 0) {
                 console.log("wheel event: " + wheel.angleDelta.y)
-                window.scale(window.selectedObjectId, wheel.angleDelta.y)
+                window.scaleView(window.selectedObjectId, wheel.angleDelta.y)
             }
         }
     }

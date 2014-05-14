@@ -30,6 +30,15 @@ public:
     QOpenGLShaderProgram* GetShader(QString name);
 
     void AddDrawable(Drawable *drawable);
+
+    //global
+    void rotateView(int x,int y);
+    void scaleView (int distance);
+
+    //object
+    int pickObjectAt(int x, int y);
+    void rotateObject(int id,int dx,int dy);
+
     QObject *GetContext();
 private:
     QObject* m_parent;
@@ -39,6 +48,10 @@ private:
     QMatrix4x4* m_projM;
     float timer;
     float tinv;
+
+    double alpha;
+    double beta;
+    double distance;
 
 };
 

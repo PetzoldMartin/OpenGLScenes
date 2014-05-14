@@ -19,12 +19,21 @@ RenderEngine::RenderEngine(QObject* parent)
     timer = 0.5f;
     tinv = 1.0f;
 
+    alpha=0;
+    beta=0;
+    distance=0.5;
+
     m_scene->Create();
 }
 
 void RenderEngine::Resize(float width, float height) {
     // set projection matrix
     m_projM->setToIdentity();
+    //qDebug() << alpha << beta;
+    m_projM->rotate(alpha,0, 1,0);
+    m_projM->rotate(beta, 1, 0, 0);
+    m_projM->scale(distance);
+
     m_projM->ortho(-width*0.02,width*0.02,-height*0.02,height*0.02,-100.0f,100.f);
 }
 
@@ -75,4 +84,40 @@ void RenderEngine::AddDrawable(Drawable* drawable) {
 QObject *RenderEngine::GetContext()
 {
     return m_parent;
+}
+//global
+void RenderEngine::rotateView(int dx,int dy) {
+    alpha -= dx%180;
+    while (alpha < 0) {
+        alpha += 360;
+    }
+    while (alpha >= 360) {
+        alpha -= 360;
+    }
+    beta -= dy%180;
+    if (beta < -90) {
+        beta = -90;
+    }
+    if (beta > 90) {
+        beta = 90;
+    }
+
+}
+
+void RenderEngine::scaleView (int delta) {
+    if (delta < 0) {
+        distance *= 1.1;
+    } else if (delta > 0) {
+        distance *= 0.9;
+    }
+}
+
+
+//object
+int RenderEngine::pickObjectAt(int x, int y) {
+    return 0;
+}
+
+void RenderEngine::rotateObject(int id,int dx,int dy) {
+    //TODO
 }
