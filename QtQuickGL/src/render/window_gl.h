@@ -15,6 +15,10 @@ public:
 signals:
 
 public slots:
+    int pickObjectId(int x, int y);
+    void rotate(int id,int x,int y);
+    void scale (int delta);
+
     void initialize();
     void update();
     void render();

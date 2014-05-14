@@ -37,8 +37,6 @@ void WindowGL::initialize()
 {
     Console::Write("Initialize RenderEngine");
     m_engine = new RenderEngine(parent()->parent());
-
-
     connect(window()->openglContext(), SIGNAL(aboutToBeDestroyed()), this, SLOT(cleanup()), Qt::DirectConnection);
 }
 
@@ -60,6 +58,17 @@ void WindowGL::cleanup()
     delete m_engine;
 }
 
+int WindowGL::pickObjectId(int x, int y) {
+    return 0;
+}
+
+void WindowGL::rotate(int id,int x,int y) {
+//    m_engine->
+}
+
+void WindowGL::scale (int delta) {
+
+}
 
 // Copy the state of the object in the
 // GUI thread into the rendering thread.

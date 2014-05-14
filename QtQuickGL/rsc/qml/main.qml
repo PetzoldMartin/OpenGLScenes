@@ -4,7 +4,7 @@ import OpenGLUnderQML 1.0
 Item {
     id: mainItem
 
-    width: 320
+    width: 600
     height: 480
 
     WindowGL {
@@ -45,7 +45,7 @@ Item {
         }
 
         onPressed: {
-            window.selectedObjectId = window.pickObject(mouse.x,mouse.y)
+            window.selectedObjectId = window.pickObjectId(mouse.x,mouse.y)
             window.mouseX=mouse.x
             window.mouseY=mouse.y
         }
