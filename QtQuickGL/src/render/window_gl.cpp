@@ -17,7 +17,7 @@ WindowGL::WindowGL()
 void WindowGL::handleWindowChanged(QQuickWindow *win)
 {
     if (win) {
-        connect(win, SIGNAL(beforeRendering()), this, SLOT(update()),Qt::DirectConnection);
+        connect(win, SIGNAL(afterRendering()), this, SLOT(update()),Qt::DirectConnection);
         connect(win, SIGNAL(beforeRendering()), this, SLOT(windowChanged()), Qt::DirectConnection);
         connect(win, SIGNAL(beforeRendering()), this, SLOT(render()), Qt::DirectConnection);
         connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(sync()), Qt::DirectConnection);
@@ -28,6 +28,7 @@ void WindowGL::handleWindowChanged(QQuickWindow *win)
 }
 
 void WindowGL::windowChanged() {
+    // qDebug() << "resize";
     float h = (float)window()->size().height();
     float w = (float)window()->size().width();
     m_engine->Resize(w,h);
@@ -67,7 +68,7 @@ void WindowGL::rotateView (int dx,int dy) {
 }
 
 int WindowGL::pickObjectAt(int x, int y) {
-   return m_engine->pickObjectAt(x,y);
+    return m_engine->pickObjectAt(x,y);
 }
 
 void WindowGL::rotateObject(int id,int dx,int dy) {

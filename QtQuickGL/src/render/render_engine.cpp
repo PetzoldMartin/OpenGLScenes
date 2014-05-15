@@ -32,9 +32,8 @@ void RenderEngine::Resize(float width, float height) {
     //qDebug() << alpha << beta;
     m_projM->rotate(alpha,0, 1,0);
     m_projM->rotate(beta, 1, 0, 0);
-    m_projM->scale(distance);
-
     m_projM->ortho(-width*0.02,width*0.02,-height*0.02,height*0.02,-100.0f,100.f);
+    m_projM->scale(distance);
 }
 
 QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
