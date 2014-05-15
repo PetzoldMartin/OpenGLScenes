@@ -18,24 +18,25 @@ Factory::Factory(RenderEngine *engine)
 
 Drawable* Factory::GenRectangle(QVector3D size,  QVector4D color, QOpenGLShaderProgram *shader) {
 
-    QVector3D vert[6];
-    QVector4D colors[6];
+    QVector4D colors[] = {
+        color,
+        color,
+        color,
 
-    colors[0] = color;
-    colors[1] = color;
-    colors[2] = color;
-    colors[3] = color;
-    colors[4] = color;
-    colors[5] = color;
+        color,
+        color,
+        color,
+    };
 
+    QVector3D vert[] = {
+        QVector3D(+0.5,+0.5, 0.0),
+        QVector3D(-0.5,+0.5, 0.0),
+        QVector3D(-0.5,-0.5, 0.0),
 
-    vert[0] = QVector3D(+0.5,+0.5, 0.0);
-    vert[1] = QVector3D(-0.5,+0.5, 0.0);
-    vert[2] = QVector3D(-0.5,-0.5, 0.0);
-
-    vert[3] = QVector3D(+0.5,+0.5, 0.0);
-    vert[4] = QVector3D(-0.5,-0.5, 0.0);
-    vert[5] = QVector3D(+0.5,-0.5, 0.0);
+        QVector3D(+0.5,+0.5, 0.0),
+        QVector3D(-0.5,-0.5, 0.0),
+        QVector3D(+0.5,-0.5, 0.0),
+    };
 
     QMatrix4x4 *modelMatrix = new QMatrix4x4();
     modelMatrix->setToIdentity();
