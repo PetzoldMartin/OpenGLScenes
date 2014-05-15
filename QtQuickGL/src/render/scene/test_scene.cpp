@@ -15,7 +15,7 @@ TestScene::TestScene(RenderEngine *engine) : Scene(engine)
 
 void TestScene::Create()
 {
-    m_d1 = m_factory->GenRectangle(10.0f,10.0f,QVector4D(1.0,1.0,1.0,1.0),m_engine->GetShader(QString("basic")));
+    m_d1 = m_factory->GenRectangle(QVector3D(10.0f,10.0f,1.0f),QVector4D(1.0,1.0,1.0,1.0),m_engine->GetShader(QString("basic")));
 
 
     for(int i = 0; i < 10; ++i) {
@@ -23,7 +23,7 @@ void TestScene::Create()
         float g = (float)(qrand() % 255) / 255;
         float b = (float)(qrand() % 255) / 255;
 
-        Drawable* d2 = m_factory->GenRectangle(7.5f,7.5f,QVector4D(r,g,b,1.0),m_engine->GetShader(QString("basic")));
+        Drawable* d2 = m_factory->GenRectangle(QVector3D(7.0f,7.0f,1.0f),QVector4D(r,g,b,1.0),m_engine->GetShader(QString("basic")));
 
         QMatrix4x4 *m1 = new QMatrix4x4();
         m1->setToIdentity();
@@ -31,7 +31,7 @@ void TestScene::Create()
         m1->translate(20.0f, 0.0f);
         m_d1->AddChild(d2,m1);
         for(int j = 0; j < 5; ++j) {
-            Drawable* d3 = m_factory->GenRectangle(2.5f,2.5f,QVector4D(r,g,b,1.0),m_engine->GetShader(QString("basic")));
+            Drawable* d3 = m_factory->GenRectangle(QVector3D(2.0f,2.0f,1.0f),QVector4D(r,g,b,1.0),m_engine->GetShader(QString("basic")));
             QMatrix4x4 *m2 = new QMatrix4x4();
             m2->setToIdentity();
             m2->rotate((float)j * 360.0 / 5.0,0.0f,0.0f,1.0f);

@@ -16,7 +16,7 @@ Factory::Factory(RenderEngine *engine)
     m_engine = engine;
 }
 
-Drawable* Factory::GenRectangle(float width, float height, QVector4D color, QOpenGLShaderProgram *shader) {
+Drawable* Factory::GenRectangle(QVector3D size,  QVector4D color, QOpenGLShaderProgram *shader) {
 
     QVector3D vert[6];
     QVector4D colors[6];
@@ -39,7 +39,7 @@ Drawable* Factory::GenRectangle(float width, float height, QVector4D color, QOpe
 
     QMatrix4x4 *modelMatrix = new QMatrix4x4();
     modelMatrix->setToIdentity();
-    modelMatrix->scale(width, height);
+    modelMatrix->scale(size);
 
     Mesh *mesh = new Mesh();
 

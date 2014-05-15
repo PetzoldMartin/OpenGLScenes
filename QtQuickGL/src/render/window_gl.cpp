@@ -17,8 +17,8 @@ WindowGL::WindowGL()
 void WindowGL::handleWindowChanged(QQuickWindow *win)
 {
     if (win) {
-        connect(win, SIGNAL(afterRendering()), this, SLOT(update()),Qt::DirectConnection);
-        connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(windowChanged()), Qt::DirectConnection);
+        connect(win, SIGNAL(beforeRendering()), this, SLOT(update()),Qt::DirectConnection);
+        connect(win, SIGNAL(beforeRendering()), this, SLOT(windowChanged()), Qt::DirectConnection);
         connect(win, SIGNAL(beforeRendering()), this, SLOT(render()), Qt::DirectConnection);
         connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(sync()), Qt::DirectConnection);
         connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(initialize()), Qt::DirectConnection);
