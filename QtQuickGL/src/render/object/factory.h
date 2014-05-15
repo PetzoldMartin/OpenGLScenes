@@ -14,6 +14,7 @@ public:
     Factory(RenderEngine *engine);
 
     Drawable *GenRectangle(QVector3D size, QVector4D color, QOpenGLShaderProgram *shader);
+    Drawable *GenBlock(QVector3D size, QVector4D color, QOpenGLShaderProgram *shader);
 private:
     RenderEngine *m_engine;
     Mesh *m_rectangle;

@@ -15,7 +15,7 @@ TestScene::TestScene(RenderEngine *engine) : Scene(engine)
 
 void TestScene::Create()
 {
-    m_d1 = m_factory->GenRectangle(QVector3D(10.0f,10.0f,1.0f),QVector4D(1.0,1.0,1.0,1.0),m_engine->GetShader(QString("basic")));
+    m_d1 = m_factory->GenBlock(QVector3D(10.0f,10.0f,10.0f),QVector4D(1.0,1.0,1.0,1.0),m_engine->GetShader(QString("basic")));
 
 
     for(int i = 0; i < 10; ++i) {
@@ -35,7 +35,7 @@ void TestScene::Create()
             QMatrix4x4 *m2 = new QMatrix4x4();
             m2->setToIdentity();
             m2->rotate((float)j * 360.0 / 5.0,0.0f,0.0f,1.0f);
-            m2->translate(10.0f, 0.0f);
+            m2->translate(10.0f, 0.0f,i*10);
             d2->AddChild(d3,m2);
         }
     }
