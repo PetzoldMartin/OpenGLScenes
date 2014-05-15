@@ -14,13 +14,13 @@ public:
     void Draw();
 
     void SetVertices(void *vertices, int count);
-    void SetColors(void *colors, int count);
+    void SetNormals(void *normals, int count);
 
 private:
 
     QOpenGLVertexArrayObject *m_vao;
     QOpenGLBuffer *m_vertexBuffer;
-    QOpenGLBuffer *m_colorBuffer;
+    QOpenGLBuffer *m_normalBuffer;
 
     void writeBuffer(QOpenGLBuffer *buffer, void* data, int count);
 };

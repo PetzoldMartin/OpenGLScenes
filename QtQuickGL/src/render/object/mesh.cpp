@@ -8,7 +8,7 @@
 Mesh::Mesh()
 {
     m_vao = NULL;
-    m_colorBuffer = NULL;
+    m_normalBuffer = NULL;
     m_vertexBuffer = NULL;
 }
 
@@ -26,12 +26,12 @@ void Mesh::Build(QObject *context, QOpenGLShaderProgram *shader)
         m_vertexBuffer->release();
     }
 
-    if(m_colorBuffer != NULL) {
-        m_colorBuffer->bind();
-        int in_color = shader->attributeLocation("in_color");
-        shader->enableAttributeArray(in_color);
-        shader->setAttributeBuffer(in_color, GL_FLOAT, 0, 4, 0);
-        m_colorBuffer->release();
+    if(m_normalBuffer != NULL) {
+        m_normalBuffer->bind();
+        int in_normal = shader->attributeLocation("in_normal");
+        shader->enableAttributeArray(in_normal);
+        shader->setAttributeBuffer(in_normal, GL_FLOAT, 0, 3, 0);
+        m_normalBuffer->release();
     }
     m_vao->release();
 }
@@ -53,14 +53,14 @@ void Mesh::SetVertices(void *vertices, int count)
     writeBuffer(m_vertexBuffer, vertices, sizeof(float) * count);
 }
 
-void Mesh::SetColors(void *colors, int count)
+void Mesh::SetNormals(void *normals, int count)
 {
     // Create a ColorBuffer if it is the first Time
-    if(m_colorBuffer == NULL) {
-        m_colorBuffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
-        m_colorBuffer->create();
+    if(m_normalBuffer == NULL) {
+        m_normalBuffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
+        m_normalBuffer->create();
     }
-    writeBuffer(m_colorBuffer, colors, sizeof(float) * count);
+    writeBuffer(m_normalBuffer, normals, sizeof(float) * count);
 }
 
 void Mesh::writeBuffer(QOpenGLBuffer *buffer, void *data, int count)
