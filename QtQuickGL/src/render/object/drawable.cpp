@@ -25,8 +25,13 @@ void Drawable::Draw(QMatrix4x4 *transform)
 {
     m_shader->bind();
 
+    // set uniform color
+    m_shader->setUniformValue("color", m_color);
+
+    // calculate nad set uniform variable modelMatrix
     QMatrix4x4 t2 = *transform * *m_transMatrix;
     m_shader->setUniformValue("modelMatrix", t2 * *m_modelMatrix);
+
     m_mesh->Draw();
     m_shader->release();
 
@@ -84,6 +89,11 @@ void Drawable::AddChild(Drawable *child, QMatrix4x4 *transform)
     child->m_transMatrix = transform;
     m_container.push_back(child);
     ++m_childCount;
+}
+
+void Drawable::SetColor(QVector4D color)
+{
+    m_color = color;
 }
 
 Drawable *Drawable::GetChild(int index)

@@ -1,7 +1,8 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
 
-#include <vector>
+#include <vector>       // for container drawable
+#include <QVector4D>    // for color
 
 // Forward Declaration
 class QOpenGLVertexArrayObject;
@@ -27,6 +28,7 @@ public:
     void SetModelMatrix(QMatrix4x4 *matrix);
     void SetTransformMatrix(QMatrix4x4 *matrix);
     void AddChild(Drawable *child, QMatrix4x4 *transform);
+    void SetColor(QVector4D color);
     Drawable *GetChild(int index);
     int GetChildCount();
 
@@ -34,6 +36,7 @@ public:
 
 private:
     Mesh *m_mesh;
+    QVector4D m_color;
 
     QOpenGLShaderProgram *m_shader;
     RenderEngine *m_engine;
