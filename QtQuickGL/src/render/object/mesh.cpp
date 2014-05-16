@@ -10,6 +10,7 @@ Mesh::Mesh()
     m_vao = NULL;
     m_normalBuffer = NULL;
     m_vertexBuffer = NULL;
+    m_vertexCount = 0;
 }
 
 void Mesh::Build(QObject *context, QOpenGLShaderProgram *shader)
@@ -39,7 +40,7 @@ void Mesh::Build(QObject *context, QOpenGLShaderProgram *shader)
 void Mesh::Draw()
 {
     m_vao->bind();
-    glDrawArrays(GL_TRIANGLES,0,6);
+    glDrawArrays(GL_TRIANGLES,0,m_vertexCount);
     m_vao->release();
 }
 
@@ -51,6 +52,7 @@ void Mesh::SetVertices(void *vertices, int count)
         m_vertexBuffer->create();
     }
     writeBuffer(m_vertexBuffer, vertices, sizeof(float) * count);
+    m_vertexCount = count / 3;
 }
 
 void Mesh::SetNormals(void *normals, int count)

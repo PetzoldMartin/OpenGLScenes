@@ -22,6 +22,8 @@ private:
     QOpenGLBuffer *m_vertexBuffer;
     QOpenGLBuffer *m_normalBuffer;
 
+    int m_vertexCount;
+
     void writeBuffer(QOpenGLBuffer *buffer, void* data, int count);
 };
 
