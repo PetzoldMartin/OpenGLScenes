@@ -72,6 +72,11 @@ void WindowGL::scaleView (int delta) {
     m_engine->scaleView(delta);
 }
 
+void WindowGL::setViewMode(int viewMode)
+{
+    m_engine->setViewMode(viewMode);
+}
+
 void WindowGL::rotateView (int dx,int dy) {
     m_engine->rotateView(dx,dy);
 }

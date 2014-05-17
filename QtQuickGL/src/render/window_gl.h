@@ -19,6 +19,7 @@ public slots:
     //global
     void rotateView(int x,int y);
     void scaleView (int delta);
+    void setViewMode(int viewMode);
 
     //object
     int pickObjectAt(int x, int y);
