@@ -12,7 +12,16 @@ Item {
         property int mouseX: 0
         property int mouseY: 0
         property int selectedObjectId: 0
+
+
+        Timer {
+            running: true
+            repeat: true
+            interval: 16 // ms
+            onTriggered: window.update()
+        }
     }
+
 
     Rectangle {
         color: Qt.rgba(0, 0, 0, 0.5)

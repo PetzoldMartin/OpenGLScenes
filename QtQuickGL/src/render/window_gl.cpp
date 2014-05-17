@@ -6,24 +6,33 @@
 #include <QQuickWindow>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLContext>
+#include <QThread>
+#include <QSurfaceFormat>
+#include <QTimer>
 
 using namespace std;
 
 WindowGL::WindowGL()
 {
+    m_engine = NULL;
     connect(this, SIGNAL(windowChanged(QQuickWindow*)), this, SLOT(handleWindowChanged(QQuickWindow*)));
 }
 
 void WindowGL::handleWindowChanged(QQuickWindow *win)
 {
     if (win) {
-        connect(win, SIGNAL(afterRendering()), this, SLOT(update()),Qt::DirectConnection);
         connect(win, SIGNAL(beforeRendering()), this, SLOT(windowChanged()), Qt::DirectConnection);
         connect(win, SIGNAL(beforeRendering()), this, SLOT(render()), Qt::DirectConnection);
         connect(win, SIGNAL(beforeSynchronizing()), this, SLOT(sync()), Qt::DirectConnection);
         connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(initialize()), Qt::DirectConnection);
 
         win->setClearBeforeRendering(false);
+
+        // Set some formats
+        QSurfaceFormat f;
+        f.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
+        f.setSamples(4);
+
     }
 }
 
