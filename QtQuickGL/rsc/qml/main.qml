@@ -9,9 +9,23 @@ Item {
 
     WindowGL {
         id: window
+        focus: true
         property int mouseX: 0
         property int mouseY: 0
         property int selectedObjectId: 0
+
+
+        Keys.onPressed: {
+            switch(event.key) {
+                case Qt.Key_F1:
+                    window.setViewMode(0)
+                    break
+                case Qt.Key_F2:
+                    window.setViewMode(1)
+                    break
+            }
+            window.update()
+        }
     }
 
 

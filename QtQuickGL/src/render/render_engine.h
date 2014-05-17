@@ -34,6 +34,7 @@ public:
     //global
     void rotateView(int x,int y);
     void scaleView (int distance);
+    void setViewMode(int viewMode);
 
     //object
     int pickObjectAt(int x, int y);
@@ -52,6 +53,7 @@ private:
     double alpha;
     double beta;
     double distance;
+    int m_viewMode;
 
 };
 

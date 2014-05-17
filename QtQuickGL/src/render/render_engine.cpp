@@ -18,6 +18,7 @@ RenderEngine::RenderEngine(QObject* parent)
     m_scene = new TestScene(this);
     timer = 0.5f;
     tinv = 1.0f;
+    m_viewMode = 0;
 
     alpha=0;
     beta=0;
@@ -60,6 +61,7 @@ void RenderEngine::Render()
     QOpenGLShaderProgram* shader = GetShader("basic");
     shader->bind();
     shader->setUniformValue("projMatrix", *m_projM);
+    shader->setUniformValue("viewMode", m_viewMode);
     shader->release();
 
 
@@ -109,6 +111,11 @@ void RenderEngine::scaleView (int delta) {
     } else if (delta > 0) {
         distance *= 0.9;
     }
+}
+
+void RenderEngine::setViewMode(int viewMode)
+{
+    m_viewMode = viewMode;
 }
 
 
