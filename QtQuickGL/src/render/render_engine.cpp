@@ -14,7 +14,7 @@ using namespace std;
 RenderEngine::RenderEngine(QObject* parent)
 {
     m_parent = parent;
-    m_projM = new QMatrix4x4();
+    m_projM.setToIdentity();
     m_scene = new TestScene(this);
     timer = 0.5f;
     tinv = 1.0f;
@@ -28,13 +28,16 @@ RenderEngine::RenderEngine(QObject* parent)
 }
 
 void RenderEngine::Resize(float width, float height) {
-    // set projection matrix
-    m_projM->setToIdentity();
-    //qDebug() << alpha << beta;
-    m_projM->rotate(alpha,0, 1,0);
-    m_projM->rotate(beta, 1, 0, 0);
-    m_projM->ortho(-width*0.02,width*0.02,-height*0.02,height*0.02,-100.0f,100.f);
-    m_projM->scale(distance);
+    m_projM.setToIdentity();
+    m_projM.perspective(90.0f, width / height, 0.01f, 500.0f);
+
+    QMatrix4x4 view;
+    view.setToIdentity();
+    view.translate(0.0f,0.0f,-50.f);
+    view.rotate(alpha,0, 1,0);
+    view.rotate(beta, 1, 0, 0);
+
+    m_projM = m_projM * view;
 }
 
 QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
@@ -60,7 +63,7 @@ void RenderEngine::Render()
     // apply uniform to shader
     QOpenGLShaderProgram* shader = GetShader("basic");
     shader->bind();
-    shader->setUniformValue("projMatrix", *m_projM);
+    shader->setUniformValue("projMatrix", m_projM);
     shader->setUniformValue("viewMode", m_viewMode);
     shader->release();
 
