@@ -12,14 +12,6 @@ Item {
         property int mouseX: 0
         property int mouseY: 0
         property int selectedObjectId: 0
-
-
-        Timer {
-            running: true
-            repeat: true
-            interval: 16 // ms
-            onTriggered: window.update()
-        }
     }
 
 
@@ -58,18 +50,21 @@ Item {
             console.log("DeltaX Mouse: "+ (mouse.x-window.mouseX))
             window.rotateView(mouse.x-window.mouseX,0)
             window.mouseX=mouse.x
+            window.update()
         }
 
         onMouseYChanged:  {
             console.log("DeltaY Mouse: "+ (mouse.y-window.mouseY))
             window.rotateView(0,mouse.y-window.mouseY)
             window.mouseY=mouse.y
+            window.update()
         }
 
         onPressed: {
             window.selectedObjectId = window.pickObjectAt(mouse.x,mouse.y)
             window.mouseX=mouse.x
             window.mouseY=mouse.y
+            window.update()
         }
 
         onReleased: {
@@ -85,6 +80,7 @@ Item {
             if (wheel.angleDelta.y != 0) {
                 console.log("wheel event: " + wheel.angleDelta.y)
                 window.scaleView(window.selectedObjectId, wheel.angleDelta.y)
+                window.update()
             }
         }
     }

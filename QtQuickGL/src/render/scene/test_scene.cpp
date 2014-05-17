@@ -50,18 +50,7 @@ void TestScene::Draw()
 
 void TestScene::Update()
 {
-    m_d1->GetTransformMatrix()->rotate(-2.0f,0.0f,0.0f,1.0f);
-
-
-    int counti = m_d1->GetChildCount();
-    for(int i = 0; i < counti; ++i) {
-       m_d1->GetChild(i)->GetTransformMatrix()->rotate(-2.0f,0.0f,0.0f,10.0f);
-
-       int countj = m_d1->GetChild(i)->GetChildCount();
-       for(int j = 0; j < countj; ++j) {
-           m_d1->GetChild(i)->GetChild(j)->GetTransformMatrix()->rotate(-2.0f,0.0f,0.0f,10.0f);
-       }
-    }
+    // Nothing to do
 }
 
 
