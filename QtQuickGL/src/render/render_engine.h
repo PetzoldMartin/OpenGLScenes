@@ -4,12 +4,12 @@
 #include <list>
 #include <map>
 #include <QString>
+#include <QMatrix4x4>
 
 // Forward Declarations
 class Drawable;
 class QObject;
 class QOpenGLShaderProgram;
-class QMatrix4x4;
 class Scene;
 
 ///
@@ -46,7 +46,7 @@ private:
     Scene *m_scene;
     std::list<Drawable*> drawables;
     std::map<QString, QOpenGLShaderProgram*> m_shaders;
-    QMatrix4x4* m_projM;
+    QMatrix4x4 m_projM;
     float timer;
     float tinv;
 
