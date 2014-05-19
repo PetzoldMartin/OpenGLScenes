@@ -36,6 +36,7 @@ private slots:
     void handleWindowChanged(QQuickWindow *win);
 
 private:
+//    QMatrix4x4* vieport;
     RenderEngine* m_engine;
 };
 
