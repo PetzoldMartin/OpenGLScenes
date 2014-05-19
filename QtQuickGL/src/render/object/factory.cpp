@@ -57,23 +57,23 @@ Drawable *Factory::GenBlock(QVector3D size, QVector4D color, QOpenGLShaderProgra
 void Factory::createMeshRectangle()
 {
     QVector3D normal[] = {
-        QVector3D(+0.0, +0.0, +1.0),
-        QVector3D(+0.0, +0.0, +1.0),
-        QVector3D(+0.0, +0.0, +1.0),
+        QVector3D(+0.0, -1.0, +0.0),
+        QVector3D(+0.0, -1.0, +0.0),
+        QVector3D(+0.0, -1.0, +0.0),
 
-        QVector3D(+0.0, +0.0, +1.0),
-        QVector3D(+0.0, +0.0, +1.0),
-        QVector3D(+0.0, +0.0, +1.0),
+        QVector3D(+0.0, -1.0, +0.0),
+        QVector3D(+0.0, -1.0, +0.0),
+        QVector3D(+0.0, -1.0, +0.0),
     };
 
     QVector3D vert[] = {
-        QVector3D(+0.5, +0.5, 0.0),
-        QVector3D(-0.5, -0.5, 0.0),
-        QVector3D(-0.5, +0.5, 0.0),
+        QVector3D(+0.5, +0.0, +0.5),
+        QVector3D(-0.5, -0.0, -0.5),
+        QVector3D(-0.5, +0.0, +0.5),
 
-        QVector3D(+0.5, +0.5, 0.0),
-        QVector3D(+0.5, -0.5, 0.0),
-        QVector3D(-0.5, -0.5, 0.0),
+        QVector3D(+0.5, +0.0, +0.5),
+        QVector3D(+0.5, -0.0, -0.5),
+        QVector3D(-0.5, -0.0, -0.5),
     };
 
     m_rectangle = new Mesh();

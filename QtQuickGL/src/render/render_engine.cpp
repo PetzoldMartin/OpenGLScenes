@@ -1,6 +1,6 @@
 #include "render_engine.h"
 #include "src/render/object/drawable.h"
-#include "src/render/scene/test_scene.h"
+#include "src/render/scene/task_scene.h"
 
 #include <iostream>
 #include <QForeachContainer>
@@ -15,7 +15,7 @@ RenderEngine::RenderEngine(QObject* parent)
 {
     m_parent = parent;
     m_projM.setToIdentity();
-    m_scene = new TestScene(this);
+    m_scene = new TaskScene(this);
     timer = 0.5f;
     tinv = 1.0f;
     m_viewMode = 0;
@@ -31,11 +31,11 @@ RenderEngine::RenderEngine(QObject* parent)
 
 void RenderEngine::Resize(float width, float height) {
     m_projM.setToIdentity();
-    m_projM.perspective(90.0f, width / height, 0.01f, 500.0f);
+    m_projM.perspective(90.0f, width / height, 0.1f, 5000.0f);
 
     QMatrix4x4 view;
     view.setToIdentity();
-    view.translate(0.0f,0.0f,-50.f);
+    view.translate(0.0f,-100.0f,-200.f);
     view.rotate(alpha,0, 1,0);
     view.rotate(beta, 1, 0, 0);
 

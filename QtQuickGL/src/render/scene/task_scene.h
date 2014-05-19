@@ -3,11 +3,13 @@
 
 #include "src/render/scene/scene.h"
 
-class task_scene : public Scene
+class TaskScene : public Scene
 {
 public:
-    task_scene(RenderEngine *engine);
+    TaskScene(RenderEngine *engine);
     void Create();
+    void Update();
+    void Draw();
 };
 
 #endif // TASK_SCENE_H
