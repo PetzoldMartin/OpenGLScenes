@@ -5,6 +5,7 @@
 
 class Drawable;
 class RenderEngine;
+class Factory;
 
 #include <QQuickItem>
 
@@ -33,6 +34,7 @@ public slots:
 protected:
     std::vector<Drawable*> m_objects;
     RenderEngine *m_engine;
+    Factory *m_factory;
 
 };
 

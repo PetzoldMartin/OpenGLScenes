@@ -16,7 +16,7 @@ public:
 
 private:
     Drawable *m_d1;
-    Factory *m_factory;
+
 };
 
 #endif // TEST_SCENE_H
