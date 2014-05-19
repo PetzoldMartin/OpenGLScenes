@@ -22,7 +22,8 @@ RenderEngine::RenderEngine(QObject* parent)
 
     alpha=0;
     beta=0;
-    distance=0.5;
+    distance=90;
+
 
     m_scene->Create();
 
@@ -30,16 +31,10 @@ RenderEngine::RenderEngine(QObject* parent)
 }
 
 void RenderEngine::Resize(float width, float height) {
-    m_projM.setToIdentity();
-    m_projM.perspective(90.0f, width / height, 0.01f, 500.0f);
+    this->height=height;
+    this->width=width;
 
-    QMatrix4x4 view;
-    view.setToIdentity();
-    view.translate(0.0f,0.0f,-50.f);
-    view.rotate(alpha,0, 1,0);
-    view.rotate(beta, 1, 0, 0);
-
-    m_projM = m_projM * view;
+    Render();
 }
 
 QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
@@ -59,6 +54,15 @@ QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
 
 void RenderEngine::Render()
 {
+    m_projM.setToIdentity();
+    m_projM.perspective(distance, width / height, 0.001f, 500.0f);
+    QMatrix4x4 view;
+    view.setToIdentity();
+    view.translate(0.0f,0.0f,-50.f);
+    view.rotate(alpha,0, 1,0);
+    view.rotate(beta, 1, 0, 0);
+    m_projM = m_projM * view;
+
     glClearColor(0.0f,0.0f,0.0f,0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //glEnable(GL_CULL_FACE);
@@ -109,15 +113,18 @@ void RenderEngine::rotateView(int dx,int dy) {
     if (beta > 90) {
         beta = 90;
     }
-
+    Render();
 }
 
 void RenderEngine::scaleView (int delta) {
+
+  qDebug() << "Engine::scaleView"<< delta;
     if (delta < 0) {
         distance *= 1.1;
     } else if (delta > 0) {
         distance *= 0.9;
     }
+    Render();
 }
 
 void RenderEngine::setViewMode(int viewMode)

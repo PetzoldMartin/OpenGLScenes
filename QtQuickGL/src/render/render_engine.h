@@ -42,6 +42,7 @@ public:
 
     QObject *GetContext();
 private:
+
     QObject* m_parent;
     Scene *m_scene;
     std::list<Drawable*> drawables;
@@ -49,6 +50,9 @@ private:
     QMatrix4x4 m_projM;
     float timer;
     float tinv;
+
+    int height;
+    int width;
 
     double alpha;
     double beta;

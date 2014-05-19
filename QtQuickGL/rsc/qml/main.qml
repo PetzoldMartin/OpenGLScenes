@@ -93,7 +93,7 @@ Item {
         onWheel: {
             if (wheel.angleDelta.y != 0) {
                 console.log("wheel event: " + wheel.angleDelta.y)
-                window.scaleView(window.selectedObjectId, wheel.angleDelta.y)
+                window.scaleView(wheel.angleDelta.y)
                 window.update()
             }
         }
