@@ -9,7 +9,6 @@
 
 TestScene::TestScene(RenderEngine *engine) : Scene(engine)
 {
-    m_factory = new Factory(m_engine);
     m_d1 = NULL;
 }
 
