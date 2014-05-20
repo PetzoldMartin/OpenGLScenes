@@ -37,6 +37,7 @@ void WindowGL::handleWindowChanged(QQuickWindow *win)
         QSurfaceFormat f;
         f.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
         f.setSamples(4);
+        f.setDepthBufferSize(1000000);
         win->setFormat(f);
 
     }
