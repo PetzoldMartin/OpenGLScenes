@@ -103,6 +103,46 @@ void Factory::createMeshBlock()
         QVector3D(+0.0, +0.0, -1.0),
         QVector3D(+0.0, +0.0, -1.0),
         QVector3D(+0.0, +0.0, -1.0),
+
+
+        // Left
+        QVector3D(-1.0, +0.0, +0.0),
+        QVector3D(-1.0, +0.0, +0.0),
+        QVector3D(-1.0, +0.0, +0.0),
+
+        QVector3D(-1.0, +0.0, +0.0),
+        QVector3D(-1.0, +0.0, +0.0),
+        QVector3D(-1.0, +0.0, +0.0),
+
+
+        // Right
+        QVector3D(+1.0, +0.0, +0.0),
+        QVector3D(+1.0, +0.0, +0.0),
+        QVector3D(+1.0, +0.0, +0.0),
+
+        QVector3D(+1.0, +0.0, +0.0),
+        QVector3D(+1.0, +0.0, +0.0),
+        QVector3D(+1.0, +0.0, +0.0),
+
+
+        // Back
+        QVector3D(0.0, 1.0, +0.0),
+        QVector3D(0.0, 1.0, +0.0),
+        QVector3D(0.0, 1.0, +0.0),
+
+        QVector3D(0.0, 1.0, +0.0),
+        QVector3D(0.0, 1.0, +0.0),
+        QVector3D(0.0, 1.0, +0.0),
+
+
+        // Front
+        QVector3D(0.0, -1.0, +0.0),
+        QVector3D(0.0, -1.0, +0.0),
+        QVector3D(0.0, -1.0, +0.0),
+
+        QVector3D(0.0, -1.0, +0.0),
+        QVector3D(0.0, -1.0, +0.0),
+        QVector3D(0.0, -1.0, +0.0),
     };
 
     QVector3D vert[] = {
@@ -118,16 +158,57 @@ void Factory::createMeshBlock()
 
 
         // BOTOM
-        QVector3D(+0.5, +0.5, -0.5),
         QVector3D(-0.5, +0.5, -0.5),
+        QVector3D(+0.5, +0.5, -0.5),
         QVector3D(-0.5, -0.5, -0.5),
 
-        QVector3D(+0.5, +0.5, -0.5),
         QVector3D(-0.5, -0.5, -0.5),
+        QVector3D(+0.5, +0.5, -0.5),
         QVector3D(+0.5, -0.5, -0.5),
+
+
+        // LEFT
+        QVector3D( -0.5, -0.5, +0.5),
+        QVector3D( -0.5, +0.5, +0.5),
+        QVector3D( -0.5, -0.5, -0.5),
+
+        QVector3D( -0.5, -0.5, -0.5),
+        QVector3D( -0.5, +0.5, +0.5),
+        QVector3D( -0.5, +0.5, -0.5),
+
+
+        // RIGHT
+        QVector3D( +0.5, +0.5, +0.5),
+        QVector3D( +0.5, -0.5, +0.5),
+        QVector3D( +0.5, -0.5, -0.5),
+
+        QVector3D( +0.5, +0.5, +0.5),
+        QVector3D( +0.5, -0.5, -0.5),
+        QVector3D( +0.5, +0.5, -0.5),
+
+
+        // BACK
+        QVector3D( -0.5, +0.5, +0.5),
+        QVector3D( +0.5, +0.5, +0.5),
+        QVector3D( -0.5, +0.5, -0.5),
+
+        QVector3D( -0.5, +0.5, -0.5),
+        QVector3D( +0.5, +0.5, +0.5),
+        QVector3D( +0.5, +0.5, -0.5),
+
+
+        // FRONT
+        QVector3D( +0.5, -0.5, +0.5),
+        QVector3D( -0.5, -0.5, +0.5),
+        QVector3D( -0.5, -0.5, -0.5),
+
+        QVector3D( +0.5, -0.5, +0.5),
+        QVector3D( -0.5, -0.5, -0.5),
+        QVector3D( +0.5, -0.5, -0.5),
+
     };
 
     m_block = new Mesh();
-    m_block->SetVertices(vert,3*12);
-    m_block->SetNormals(normal,3*12);
+    m_block->SetVertices(vert,3*36);
+    m_block->SetNormals(normal,3*36);
 }
