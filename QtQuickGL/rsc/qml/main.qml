@@ -191,11 +191,11 @@ Item {
 
                     function toggleOptions() {
                         if(toggle) {
-                            parent.open()
-                            color = Qt.rgba(0, 0, 0, 0)
-                        } else {
                             parent.close()
                             color = Qt.rgba(0, 0, 0, 0.5)
+                        } else {
+                            parent.open()
+                            color = Qt.rgba(0, 0, 0, 0)
                         }
                         toggle = !toggle
                     }
