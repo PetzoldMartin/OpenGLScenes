@@ -31,13 +31,13 @@ RenderEngine::RenderEngine(QObject* parent)
 
 void RenderEngine::Resize(float width, float height) {
     m_projM.setToIdentity();
-    m_projM.perspective(90.0f, width / height, 0.1f, 5000.0f);
+    m_projM.perspective(90.0f, width / height, 1.0f, 5000.0f);
 
     QMatrix4x4 view;
     view.setToIdentity();
     view.translate(0.0f,-100.0f,-200.f);
-    view.rotate(alpha,0, 1,0);
-    view.rotate(beta, 1, 0, 0);
+    view.rotate(-alpha,0, 1,0);
+    view.rotate(-beta, 1, 0, 0);
 
     m_projM = m_projM * view;
 }
@@ -59,7 +59,7 @@ QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
 
 void RenderEngine::Render()
 {
-    glClearColor(1.0f,1.0f,1.0f,0.0f);
+    glClearColor(1.0f,1.0f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
@@ -78,6 +78,10 @@ void RenderEngine::Render()
     foreach (Drawable* drawable, drawables) {
         drawable->Draw(&world);
     }
+
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+
 }
 
 void RenderEngine::Update()
