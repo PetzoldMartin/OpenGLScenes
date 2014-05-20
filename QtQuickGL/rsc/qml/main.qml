@@ -28,35 +28,6 @@ Item {
         }
     }
 
-
-    Rectangle {
-        color: Qt.rgba(0, 0, 0, 0.5)
-        radius: 10
-        border.width: 1
-        border.color: "white"
-        anchors.fill: label
-        anchors.margins: -10
-    }
-
-
-    Text {
-        id: label
-        color: "white"
-        wrapMode: Text.WordWrap
-        text: "The background here is rendered with raw OpenGL using the 'beforeRender()' signal in QQuickWindow. This text label and its border is rendered using QML"
-        anchors.right: parent.right
-        anchors.left: parent.left
-        anchors.bottom: parent.bottom
-        anchors.margins: 20
-    }
-
-
-
-
-
-
-
-
     MouseArea {
         id: mouseListenerArea
         anchors.fill: parent
@@ -117,53 +88,45 @@ Item {
                 color: Qt.rgba(0, 0, 0, 0.5)
                 anchors.left: parent.left
 
-                function open() {
-                    width = 200
-                }
-
-                function close() {
-                    width = 0
-                }
-
+                property int widthOpen: 260
+                // Toggle to open and close the menu
                 Rectangle {
                     id: toggleOptions
-                    anchors.right: parent.right + width
-                    anchors.top: parent.top
-                    color: Qt.rgba(0, 0, 0, 0.5)
                     width: 32
                     height: 32
+                    anchors.top: parent.top
+                    color: Qt.rgba(0, 0, 0, 0)
+
                     layer.enabled: true
 
                     property bool toggle: false
-                    property color colorHover: Qt.rgba(1,0.25,0,1)
+                    property color colorOnHover: Qt.rgba(1,0.25,0,1)
+                    property color colorOffHover: Qt.rgba(0,0,0,0.5)
 
                     Rectangle {
                         id: r1
-                        color: "white"
+                        color: parent.colorOffHover
                         width: parent.width - 8
                         height: 4
                         anchors.centerIn: parent
-                        z: toggleOptions.z +1
                     }
 
                     Rectangle {
                         id: r2
-                        color: "white"
+                        color: parent.colorOffHover
                         width: parent.width - 8
                         height: 4
                         x: r1.x
                         y: r1.y - 8
-                        z: toggleOptions.z +1
                     }
 
                     Rectangle {
                         id: r3
-                        color: "white"
+                        color: parent.colorOffHover
                         width: parent.width - 8
                         height: 4
                         x: r1.x
                         y: r1.y + 8
-                        z: toggleOptions.z +1
                     }
 
                     // ToggleOptions
@@ -178,28 +141,72 @@ Item {
                     }
 
                     function mouseEnterToogleOption() {
-                        r1.color = colorHover
-                        r2.color = colorHover
-                        r3.color = colorHover
+                        r1.color = colorOnHover
+                        r2.color = colorOnHover
+                        r3.color = colorOnHover
                     }
 
                     function mouseExitedToogleOption() {
-                        r1.color = "white"
-                        r2.color = "white"
-                        r3.color = "white"
+                        r1.color = colorOffHover
+                        r2.color = colorOffHover
+                        r3.color = colorOffHover
                     }
 
                     function toggleOptions() {
                         if(toggle) {
                             parent.close()
-                            color = Qt.rgba(0, 0, 0, 0.5)
                         } else {
                             parent.open()
-                            color = Qt.rgba(0, 0, 0, 0)
                         }
                         toggle = !toggle
                     }
 
+                }
+
+                // TODO create Buttons
+
+                Rectangle {
+                    id: modi
+                    width: parent.width
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.topMargin: 16
+                    anchors.leftMargin: 32
+                    visible: false
+
+
+                    Row {
+                        anchors.left: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+                        layer.enabled: true
+                        spacing: 5
+
+                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
+                                    width: 70; height: 20;
+                                    Text { anchors.centerIn: parent
+                                           color: "white"
+                                           font.pointSize: 12; text: "CREATE" } }
+                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
+                                    width: 70; height: 20
+                                    Text { anchors.centerIn: parent
+                                           color: "white"
+                                           font.pointSize: 12; text: "DELETE" } }
+                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
+                                    width: 70; height: 20
+                                    Text { anchors.centerIn: parent
+                                           color: "white"
+                                           font.pointSize: 12; text: "MODIFY" } }
+                    }
+                }
+
+                function open() {
+                    width = widthOpen
+                    modi.visible = true
+                }
+
+                function close() {
+                    width = 0
+                    modi.visible = false
                 }
             }
 
