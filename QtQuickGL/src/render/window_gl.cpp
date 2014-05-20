@@ -32,14 +32,6 @@ void WindowGL::handleWindowChanged(QQuickWindow *win)
         connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(initialize()), Qt::DirectConnection);
 
         win->setClearBeforeRendering(false);
-
-        // Set some formats
-        QSurfaceFormat f;
-        f.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
-        f.setSamples(4);
-        f.setDepthBufferSize(1000000);
-        win->setFormat(f);
-
     }
 }
 
