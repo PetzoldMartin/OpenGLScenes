@@ -38,6 +38,7 @@ Item {
         anchors.margins: -10
     }
 
+
     Text {
         id: label
         color: "white"
@@ -48,6 +49,13 @@ Item {
         anchors.bottom: parent.bottom
         anchors.margins: 20
     }
+
+
+
+
+
+
+
 
     MouseArea {
         id: mouseListenerArea
@@ -97,5 +105,106 @@ Item {
                 window.update()
             }
         }
+
+        // Options
+        Item {
+            id: options
+
+            Rectangle {
+                id: menu
+                width: 0
+                height: mainItem.height
+                color: Qt.rgba(0, 0, 0, 0.5)
+                anchors.left: parent.left
+
+                function open() {
+                    width = 200
+                }
+
+                function close() {
+                    width = 0
+                }
+
+                Rectangle {
+                    id: toggleOptions
+                    anchors.right: parent.right + width
+                    anchors.top: parent.top
+                    color: Qt.rgba(0, 0, 0, 0.5)
+                    width: 32
+                    height: 32
+                    layer.enabled: true
+
+                    property bool toggle: false
+                    property color colorHover: Qt.rgba(1,0.25,0,1)
+
+                    Rectangle {
+                        id: r1
+                        color: "white"
+                        width: parent.width - 8
+                        height: 4
+                        anchors.centerIn: parent
+                        z: toggleOptions.z +1
+                    }
+
+                    Rectangle {
+                        id: r2
+                        color: "white"
+                        width: parent.width - 8
+                        height: 4
+                        x: r1.x
+                        y: r1.y - 8
+                        z: toggleOptions.z +1
+                    }
+
+                    Rectangle {
+                        id: r3
+                        color: "white"
+                        width: parent.width - 8
+                        height: 4
+                        x: r1.x
+                        y: r1.y + 8
+                        z: toggleOptions.z +1
+                    }
+
+                    // ToggleOptions
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+
+                        onEntered: parent.mouseEnterToogleOption()
+                        onExited: parent.mouseExitedToogleOption()
+                        onClicked: parent.toggleOptions()
+
+                    }
+
+                    function mouseEnterToogleOption() {
+                        r1.color = colorHover
+                        r2.color = colorHover
+                        r3.color = colorHover
+                    }
+
+                    function mouseExitedToogleOption() {
+                        r1.color = "white"
+                        r2.color = "white"
+                        r3.color = "white"
+                    }
+
+                    function toggleOptions() {
+                        if(toggle) {
+                            parent.open()
+                            color = Qt.rgba(0, 0, 0, 0)
+                        } else {
+                            parent.close()
+                            color = Qt.rgba(0, 0, 0, 0.5)
+                        }
+                        toggle = !toggle
+                    }
+
+                }
+            }
+
+        }
+
     }
+
 }
