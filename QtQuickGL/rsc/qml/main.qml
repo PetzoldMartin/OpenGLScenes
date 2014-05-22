@@ -23,6 +23,9 @@ Item {
                 case Qt.Key_F2:
                     window.setViewMode(1)
                     break
+                case Qt.Key_F3:
+                    window.setViewMode(2)
+                    break
             }
             window.update()
         }
