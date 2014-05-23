@@ -21,8 +21,8 @@ RenderEngine::RenderEngine(QObject* parent)
     m_viewMode = 0;
 
     alpha=0;
-    beta=0;
-    distance=0.5;
+    beta=90;
+    distance=-200;
 
     m_scene->Create();
 
@@ -35,7 +35,7 @@ void RenderEngine::Resize(float width, float height) {
 
     QMatrix4x4 view;
     view.setToIdentity();
-    view.translate(0.0f,-100.0f,-200.f);
+    view.translate(0.0f,-75.0f,distance);
     view.rotate(-alpha,0, 1,0);
     view.rotate(-beta, 1, 0, 0);
 
@@ -119,9 +119,13 @@ void RenderEngine::rotateView(int dx,int dy) {
 
 void RenderEngine::scaleView (int delta) {
     if (delta < 0) {
-        distance *= 1.1;
+        if (distance > -500) {
+            distance *= 1.1;
+        }
     } else if (delta > 0) {
-        distance *= 0.9;
+        if (distance < -50) {
+            distance *= 0.9;
+        }
     }
 }
 
