@@ -9,27 +9,32 @@ class Factory;
 
 #include <QQuickItem>
 
-class Scene : public QQuickItem
+///
+/// \brief The Scene class contains Drawables and manage them
+/// \author André Furchner
+///
+class Scene
 {
 public:
+
+    ///
+    /// \brief Create new Scene
+    /// \param engine The RenderEngine Context
+    ///
     Scene(RenderEngine *engine);
 
-    virtual void Draw();
+    ///
+    /// \brief Draw the Scene
+    ///
+    void Draw();
+
     virtual void Update() = 0;
     virtual void Create() = 0;
 
-signals:
-    void tChanged();
-
-public slots:
-    int CreateDrawable(int type, QVector2D position);
-    int GetID(QVector2D position);
-    void Change(int id, int operation, QVector4D value);
-
 protected:
-    std::vector<Drawable*> m_objects;
-    RenderEngine *m_engine;
-    Factory *m_factory;
+    std::vector<Drawable*> m_objects;       ///< Container for all Objects
+    RenderEngine *m_engine;                 ///< RenderEngine Context
+    Factory *m_factory;                     ///< Factory to Generate Drawables
 
 };
 
