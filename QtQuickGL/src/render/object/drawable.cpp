@@ -60,7 +60,7 @@ void Drawable::Build()
 
     // set uniform variable
     m_shader->setUniformValue("modelMatrix", *m_modelMatrix);
-    m_mesh->Build(m_engine->GetContext(), m_shader);
+    m_mesh->BuildVAO(m_engine->GetContext(), m_shader);
 
 }
 

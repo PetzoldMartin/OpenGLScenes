@@ -11,13 +11,8 @@ class Factory;
 
 class Scene : public QQuickItem
 {
-    //Q_OBJECT
-    //Q_PROPERTY(qreal t READ t WRITE setT NOTIFY tChanged)
 public:
     Scene(RenderEngine *engine);
-
-    //qreal t() const { return m_t; }
-    //void setT(qreal t);
 
     virtual void Draw();
     virtual void Update() = 0;

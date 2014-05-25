@@ -77,8 +77,8 @@ void Factory::createMeshRectangle()
     };
 
     m_rectangle = new Mesh();
-    m_rectangle->SetVertices(vert,3*6);
-    m_rectangle->SetNormals(normal,3*6);
+    m_rectangle->SetVertices(vert,6);
+    m_rectangle->SetNormals(normal,6);
 }
 
 void Factory::createMeshBlock()
@@ -209,6 +209,6 @@ void Factory::createMeshBlock()
     };
 
     m_block = new Mesh();
-    m_block->SetVertices(vert,3*36);
-    m_block->SetNormals(normal,3*36);
+    m_block->SetVertices(vert,36);
+    m_block->SetNormals(normal,36);
 }

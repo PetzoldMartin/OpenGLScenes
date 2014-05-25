@@ -21,6 +21,7 @@ public:
     Drawable(RenderEngine *engine, QMatrix4x4 *transform);
 
     void Draw(QMatrix4x4* transform);
+
     void Build();
 
     void SetMesh(Mesh *mesh);
