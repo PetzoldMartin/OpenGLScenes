@@ -10,7 +10,6 @@ class TestScene : public Scene
 public:
     TestScene(RenderEngine *engine);
 
-    void Draw();
     void Update();
     void Create();
 

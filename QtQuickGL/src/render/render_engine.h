@@ -7,7 +7,6 @@
 #include <QMatrix4x4>
 
 // Forward Declarations
-class Drawable;
 class QObject;
 class QOpenGLShaderProgram;
 class Scene;
@@ -29,7 +28,7 @@ public:
     void Resize(float w, float height);
     QOpenGLShaderProgram* GetShader(QString name);
 
-    void AddDrawable(Drawable *drawable);
+    void AddScene(Scene *scene);
 
     //global
     void rotateView(int x,int y);
@@ -44,8 +43,7 @@ public:
 private:
 
     QObject* m_parent;
-    Scene *m_scene;
-    std::list<Drawable*> drawables;
+    std::list<Scene*> m_scenes;
     std::map<QString, QOpenGLShaderProgram*> m_shaders;
     QMatrix4x4 m_projM;
     float timer;

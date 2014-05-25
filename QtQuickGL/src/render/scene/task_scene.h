@@ -9,7 +9,6 @@ public:
     TaskScene(RenderEngine *engine);
     void Create();
     void Update();
-    void Draw();
 
 private:
     Drawable *m_gestell, *m_klotz,
