@@ -43,23 +43,9 @@ void RenderEngine::Resize(float width, float height) {
     m_projM = m_projM * view;
 }
 
-QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
-{
-    QOpenGLShaderProgram* shader = m_shaders[name];
-
-    // if the shader does not exist create a new
-    if(shader == NULL) {
-        shader = new QOpenGLShaderProgram(m_parent);
-        shader->addShaderFromSourceFile(QOpenGLShader::Fragment, QString(":/shader/" + name + ".frag"));
-        shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString(":/shader/" + name + ".vert"));
-        shader->link();
-        m_shaders[name] = shader;
-    }
-    return shader;
-}
-
 void RenderEngine::Render()
 {
+    // OpenGL Inits
     glClearColor(1.0f,1.0f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_CULL_FACE);
@@ -79,6 +65,7 @@ void RenderEngine::Render()
         scene->Draw();
     }
 
+    // Clean OpenGL Context
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
 
@@ -91,14 +78,7 @@ void RenderEngine::Update()
     }
 }
 
-void RenderEngine::AddScene(Scene* scene) {
-    m_scenes.push_back(scene);
-}
 
-QObject *RenderEngine::GetContext()
-{
-    return m_parent;
-}
 //global
 void RenderEngine::rotateView(int dx,int dy) {
     alpha -= dx%180;
@@ -143,4 +123,28 @@ int RenderEngine::pickObjectAt(int x, int y) {
 
 void RenderEngine::rotateObject(int id,int dx,int dy) {
     //TODO
+}
+
+QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
+{
+    QOpenGLShaderProgram* shader = m_shaders[name];
+
+    // if the shader does not exist create a new
+    if(shader == NULL) {
+        shader = new QOpenGLShaderProgram(m_parent);
+        shader->addShaderFromSourceFile(QOpenGLShader::Fragment, QString(":/shader/" + name + ".frag"));
+        shader->addShaderFromSourceFile(QOpenGLShader::Vertex, QString(":/shader/" + name + ".vert"));
+        shader->link();
+        m_shaders[name] = shader;
+    }
+    return shader;
+}
+
+void RenderEngine::AddScene(Scene* scene) {
+    m_scenes.push_back(scene);
+}
+
+QObject *RenderEngine::GetContext()
+{
+    return m_parent;
 }

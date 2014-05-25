@@ -12,22 +12,49 @@ class QOpenGLShaderProgram;
 class Scene;
 
 ///
-/// \brief The RenderEngine class
-/// Draws all Drawables
+/// \brief The RenderEngine class draws all Drawables
+/// \author André Furchner
+/// \author Markus Krummnacker
 ///
 class RenderEngine
 {
 public:
+
+    ///
+    /// \brief Create a new RenderEngine
+    /// \param parent QObject GUI Parent
+    ///
     RenderEngine(QObject *parent);
 
+    ///
     /// \brief Render all Drawables
+    ///
     void Render();
 
+    ///
+    /// \brief Update Engine stuff
+    ///
     void Update();
 
+    ///
+    /// \brief Resize the View
+    /// \param w in Pixel
+    /// \param height   in Pixel
+    ///
     void Resize(float w, float height);
+
+    ///
+    /// \brief Returns the Shader Object with that name
+    /// if it was not created yet than it will create one
+    /// \param name
+    /// \return
+    ///
     QOpenGLShaderProgram* GetShader(QString name);
 
+    ///
+    /// \brief Add a Scene that will be renderd
+    /// \param scene The Scene Object to render
+    ///
     void AddScene(Scene *scene);
 
     //global
@@ -42,9 +69,12 @@ public:
     QObject *GetContext();
 private:
 
-    QObject* m_parent;
-    std::list<Scene*> m_scenes;
-    std::map<QString, QOpenGLShaderProgram*> m_shaders;
+    QObject* m_parent;                                      /// GUI Parent
+    std::list<Scene*> m_scenes;                             /// Senes to Draw and Update
+    std::map<QString, QOpenGLShaderProgram*> m_shaders;     /// Shader Container
+
+    //TODO: Camera Class ////
+    //TODO: One ore more Cameras can be part of Scenes
     QMatrix4x4 m_projM;
     float timer;
     float tinv;
@@ -56,6 +86,7 @@ private:
     double beta;
     double distance;
     int m_viewMode;
+    // Camera Class /////////
 
 };
 
