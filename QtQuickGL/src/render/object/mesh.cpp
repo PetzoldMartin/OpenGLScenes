@@ -7,10 +7,17 @@
 
 Mesh::Mesh()
 {
-    m_vao = NULL;
-    m_normalBuffer = NULL;
-    m_vertexBuffer = NULL;
+    m_vao = 0;
+    m_normalBuffer = 0;
+    m_vertexBuffer = 0;
     m_vertexCount = 0;
+}
+
+Mesh::~Mesh()
+{
+    delete m_normalBuffer;
+    delete m_vertexBuffer;
+    delete m_vao;
 }
 
 void Mesh::Build(QObject *context, QOpenGLShaderProgram *shader)
@@ -19,7 +26,7 @@ void Mesh::Build(QObject *context, QOpenGLShaderProgram *shader)
     m_vao->create();
     m_vao->bind();
 
-    if(m_vertexBuffer != NULL) {
+    if(m_vertexBuffer != 0) {
         m_vertexBuffer->bind();
         int in_position = shader->attributeLocation("in_position");
         shader->enableAttributeArray(in_position);
@@ -27,7 +34,7 @@ void Mesh::Build(QObject *context, QOpenGLShaderProgram *shader)
         m_vertexBuffer->release();
     }
 
-    if(m_normalBuffer != NULL) {
+    if(m_normalBuffer != 0) {
         m_normalBuffer->bind();
         int in_normal = shader->attributeLocation("in_normal");
         shader->enableAttributeArray(in_normal);
@@ -47,7 +54,7 @@ void Mesh::Draw()
 void Mesh::SetVertices(void *vertices, int count)
 {
     // Create a VertexBuffer if it is the first Time
-    if(m_vertexBuffer == NULL) {
+    if(m_vertexBuffer == 0) {
         m_vertexBuffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
         m_vertexBuffer->create();
     }
@@ -58,7 +65,7 @@ void Mesh::SetVertices(void *vertices, int count)
 void Mesh::SetNormals(void *normals, int count)
 {
     // Create a ColorBuffer if it is the first Time
-    if(m_normalBuffer == NULL) {
+    if(m_normalBuffer == 0) {
         m_normalBuffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
         m_normalBuffer->create();
     }

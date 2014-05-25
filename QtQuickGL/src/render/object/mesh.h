@@ -10,6 +10,7 @@ class Mesh
 {
 public:
     Mesh();
+    ~Mesh();
     void Build(QObject *context, QOpenGLShaderProgram *shader);
     void Draw();
 
