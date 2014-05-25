@@ -32,10 +32,9 @@ public:
     virtual void Create() = 0;
 
 protected:
-    std::vector<Drawable*> m_objects;       ///< Container for all Objects
-    RenderEngine *m_engine;                 ///< RenderEngine Context
-    Factory *m_factory;                     ///< Factory to Generate Drawables
-
+    std::vector<Drawable*> m_objects;           ///< Container for all Objects
+    RenderEngine *m_engine;                     ///< RenderEngine Context
+    Factory *m_factory;                         ///< Factory to Generate Drawables
 };
 
 #endif // SCENE_H

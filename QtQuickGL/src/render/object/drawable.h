@@ -94,16 +94,20 @@ public:
     QMatrix4x4 *GetTransformMatrix();
 
 private:
-    Mesh *m_mesh;                           ///< Geometry Mesh
-    QVector4D m_color;                      ///< Color for Shader
+    Mesh *m_mesh;                               ///< Geometry Mesh
+    QVector4D m_color;                          ///< Color for Shader
 
-    QOpenGLShaderProgram *m_shader;         ///< Used Shader to Draw
-    RenderEngine *m_engine;                 ///< The RenderEngine Context
+    QOpenGLShaderProgram *m_shader;             ///< Used Shader to Draw
+    RenderEngine *m_engine;                     ///< The RenderEngine Context
 
-    QMatrix4x4 *m_modelMatrix;              ///< Self Matrix
-    QMatrix4x4 *m_transMatrix;              ///< Transformation to his parent
+    QMatrix4x4 *m_modelMatrix;                  ///< Self Matrix
+    QMatrix4x4 *m_transMatrix;                  ///< Transformation to his parent
 
-    std::vector<Drawable*> m_childList;     ///< List of Childs
+    std::vector<Drawable*> m_childList;         ///< List of Childs
+
+    int m_id;                                   ///< unique id
+    static QMap<int, Drawable*> s_objectMap;    ///< static map of all Drawables
+    static int s_drawableCount;                 ///< gloabal count of all Drawables
 };
 
 #endif // DRAWABLE_H
