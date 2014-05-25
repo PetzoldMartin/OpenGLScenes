@@ -23,10 +23,12 @@ Factory::Factory(RenderEngine *engine)
 
 Drawable* Factory::GenRectangle(QVector3D size,  QVector4D color, QOpenGLShaderProgram *shader) {
 
+    // create internal model matrix that create the size
     QMatrix4x4 *modelMatrix = new QMatrix4x4();
     modelMatrix->setToIdentity();
     modelMatrix->scale(size);
 
+    // create a new Drawable to be a Rectangle
     Drawable *rect = new Drawable(m_engine, new QMatrix4x4());
     rect->SetMesh(m_rectangle);
     rect->SetModelMatrix(modelMatrix);
@@ -39,11 +41,12 @@ Drawable* Factory::GenRectangle(QVector3D size,  QVector4D color, QOpenGLShaderP
 
 Drawable *Factory::GenBlock(QVector3D size, QVector4D color, QOpenGLShaderProgram *shader)
 {
-
+    // create internal model matrix that create the size
     QMatrix4x4 *modelMatrix = new QMatrix4x4();
     modelMatrix->setToIdentity();
     modelMatrix->scale(size);
 
+    // create a new Drawable to be a Block
     Drawable *block = new Drawable(m_engine, new QMatrix4x4());
     block->SetMesh(m_block);
     block->SetModelMatrix(modelMatrix);
