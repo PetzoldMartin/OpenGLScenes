@@ -19,7 +19,7 @@ public:
     //qreal t() const { return m_t; }
     //void setT(qreal t);
 
-    virtual void Draw() = 0;
+    virtual void Draw();
     virtual void Update() = 0;
     virtual void Create() = 0;
 

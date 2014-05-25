@@ -15,7 +15,6 @@ RenderEngine::RenderEngine(QObject* parent)
 {
     m_parent = parent;
     m_projM.setToIdentity();
-    m_scene = new TaskScene(this);
     timer = 0.5f;
     tinv = 1.0f;
     m_viewMode = 0;
@@ -24,7 +23,9 @@ RenderEngine::RenderEngine(QObject* parent)
     beta=90;
     distance=-200;
 
-    m_scene->Create();
+    Scene *scene = new TaskScene(this);
+    scene->Create();
+    m_scenes.push_back(scene);
 
 
 }
@@ -73,11 +74,9 @@ void RenderEngine::Render()
     shader->release();
 
 
-    // Draw all Drawables
-    QMatrix4x4 world;
-    world.setToIdentity();
-    foreach (Drawable* drawable, drawables) {
-        drawable->Draw(&world);
+    // Draw all Scenes
+    foreach (Scene* scene, m_scenes) {
+        scene->Draw();
     }
 
     glDisable(GL_CULL_FACE);
@@ -87,11 +86,13 @@ void RenderEngine::Render()
 
 void RenderEngine::Update()
 {
-    m_scene->Update();
+    foreach (Scene* scene, m_scenes) {
+        scene->Update();
+    }
 }
 
-void RenderEngine::AddDrawable(Drawable* drawable) {
-    drawables.push_back(drawable);
+void RenderEngine::AddScene(Scene* scene) {
+    m_scenes.push_back(scene);
 }
 
 QObject *RenderEngine::GetContext()

@@ -39,12 +39,7 @@ void TestScene::Create()
         }
     }
 
-    m_engine->AddDrawable(m_d1);
-}
-
-void TestScene::Draw()
-{
-    // TOTO: Need this?
+    m_objects.push_back(m_d1);
 }
 
 void TestScene::Update()

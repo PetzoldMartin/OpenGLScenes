@@ -66,7 +66,7 @@ void TaskScene::Create()
     mBlock2->translate(60,0,0);
     m_hl->AddChild(m_block2,mBlock2);
 
-    m_engine->AddDrawable(m_gestell);
+    m_objects.push_back(m_gestell);
 
 }
 
@@ -75,7 +75,3 @@ void TaskScene::Update()
 
 }
 
-void TaskScene::Draw()
-{
-
-}
