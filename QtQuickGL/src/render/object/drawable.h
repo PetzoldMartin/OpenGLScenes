@@ -93,6 +93,12 @@ public:
     ///
     QMatrix4x4 *GetTransformMatrix();
 
+    ///
+    /// \brief GetID returns the unique id
+    /// \return the id
+    ///
+    int GetID();
+
 private:
     Mesh *m_mesh;                               ///< Geometry Mesh
     QVector4D m_color;                          ///< Color for Shader
@@ -106,7 +112,6 @@ private:
     std::vector<Drawable*> m_childList;         ///< List of Childs
 
     int m_id;                                   ///< unique id
-    static QMap<int, Drawable*> s_objectMap;    ///< static map of all Drawables
     static int s_drawableCount;                 ///< gloabal count of all Drawables
 };
 

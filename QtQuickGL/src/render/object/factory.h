@@ -41,6 +41,7 @@ public:
     Drawable *GenBlock(QVector3D size, QVector4D color, QOpenGLShaderProgram *shader);
 
 private:
+
     RenderEngine *m_engine;         ///< The RenderEngine Context
     Mesh *m_rectangle;              ///< The Default Rectangle Mesh
     Mesh *m_block;                  ///< The Default Block Mesh
