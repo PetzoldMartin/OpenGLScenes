@@ -11,7 +11,6 @@
 
 
 int Drawable::s_drawableCount = 0;
-QMap<int,Drawable*> Drawable::s_objectMap;
 
 Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
 {
@@ -21,7 +20,6 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
     m_engine = engine;
     m_transMatrix = transform;
     m_id = ++s_drawableCount;
-    Drawable::s_objectMap[m_id] = this;
 }
 
 void Drawable::Draw(QMatrix4x4 *transform)
@@ -114,4 +112,9 @@ int Drawable::GetChildCount()
 QMatrix4x4 *Drawable::GetTransformMatrix()
 {
     return m_transMatrix;
+}
+
+int Drawable::GetID()
+{
+    return m_id;
 }
