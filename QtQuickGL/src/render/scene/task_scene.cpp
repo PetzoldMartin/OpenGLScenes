@@ -3,6 +3,8 @@
 #include "src/render/render_engine.h"
 #include "src/render/object/drawable.h"
 #include "src/render/object/factory.h"
+#include <QTime>
+#include <QtCore/QtMath>
 
 TaskScene::TaskScene(RenderEngine *engine)
     : Scene(engine)
@@ -72,6 +74,7 @@ void TaskScene::Create()
 
 void TaskScene::Update()
 {
-
+    m_punkt->GetTransformMatrix()->rotate(3,0,1,0);
+    m_schlitten->GetTransformMatrix()->translate( qSin(QTime::currentTime().second()*2)*0.9,0,0);
 }
 
