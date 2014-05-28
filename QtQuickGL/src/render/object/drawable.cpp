@@ -10,7 +10,7 @@
 #include <QMatrix4x4>
 
 
-int Drawable::s_drawableCount = 0;
+QVector4D Drawable::s_idCount = QVector4D(0.0f,0.0f,0.0f,1.0f);
 
 Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
 {
@@ -19,7 +19,12 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
     m_modelMatrix = NULL;
     m_engine = engine;
     m_transMatrix = transform;
-    m_id = ++s_drawableCount;
+
+    // create new id
+    // TODO: make this better
+    s_idCount.setX(s_idCount.x() + 0.001);
+
+    m_id = s_idCount;
 }
 
 void Drawable::Draw(QMatrix4x4 *transform)
@@ -114,7 +119,7 @@ QMatrix4x4 *Drawable::GetTransformMatrix()
     return m_transMatrix;
 }
 
-int Drawable::GetID()
+QVector4D Drawable::GetID()
 {
     return m_id;
 }

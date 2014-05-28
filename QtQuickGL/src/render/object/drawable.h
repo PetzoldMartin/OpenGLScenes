@@ -7,6 +7,7 @@
 // Forward Declaration
 class QOpenGLShaderProgram;
 class QMatrix4x4;
+class QVector4D;
 class QObject;
 class RenderEngine;
 class Mesh;
@@ -97,7 +98,7 @@ public:
     /// \brief GetID returns the unique id
     /// \return the id
     ///
-    int GetID();
+    QVector4D GetID();
 
 private:
     Mesh *m_mesh;                               ///< Geometry Mesh
@@ -111,8 +112,8 @@ private:
 
     std::vector<Drawable*> m_childList;         ///< List of Childs
 
-    int m_id;                                   ///< unique id
-    static int s_drawableCount;                 ///< gloabal count of all Drawables
+    QVector4D m_id;                             ///< unique id
+    static QVector4D s_idCount;                 ///< gloabal count of all Drawables
 };
 
 #endif // DRAWABLE_H
