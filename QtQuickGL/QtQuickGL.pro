@@ -12,7 +12,8 @@ SOURCES += \
     src/render/scene/scene.cpp \
     src/render/scene/test_scene.cpp \
     src/render/object/mesh.cpp \
-    src/render/scene/task_scene.cpp
+    src/render/scene/task_scene.cpp \
+    src/render/utility/rendertarget.cpp
 
 RESOURCES += \
     rsc/resource.qrc
@@ -32,7 +33,8 @@ HEADERS += \
     src/render/scene/scene.h \
     src/render/scene/test_scene.h \
     src/render/object/mesh.h \
-    src/render/scene/task_scene.h
+    src/render/scene/task_scene.h \
+    src/render/utility/rendertarget.h
 
 OTHER_FILES += \
     rsc/qml/main.qml \
