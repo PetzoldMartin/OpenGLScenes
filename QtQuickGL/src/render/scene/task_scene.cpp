@@ -4,7 +4,7 @@
 #include "src/render/object/drawable.h"
 #include "src/render/object/factory.h"
 #include <QTime>
-#include <QtCore/QtMath>
+#include <QtMath>
 
 TaskScene::TaskScene(RenderEngine *engine)
     : Scene(engine)
