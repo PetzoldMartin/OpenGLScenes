@@ -34,7 +34,7 @@ void WindowGL::handleWindowChanged(QQuickWindow *win)
         connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(initialize()), Qt::DirectConnection);
 
         // update loop
-        connect(win, SIGNAL(afterRendering()),this, SLOT(update()), Qt::DirectConnection);
+        // connect(win, SIGNAL(afterRendering()),this, SLOT(update()), Qt::DirectConnection);
 
 
         win->setClearBeforeRendering(false);

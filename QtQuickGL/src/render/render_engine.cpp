@@ -34,7 +34,7 @@ void RenderEngine::Resize(float width, float height) {
     m_projM.setToIdentity();
     m_projM.perspective(90.0f, width / height, 1.0f, 5000.0f);
 
-    QMatrix4x4 view;
+    //QMatrix4x4 view;
     view.setToIdentity();
     view.translate(0.0f,-75.0f,distance);
     view.rotate(-alpha,0, 1,0);
@@ -57,8 +57,8 @@ void RenderEngine::Render()
     shader->bind();
     shader->setUniformValue("projMatrix", m_projM);
     shader->setUniformValue("viewMode", m_viewMode);
+    shader->setUniformValue("cameraPosition",view.mapVector(QVector3D(0,0,-1)));
     shader->release();
-
 
     // Draw all Scenes
     foreach (Scene* scene, m_scenes) {

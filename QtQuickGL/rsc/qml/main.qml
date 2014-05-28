@@ -14,19 +14,23 @@ Item {
         property int mouseY: 0
         property int selectedObjectId: 0
 
+        Timer {
+            interval: 1000/60; running: true; repeat: true
+            onTriggered: window.update()
+        }
 
 
         Keys.onPressed: {
             switch(event.key) {
-                case Qt.Key_F1:
-                    window.setViewMode(0)
-                    break
-                case Qt.Key_F2:
-                    window.setViewMode(1)
-                    break
-                case Qt.Key_F3:
-                    window.setViewMode(2)
-                    break
+            case Qt.Key_F1:
+                window.setViewMode(0)
+                break
+            case Qt.Key_F2:
+                window.setViewMode(1)
+                break
+            case Qt.Key_F3:
+                window.setViewMode(2)
+                break
             }
         }
     }
@@ -181,20 +185,20 @@ Item {
                         spacing: 5
 
                         Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                                    width: 70; height: 20;
-                                    Text { anchors.centerIn: parent
-                                           color: "white"
-                                           font.pointSize: 12; text: "CREATE" } }
+                            width: 70; height: 20;
+                            Text { anchors.centerIn: parent
+                                color: "white"
+                                font.pointSize: 12; text: "CREATE" } }
                         Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                                    width: 70; height: 20
-                                    Text { anchors.centerIn: parent
-                                           color: "white"
-                                           font.pointSize: 12; text: "DELETE" } }
+                            width: 70; height: 20
+                            Text { anchors.centerIn: parent
+                                color: "white"
+                                font.pointSize: 12; text: "DELETE" } }
                         Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                                    width: 70; height: 20
-                                    Text { anchors.centerIn: parent
-                                           color: "white"
-                                           font.pointSize: 12; text: "MODIFY" } }
+                            width: 70; height: 20
+                            Text { anchors.centerIn: parent
+                                color: "white"
+                                font.pointSize: 12; text: "MODIFY" } }
                     }
                 }
 
