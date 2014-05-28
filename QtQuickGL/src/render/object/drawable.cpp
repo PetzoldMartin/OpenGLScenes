@@ -36,8 +36,9 @@ void Drawable::Draw(QMatrix4x4 *transform)
     m_shader->setUniformValue("color", m_color);
 
     // calculate and set uniform variable modelMatrix
-    QMatrix4x4 t2 = *transform * *m_transMatrix;
-    m_shader->setUniformValue("modelMatrix", t2 * *m_modelMatrix);
+    QMatrix4x4 sceneMatrix = *transform * *m_transMatrix;
+    m_shader->setUniformValue("modelMatrix", sceneMatrix * *m_modelMatrix);
+    m_shader->setUniformValue("sceneMatrix",sceneMatrix);
 
     // draw myself
     m_mesh->Draw();
@@ -45,7 +46,7 @@ void Drawable::Draw(QMatrix4x4 *transform)
 
     // draw my childs
     for(unsigned int i = 0; i < m_childList.size(); ++i) {
-        m_childList[i]->Draw(&t2);
+        m_childList[i]->Draw(&sceneMatrix);
     }
 }
 
