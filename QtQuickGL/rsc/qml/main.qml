@@ -16,7 +16,7 @@ Item {
 
         Timer {
             interval: 1000/60; running: true; repeat: true
-            onTriggered: window.update()
+            //onTriggered: window.update() // SEGMENTAITION FAULT
         }
 
 
