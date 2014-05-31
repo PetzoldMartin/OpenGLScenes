@@ -2,11 +2,12 @@ varying vec4 out_color;
 varying vec4 out_normal;
 varying vec4 out_position;
 uniform int viewMode;
+uniform vec4 cameraPosition;
 
 void main(void)
 {
-    vec3 ray_norm = normalize(vec3(-3.0,-5.0,7.0));
-    vec3 ray_posi = vec3(0.0,0.0,0.0);
+    vec3 ray_norm = normalize(cameraPosition);
+    vec3 ray_posi = -cameraPosition;
 
     if(viewMode == 1) { // Normalview
         gl_FragColor = out_normal * 0.5 + 0.5;
