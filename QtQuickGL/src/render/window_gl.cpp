@@ -93,6 +93,13 @@ void WindowGL::rotateObject(int id,int dx,int dy) {
     m_engine->rotateObject(id,dx,dy);
 }
 
+void WindowGL::scaleObject(int id,int factor) {
+   //TODO ObjectScaling
+}
+void WindowGL::shiftObject(int id, int dx, int dy, int dz){
+   //TODO ObjectShifting
+}
+
 // Copy the state of the object in the
 // GUI thread into the rendering thread.
 void WindowGL::sync()

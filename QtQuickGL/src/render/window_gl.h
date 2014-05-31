@@ -24,6 +24,8 @@ public slots:
     //object
     int pickObjectAt(int x, int y);
     void rotateObject(int id,int dx,int dy);
+    void scaleObject(int id,int factor);
+    void shiftObject(int id,int dx,int dy,int dz);
 
     void initialize();
     void update();
