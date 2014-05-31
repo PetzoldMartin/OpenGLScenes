@@ -33,9 +33,9 @@ void WindowGL::handleWindowChanged(QQuickWindow *win)
 
         connect(win, SIGNAL(sceneGraphInitialized()), this, SLOT(initialize()), Qt::DirectConnection);
 
+
         // update loop
         connect(win, SIGNAL(afterRendering()),this, SLOT(update()), Qt::DirectConnection);
-
 
         win->setClearBeforeRendering(false);
     }
@@ -61,12 +61,11 @@ void WindowGL::update()
     window()->update();
 }
 
-
-
 void WindowGL::render()
 {
-    m_engine->Render();
+    m_engine->Render(false);
 }
+
 void WindowGL::cleanup()
 {
     delete m_engine;
@@ -79,6 +78,11 @@ void WindowGL::scaleView (int delta) {
 void WindowGL::setViewMode(int viewMode)
 {
     m_engine->setViewMode(viewMode);
+}
+
+void WindowGL::setMousePose(int x, int y)
+{
+    m_engine->setMousePose(x, y);
 }
 
 void WindowGL::rotateView (int dx,int dy) {

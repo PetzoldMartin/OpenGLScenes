@@ -52,29 +52,28 @@ Item {
         onMouseXChanged: {
             console.log("DeltaX Mouse: "+ (mouse.x-window.mouseX))
             window.rotateView(mouse.x-window.mouseX,0)
+            window.setMousePose(mouse.x, mouse.y)   // for hover pick
             window.mouseX=mouse.x
         }
 
         onMouseYChanged:  {
             console.log("DeltaY Mouse: "+ (mouse.y-window.mouseY))
             window.rotateView(0,mouse.y-window.mouseY)
+            window.setMousePose(mouse.x, mouse.y)  // for hover pick
             window.mouseY=mouse.y
         }
 
         onPressed: {
             console.log("mousePressed");
-            if (mouse.button == Qt.LeftButton){
-                console.log("Pick Object")
-            window.selectedObjectId = window.pickObjectAt(mouse.x,mouse.y)
             window.mouseX=mouse.x
-            window.mouseY=mouse.y}
+            window.mouseY=mouse.y
             if (mouse.button == Qt.RightButton){
                 console.log("Object Menu")
                 toggleOptions.toggleOptions()
 
 
 
-        }
+            }
         }
 
 
@@ -83,9 +82,7 @@ Item {
         }
 
         onDoubleClicked: {
-
-            console.log("quit")
-            Qt.quit()
+            window.selectedObjectId = window.pickObjectAt(mouse.x,mouse.y)
         }
 
         onWheel: {

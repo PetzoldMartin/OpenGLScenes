@@ -29,7 +29,7 @@ public:
     ///
     /// \brief Render all Drawables
     ///
-    void Render();
+    void Render(bool isDrawID);
 
     ///
     /// \brief Update Engine stuff
@@ -61,6 +61,7 @@ public:
     void rotateView(int x,int y);
     void scaleView (int distance);
     void setViewMode(int viewMode);
+    void setMousePose(int x, int y);
 
     //object
     int pickObjectAt(int x, int y);
@@ -87,6 +88,10 @@ private:
     double distance;
     int m_viewMode;
     // Camera Class /////////
+
+    int m_mouseX;
+    int m_mouseY;
+    QVector4D m_hoverObjectID;
 
 };
 
