@@ -39,6 +39,7 @@ void Drawable::Draw(QMatrix4x4 *transform)
     QMatrix4x4 sceneMatrix = *transform * *m_transMatrix;
     m_shader->setUniformValue("modelMatrix", sceneMatrix * *m_modelMatrix);
     m_shader->setUniformValue("sceneMatrix",sceneMatrix);
+    m_shader->setUniformValue("id", m_id);
 
     // draw myself
     m_mesh->Draw();

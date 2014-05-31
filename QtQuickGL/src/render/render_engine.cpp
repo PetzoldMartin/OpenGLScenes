@@ -22,6 +22,8 @@ RenderEngine::RenderEngine(QObject* parent)
     alpha=0;
     beta=90;
     distance=-200;
+    m_mouseX = 0;
+    m_mouseY = 0;
 
     Scene *scene = new TaskScene(this);
     scene->Create();
@@ -43,8 +45,24 @@ void RenderEngine::Resize(float width, float height) {
     m_projM = m_projM * view;
 }
 
-void RenderEngine::Render()
+void RenderEngine::Render(bool isDrawID)
 {
+
+    // S DIRTY COLOR PICKING ////////////////////////////////////////////////// AREA S //
+    unsigned char data[4];
+    GLint viewport[4];
+    //Render(true);
+
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    glReadPixels(m_mouseX, viewport[3] - m_mouseY, 1, 1, GL_RGB,GL_UNSIGNED_BYTE, &data);
+    m_hoverObjectID = QVector4D(data[0] / 255.0, data[1] / 255.0, data[2] / 255.0, data[3] / 255.0);
+
+    // E DIRTY COLOR PICKING ////////////////////////////////////////////////// AREA E //
+
+
+
+
+
     // OpenGL Inits
     glClearColor(1.0f,1.0f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -115,15 +133,28 @@ void RenderEngine::setViewMode(int viewMode)
     m_viewMode = viewMode;
 }
 
+void RenderEngine::setMousePose(int x, int y)
+{
+    m_mouseX = x;
+    m_mouseY = y;
+}
 
-//object
+
+// S OBJECTS METHODS ///////////////////////////////////////////////////////////// AREA //
+
+
 int RenderEngine::pickObjectAt(int x, int y) {
+    cout << m_hoverObjectID.x() << endl;
     return 0;
 }
 
 void RenderEngine::rotateObject(int id,int dx,int dy) {
     //TODO
 }
+
+
+// S OBJECTS METHODS ///////////////////////////////////////////////////////////// AREA //
+
 
 QOpenGLShaderProgram *RenderEngine::GetShader(QString name)
 {

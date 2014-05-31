@@ -20,6 +20,7 @@ public slots:
     void rotateView(int x,int y);
     void scaleView (int delta);
     void setViewMode(int viewMode);
+    void setMousePose(int x, int y);
 
     //object
     int pickObjectAt(int x, int y);
