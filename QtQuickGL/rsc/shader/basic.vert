@@ -9,12 +9,13 @@ uniform mat4 modelMatrix;
 uniform mat4 projMatrix;
 uniform vec4 color;
 uniform int viewMode;
+uniform mat4x4 sceneMatrix;
 
 void main(void)
 {
     gl_Position =  projMatrix * modelMatrix * in_position;
 
     out_color = color;
-    out_normal = in_normal;
+    out_normal =   in_normal * sceneMatrix;
     out_position = gl_Position;
 }
