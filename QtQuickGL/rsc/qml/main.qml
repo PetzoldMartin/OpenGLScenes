@@ -213,7 +213,6 @@ Item {
                                 color: "white"
                                 font.pointSize: 12; text: "DELETE" } }
                         Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-<<<<<<< local
                                     width: 70; height: 20
                                     Text { anchors.centerIn: parent
                                            color: "white"
@@ -235,12 +234,7 @@ Item {
                                     }
 
                         }
-=======
-                            width: 70; height: 20
-                            Text { anchors.centerIn: parent
-                                color: "white"
-                                font.pointSize: 12; text: "MODIFY" } }
->>>>>>> other
+
                     }
 
                 }

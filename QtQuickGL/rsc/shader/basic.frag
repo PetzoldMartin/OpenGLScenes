@@ -6,8 +6,8 @@ uniform vec4 cameraPosition;
 
 void main(void)
 {
-    vec3 ray_norm = normalize(cameraPosition);
-    vec3 ray_posi = -cameraPosition;
+    vec4 ray_norm = normalize(cameraPosition);
+    vec4 ray_posi = -cameraPosition;
 
     if(viewMode == 1) { // Normalview
         gl_FragColor = out_normal * 0.5 + 0.5;
@@ -15,7 +15,7 @@ void main(void)
         gl_FragColor = out_color;
     } else { // default view
         gl_FragColor = out_color;
-        gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal.xyz),0.5,1.0);
-        gl_FragColor.xyz /= clamp(distance(out_position.xyz, ray_posi) * 0.005, 0.5,1.5);
+        gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal),0.5,1.0);
+        gl_FragColor.xyz /= clamp(distance(out_position, ray_posi) * 0.005, 0.5,1.5);
     }
 }
