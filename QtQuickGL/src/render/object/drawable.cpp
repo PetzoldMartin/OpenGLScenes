@@ -2,13 +2,15 @@
 #include "src/io/console.h"
 #include "src/render/render_engine.h"
 #include "src/render/object/mesh.h"
+#include <iostream>
+#include <cmath>
 
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
 #include <QMatrix4x4>
-
+using namespace std;
 
 QVector4D Drawable::s_idCount = QVector4D(0.0f,0.0f,0.0f,1.0f);
 
@@ -22,9 +24,28 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
 
     // create new id
     // TODO: make this better
-    s_idCount.setX(s_idCount.x() + 32.0 / 255.0);
 
-    m_id = s_idCount;
+
+
+    m_id=makeNewID();
+    //SetColor(m_id);
+
+    cout<<m_id.x()<<"x "<<m_id.y()<<"y "<<m_id.z()<<"z "<<endl;
+
+}
+
+QVector4D Drawable::makeNewID(){
+    unsigned long i=(unsigned long) this;
+    unsigned long t=1000;
+    float b[2];
+    if(s_idCount.x()<=0.9f)
+    s_idCount.setX((s_idCount.x()+0.3f));
+    else
+    s_idCount.setX(0.0f);
+    b[0] = ((float)(((i/1000000)%t)%100))/t;
+    b[1] = ((float)((i/1000)%t))/t;
+    b[2] = ((float)((i)%t))/t;
+    return QVector4D(b[0],b[1],b[2],1.0f)+s_idCount;
 }
 
 void Drawable::Draw(QMatrix4x4 *transform)
