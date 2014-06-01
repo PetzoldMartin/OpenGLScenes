@@ -37,7 +37,7 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
 QVector4D Drawable::makeNewID(){
     unsigned long i=(unsigned long) this;
     unsigned long t=1000;
-    float b[2];
+    float b[3];
     if(s_idCount.x()<=0.9f)
     s_idCount.setX((s_idCount.x()+0.3f));
     else
