@@ -22,7 +22,7 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
 
     // create new id
     // TODO: make this better
-    s_idCount.setX(s_idCount.x() + 0.001);
+    s_idCount.setX(s_idCount.x() + 32.0 / 255.0);
 
     m_id = s_idCount;
 }

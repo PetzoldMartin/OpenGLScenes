@@ -8,8 +8,10 @@ varying vec4 out_position;
 uniform mat4 modelMatrix;
 uniform mat4 projMatrix;
 uniform vec4 color;
+uniform vec4 id;
+uniform float isDrawID;
 uniform int viewMode;
-uniform mat4x4 sceneMatrix;
+uniform mat4 sceneMatrix;
 
 void main(void)
 {
