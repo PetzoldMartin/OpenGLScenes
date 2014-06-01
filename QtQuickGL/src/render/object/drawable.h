@@ -99,7 +99,11 @@ public:
     /// \return the id
     ///
     QVector4D GetID();
-
+    ///
+    /// \brief GetID returns the unique id
+    /// \return the id
+    ///
+    QVector4D makeNewID();
 private:
     Mesh *m_mesh;                               ///< Geometry Mesh
     QVector4D m_color;                          ///< Color for Shader

@@ -15,7 +15,7 @@ void main(void)
     if(viewMode == 1) { // Normalview
         gl_FragColor = out_normal * 0.5 + 0.5;
     } else if (viewMode == 2){ // testview
-        gl_FragColor = out_color;
+        gl_FragColor = id;
     } else { // default view
         gl_FragColor = out_color;
         gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal),0.5,1.0);
@@ -24,7 +24,6 @@ void main(void)
 
     //gl_FragColor.xyz *= 1.0 - isDrawID;
     //gl_FragColor.xyz += isDrawID * id;
-
     gl_FragColor.xyz *= 1.0 - isDrawID;
-    gl_FragColor.xyz += isDrawID     * id;
+    //gl_FragColor.xyz += (isDrawID * id);
 }
