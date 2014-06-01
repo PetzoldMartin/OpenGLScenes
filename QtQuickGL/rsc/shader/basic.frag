@@ -26,5 +26,5 @@ void main(void)
     //gl_FragColor.xyz += isDrawID * id;
 
     gl_FragColor.xyz *= 1.0 - isDrawID;
-    gl_FragColor.xyz += isDrawID     * id;
+    gl_FragColor.xyz += isDrawID     * id.xyz;
 }
