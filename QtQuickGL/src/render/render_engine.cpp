@@ -5,6 +5,10 @@
 #include <iostream>
 #include <QForeachContainer>
 #include <QOpenGLShaderProgram>
+#include <QOpenGLFramebufferObject>
+#include <QImage>
+#include <QOpenGLContext>
+#include <QSurface>
 #include <QMatrix4x4>
 #include <QDateTime>
 #include <math.h>
@@ -47,22 +51,6 @@ void RenderEngine::Resize(float width, float height) {
 
 void RenderEngine::Render(bool isDrawID)
 {
-
-    // S DIRTY COLOR PICKING ////////////////////////////////////////////////// AREA S //
-    unsigned char data[4];
-    GLint viewport[4];
-    //Render(true);
-
-    glGetIntegerv(GL_VIEWPORT, viewport);
-    glReadPixels(m_mouseX, viewport[3] - m_mouseY, 1, 1, GL_RGB,GL_UNSIGNED_BYTE, &data);
-    m_hoverObjectID = QVector4D(data[0] / 255.0, data[1] / 255.0, data[2] / 255.0, data[3] / 255.0);
-
-    // E DIRTY COLOR PICKING ////////////////////////////////////////////////// AREA E //
-
-
-
-
-
     // OpenGL Inits
     glClearColor(1.0f,1.0f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -75,17 +63,41 @@ void RenderEngine::Render(bool isDrawID)
     shader->bind();
     shader->setUniformValue("projMatrix", m_projM);
     shader->setUniformValue("viewMode", m_viewMode);
+    if(isDrawID) shader->setUniformValue("isDrawID", 1.0f);
+    else shader->setUniformValue("isDrawID", 0.0f);
     shader->setUniformValue("cameraPosition",view.mapVector(QVector3D(0,0,-1)));
     shader->release();
 
-    // Draw all Scenes
-    foreach (Scene* scene, m_scenes) {
-        scene->Draw();
-    }
 
-    // Clean OpenGL Context
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
+
+    // S DIRTY COLOR PICKING ////////////////////////////////////////////////// AREA S //
+    if(isDrawID) {
+        unsigned char data[4];
+        GLint viewport[4];
+
+        // Draw all Scenes
+        foreach (Scene* scene, m_scenes) {
+            scene->Draw();
+        }
+
+        glGetIntegerv(GL_VIEWPORT, viewport);
+        glReadPixels(m_mouseX, viewport[3] - m_mouseY, 1, 1, GL_RGB,GL_UNSIGNED_BYTE, &data);
+        m_hoverObjectID = QVector4D(data[0] / 255.0, data[1] / 255.0, data[2] / 255.0, data[3] / 255.0);
+
+        Render(false);
+    }
+    // E DIRTY COLOR PICKING ////////////////////////////////////////////////// AREA E //
+    else {
+
+        // Draw all Scenes
+        foreach (Scene* scene, m_scenes) {
+            scene->Draw();
+        }
+
+        // Clean OpenGL Context
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST);
+    }
 
 }
 
