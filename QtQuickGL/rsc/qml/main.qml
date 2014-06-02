@@ -123,16 +123,17 @@ Item {
                     width: parent.width
                     anchors.left: parent.left
                     anchors.top: parent.top
-                    anchors.topMargin: 16
-                    anchors.leftMargin: 32
+                    anchors.topMargin: 20
                     visible: false
 
-
                     Row {
+                        id: row
                         anchors.left: parent.left
                         anchors.verticalCenter: parent.verticalCenter
                         layer.enabled: true
                         spacing: 5
+
+                        Rectangle { width: 32; height: 32; color: Qt.rgba(0, 0, 0, 0) }
 
                         Button { text: "create"; onClicked: menu.tapChange(1) }
 
@@ -142,18 +143,25 @@ Item {
 
                     }
 
+                    CreateTab { id: createOptions; anchors.top: row.bottom; anchors.topMargin: 5 }
+                    ModifyTab { id: modifyOptions; anchors.top: row.bottom; anchors.topMargin: 5 }
+
                 }
-
-                //Modify Inlay
-                CreateTab { id: createOptions }
-                ModifyTab { id: modifyOptions }
-
 
                 function tapChange(tap) {
                     switch(tap) {
-                    case 1: break
-                    case 2: break
-                    case 3: modifyOptions.toggleOptions(); break
+                    case 1: // Show Create Options
+                        createOptions.visible = true
+                        modifyOptions.visible = false
+                        break
+                    case 2: // Show Delete Options
+                        createOptions.visible = false
+                        modifyOptions.visible = false
+                        break
+                    case 3: // Show Modify Options
+                        createOptions.visible = false
+                        modifyOptions.visible = true
+                        break
                     default: break
                     }
                 }
@@ -167,8 +175,6 @@ Item {
                 function close() {
                     width = 0
                     modi.visible = false
-                    modifyOptions.closefromParent()
-                    createOptions.visible = false
                 }
             }
 
