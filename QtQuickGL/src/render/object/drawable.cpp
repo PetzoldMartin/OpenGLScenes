@@ -13,7 +13,7 @@
 using namespace std;
 
 vector<unsigned char> Drawable::s_idCount(4,0);
-
+QMap<vector<unsigned char>,Drawable*> Drawable::s_drawableMap;
 Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
 {
     m_shader = NULL;
@@ -29,6 +29,7 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
 
 
     m_id=makeNewID();
+    s_drawableMap[m_id]=this;
     //SetColor(m_id);
 
 
@@ -41,7 +42,6 @@ vector<unsigned char> Drawable::makeNewID(){
     ++v[0]=s_idCount[0];
     ++v[1]=200;
     ++v[2]=200;
-    ++v[3]=255;
     cout<<(float)v[0]/255<<"x "<<(float)v[1]/255<<"y "<<(float)v[2]/255<<"z "<<(float)v[3]/255<<endl;
 
     return v;
@@ -171,4 +171,13 @@ int Drawable::GetChildCount()
 vector<unsigned char> Drawable::GetID()
 {
     return m_id;
+}
+
+Drawable* Drawable::GetDrawableByID(QVector4D ID)
+{
+    vector<unsigned char>v(4,255);
+    ++v[0]=ID.x()*255;
+    ++v[1]=ID.y()*255;
+    ++v[2]=ID.z()*255;
+    return s_drawableMap.value(v);
 }
