@@ -37,6 +37,10 @@ Rectangle{
         width = 0
         modifyOptions.visible = false
     }
+    function out(out){
+            myConsole.text=out
+            myConsole.update()
+        }
     Rectangle { id: modifyMonitorX
                 color: Qt.rgba(0,0.0,0,0.5)
                 width: parent.width;
@@ -202,6 +206,19 @@ Rectangle{
          onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
 
      }
+    Rectangle { id: modifyMonitorShiftConsole
+                    anchors.top: modifySliderShiftZ.bottom
+                    color: Qt.rgba(0,0.0,0,0.5)
+                    width: parent.width;
+                    height: parent.componentHeight;
 
+                    Text {
+                           id: myConsole
+                           anchors.centerIn: parent
+                           color: "white"
+                           font.pointSize: parent.parent.componentTextSize;
+                           text: "Ausgabe"
+                    }
+                     }
 
 }
