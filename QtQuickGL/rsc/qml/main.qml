@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import OpenGLUnderQML 1.0
 import QtQuick.Controls 1.1
 //import "CreateTab.qml"
@@ -171,8 +171,11 @@ Item {
 
                 }
                 //Modify Inlay
-                 ModifyTab{id: modifyOptions
-                 }
+                CreateTab { id: createOptions }
+                ModifyTab { id: modifyOptions }
+
+
+
 
                 function open() {
                     width = widthOpen
@@ -183,6 +186,7 @@ Item {
                     width = 0
                     modi.visible = false
                     modifyOptions.closefromParent()
+                    createOptions.visible = false
                 }
             }
 
