@@ -31,6 +31,9 @@ RenderEngine::RenderEngine(QObject* parent)
     Scene *scene = new TaskScene(this);
     scene->Create();
     m_scenes.push_back(scene);
+    cameraView.setToIdentity();
+    cameraView.translate(0,-100,distance);
+    cameraView.rotate(-90,1,0,0);
 
 
 }
@@ -40,12 +43,8 @@ void RenderEngine::Resize(float width, float height) {
     m_projM.perspective(90.0f, width / height, 1.0f, 5000.0f);
 
     //QMatrix4x4 view;
-    view.setToIdentity();
-    view.translate(0.0f,-75.0f,distance);
-    view.rotate(-alpha,0, 1,0);
-    view.rotate(-beta, 1, 0, 0);
+//    cameraView.setToIdentity();
 
-    m_projM = m_projM * view;
 }
 
 void RenderEngine::Render(bool isDrawID)
@@ -60,11 +59,11 @@ void RenderEngine::Render(bool isDrawID)
     // apply uniform to shader
     QOpenGLShaderProgram* shader = GetShader("basic");
     shader->bind();
-    shader->setUniformValue("projMatrix", m_projM);
+    shader->setUniformValue("projMatrix", m_projM * cameraView);
     shader->setUniformValue("viewMode", m_viewMode);
     if(isDrawID) shader->setUniformValue("isDrawID", 1.0f);
     else shader->setUniformValue("isDrawID", 0.0f);
-    shader->setUniformValue("cameraPosition",view.mapVector(QVector3D(0,0,-1)));
+    shader->setUniformValue("cameraPosition",cameraView.mapVector(QVector3D(0,0,-1)));
     shader->release();
 
 
@@ -110,33 +109,41 @@ void RenderEngine::Update()
 
 //global
 void RenderEngine::rotateView(int dx,int dy) {
-    alpha -= dx%180;
-    while (alpha < 0) {
-        alpha += 360;
-    }
-    while (alpha >= 360) {
-        alpha -= 360;
-    }
-    beta -= dy%180;
-    if (beta < 0) {
-        beta = 0;
-    }
-    if (beta > 180) {
-        beta = 180;
-    }
 
+//    alpha -= dx%180;
+//    while (alpha < 0) {
+//        alpha += 360;
+//    }
+//    while (alpha >= 360) {
+//        alpha -= 360;
+//    }
+//    beta -= dy%180;
+//    if (beta < 0) {
+//        beta = 0;
+//    }
+//    if (beta > 180) {
+//        beta = 180;
+//    }
+   // qDebug() << dx << " \t" << dy ;
+
+    cameraView.rotate(dx,0, 0,1);
+
+    cameraView.rotate(dy, 1, 0, 0);
 }
 
 void RenderEngine::scaleView (int delta) {
     if (delta < 0) {
-        if (distance > -500) {
-            distance *= 1.1;
-        }
+        cameraView.translate(0,0,+distance/20);
+//        if (distance > -500) {
+//            distance *= 1.1;
+//        }
     } else if (delta > 0) {
-        if (distance < -50) {
-            distance *= 0.9;
-        }
+        cameraView.translate(0,0,-distance/20);
+//        if (distance < -50) {
+//            distance *= 0.9;
+//        }
     }
+    //cameraView.translate(0.0f,-75.0f,distance);
 }
 
 void RenderEngine::setViewMode(int viewMode)
