@@ -88,8 +88,8 @@ void WindowGL::rotateView (int dx,int dy) {
     m_engine->rotateView(dx,dy);
 }
 
-int WindowGL::pickObjectAt(int x, int y) {
-    return m_engine->pickObjectAt(x,y);
+int WindowGL::pickObjectAt() {
+    return m_engine->pickObjectAt();
 }
 
 void WindowGL::rotateObject(int id,int dx,int dy) {

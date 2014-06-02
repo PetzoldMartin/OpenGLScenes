@@ -19,7 +19,6 @@ RenderEngine::RenderEngine(QObject* parent)
 {
     m_parent = parent;
     m_projM.setToIdentity();
-    timer = 0.5f;
     tinv = 1.0f;
     m_viewMode = 0;
 
@@ -119,11 +118,11 @@ void RenderEngine::rotateView(int dx,int dy) {
         alpha -= 360;
     }
     beta -= dy%180;
-    if (beta < -90) {
-        beta = -90;
+    if (beta < 0) {
+        beta = 0;
     }
-    if (beta > 90) {
-        beta = 90;
+    if (beta > 180) {
+        beta = 180;
     }
 
 }
@@ -155,9 +154,16 @@ void RenderEngine::setMousePose(int x, int y)
 // S OBJECTS METHODS ///////////////////////////////////////////////////////////// AREA //
 
 
-int RenderEngine::pickObjectAt(int x, int y) {
-    cout << m_hoverObjectID.x() << endl;
-    Drawable::GetDrawableByID(m_hoverObjectID)->SetSelected(true);
+int RenderEngine::pickObjectAt() {
+    if (selectedObject != NULL) {
+        selectedObject->SetSelected(false);
+    }
+    selectedObject = Drawable::GetDrawableByID(m_hoverObjectID);
+    if (selectedObject != NULL) {
+        selectedObject->SetSelected(true);
+    } else {
+        qDebug() << "nothing to select";
+    }
     return 0;
 }
 

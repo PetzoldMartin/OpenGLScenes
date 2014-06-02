@@ -5,6 +5,7 @@
 #include <map>
 #include <QString>
 #include <QMatrix4x4>
+#include "object/drawable.h"
 
 // Forward Declarations
 class QObject;
@@ -64,7 +65,7 @@ public:
     void setMousePose(int x, int y);
 
     //object
-    int pickObjectAt(int x, int y);
+    int pickObjectAt();
     void rotateObject(int id,int dx,int dy);
 
     QObject *GetContext();
@@ -77,7 +78,6 @@ private:
     //TODO: Camera Class ////
     //TODO: One ore more Cameras can be part of Scenes
     QMatrix4x4 m_projM,view;
-    float timer;
     float tinv;
 
     int height;
@@ -92,6 +92,7 @@ private:
     int m_mouseX;
     int m_mouseY;
     QVector4D m_hoverObjectID;
+    Drawable* selectedObject;
 
 };
 

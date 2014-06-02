@@ -84,7 +84,7 @@ Item {
         }
 
         onDoubleClicked: {
-            window.selectedObjectId = window.pickObjectAt(mouse.x,mouse.y)
+            window.selectedObjectId = window.pickObjectAt()
         }
 
         onWheel: {

@@ -23,7 +23,7 @@ public slots:
     void setMousePose(int x, int y);
 
     //object
-    int pickObjectAt(int x, int y);
+    int pickObjectAt();
     void rotateObject(int id,int dx,int dy);
     void scaleObject(int id,int factor);
     void shiftObject(int id,int dx,int dy,int dz);
