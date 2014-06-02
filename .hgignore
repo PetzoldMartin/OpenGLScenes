@@ -1,0 +1,11 @@
+pro.user
+~
+build/
+build-
+syntax: glob
+QtQuickGL/release/
+QtQuickGL\Makefile
+QtQuickGL\Makefile.Debug
+QtQuickGL\Makefile.Release
+*.Debug
+*.Release
