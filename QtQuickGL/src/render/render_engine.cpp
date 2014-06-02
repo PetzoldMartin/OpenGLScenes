@@ -17,6 +17,7 @@ using namespace std;
 
 RenderEngine::RenderEngine(QObject* parent)
 {
+    selectedObject=NULL;
     m_parent = parent;
     m_projM.setToIdentity();
     tinv = 1.0f;
@@ -165,6 +166,7 @@ int RenderEngine::pickObjectAt() {
     if (selectedObject != NULL) {
         selectedObject->SetSelected(false);
     }
+
     selectedObject = Drawable::GetDrawableByID(m_hoverObjectID);
     if (selectedObject != NULL) {
         selectedObject->SetSelected(true);
