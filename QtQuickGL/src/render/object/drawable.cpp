@@ -14,11 +14,11 @@ using namespace std;
 
 QVector4D Drawable::s_idCount = QVector4D(0.0f,0.0f,0.0f,1.0f);
 
-Drawable::Drawable(RenderEngine *engine, QMatrix4x4 *transform)
+Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
 {
     m_shader = NULL;
     m_mesh = NULL;
-    m_modelMatrix = NULL;
+    m_modelMatrix.setToIdentity();
     m_engine = engine;
     m_transMatrix = transform;
 
@@ -57,8 +57,8 @@ void Drawable::Draw(QMatrix4x4 *transform)
     m_shader->setUniformValue("color", m_color);
 
     // calculate and set uniform variable modelMatrix
-    QMatrix4x4 sceneMatrix = *transform * *m_transMatrix;
-    m_shader->setUniformValue("modelMatrix", sceneMatrix * *m_modelMatrix);
+    QMatrix4x4 sceneMatrix = *transform * m_transMatrix;
+    m_shader->setUniformValue("modelMatrix", sceneMatrix * m_modelMatrix);
     m_shader->setUniformValue("sceneMatrix",sceneMatrix);
     m_shader->setUniformValue("id", m_id);
 
@@ -85,15 +85,30 @@ void Drawable::Build()
         return;
     }
 
-    if(m_modelMatrix == NULL) {
-        Console::WriteError("No ModelMatrix is assigned to this Drawable!");
-        return;
-    }
-
     // set uniform variable
-    m_shader->setUniformValue("modelMatrix", *m_modelMatrix);
+    m_shader->setUniformValue("modelMatrix", m_modelMatrix);
     m_mesh->BuildVAO(m_engine->GetContext(), m_shader);
 
+}
+
+void Drawable::TranslateDirect(QVector3D transform)
+{
+    m_modelMatrix.translate(transform);
+}
+
+void Drawable::TranslateRelative(QVector3D transform)
+{
+    m_transMatrix.translate(transform);
+}
+
+void Drawable::RotateDirect(float angle, QVector3D axis)
+{
+    m_modelMatrix.rotate(angle, axis);
+}
+
+void Drawable::RotateRelative(float angle, QVector3D axis)
+{
+    m_transMatrix.rotate(angle, axis);
 }
 
 void Drawable::SetMesh(Mesh *mesh)
@@ -106,17 +121,27 @@ void Drawable::SetShader(QOpenGLShaderProgram *shader)
     m_shader = shader;
 }
 
-void Drawable::SetModelMatrix(QMatrix4x4 *matrix)
+void Drawable::SetModelMatrix(QMatrix4x4 matrix)
 {
     m_modelMatrix = matrix;
 }
 
-void Drawable::SetTransformMatrix(QMatrix4x4 *matrix)
+QMatrix4x4 Drawable::GetModelMatrix()
+{
+    return m_modelMatrix;
+}
+
+void Drawable::SetTransformMatrix(QMatrix4x4 matrix)
 {
     m_transMatrix = matrix;
 }
 
-void Drawable::AddChild(Drawable *child, QMatrix4x4 *transform)
+QMatrix4x4 Drawable::GetTransformMatrix()
+{
+    return m_transMatrix;
+}
+
+void Drawable::AddChild(Drawable *child, QMatrix4x4 transform)
 {
     child->m_transMatrix = transform;
     m_childList.push_back(child);
@@ -137,10 +162,6 @@ int Drawable::GetChildCount()
     return m_childList.size();
 }
 
-QMatrix4x4 *Drawable::GetTransformMatrix()
-{
-    return m_transMatrix;
-}
 
 QVector4D Drawable::GetID()
 {
