@@ -137,6 +137,11 @@ public:
     ///
     std::vector<unsigned char> GetID();
 
+    ///
+    /// \brief GetDrawableByID returns the drawable referenced to the ID
+    /// \return the Drawable Pointer
+    ///
+    static Drawable* GetDrawableByID(QVector4D ID);
 private:
 
     ///
@@ -159,7 +164,7 @@ private:
 
     std::vector<unsigned char> m_id;                             ///< unique id
     static std::vector<unsigned char> s_idCount;                 ///< gloabal count of all Drawables
-    //static QMap<Drawable,std::vector drawable_map
+    static QMap<std::vector<unsigned char>,Drawable*> s_drawableMap;
     bool m_isSelected;                            ///< Flag for an Selected Drawable
 
 };
