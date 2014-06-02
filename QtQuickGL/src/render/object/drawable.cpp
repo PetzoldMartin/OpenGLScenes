@@ -12,7 +12,7 @@
 #include <QMatrix4x4>
 using namespace std;
 
-QVector4D Drawable::s_idCount = QVector4D(0.0f,0.0f,0.0f,1.0f);
+vector<unsigned char> Drawable::s_idCount(4,0);
 
 Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
 {
@@ -30,22 +30,20 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     m_id=makeNewID();
     //SetColor(m_id);
 
-    cout<<m_id.x()<<"x "<<m_id.y()<<"y "<<m_id.z()<<"z "<<endl;
+
 
 }
 
-QVector4D Drawable::makeNewID(){
-    unsigned long i=(unsigned long) this;
-    unsigned long t=1000;
-    float b[3];
-    if(s_idCount.x()<=0.9f)
-    s_idCount.setX((s_idCount.x()+0.3f));
-    else
-    s_idCount.setX(0.0f);
-    b[0] = ((float)(((i/1000000)%t)%100))/t;
-    b[1] = ((float)((i/1000)%t))/t;
-    b[2] = ((float)((i)%t))/t;
-    return QVector4D(b[0],b[1],b[2],1.0f)+s_idCount;
+vector<unsigned char> Drawable::makeNewID(){
+    vector<unsigned char>v(4,255);
+    s_idCount[0]+=32;
+    ++v[0]=s_idCount[0];
+    ++v[1]=200;
+    ++v[2]=200;
+    ++v[3]=255;
+    cout<<(float)v[0]/255<<"x "<<(float)v[1]/255<<"y "<<(float)v[2]/255<<"z "<<(float)v[3]/255<<endl;
+
+    return v;
 }
 
 void Drawable::Draw(QMatrix4x4 *transform)
@@ -60,7 +58,7 @@ void Drawable::Draw(QMatrix4x4 *transform)
     QMatrix4x4 sceneMatrix = *transform * m_transMatrix;
     m_shader->setUniformValue("modelMatrix", sceneMatrix * m_modelMatrix);
     m_shader->setUniformValue("sceneMatrix",sceneMatrix);
-    m_shader->setUniformValue("id", m_id);
+    m_shader->setUniformValue("id",QVector4D((float)m_id[0]/255,(float)m_id[1]/255,(float)m_id[2]/255,(float)m_id[3]/255));
 
     // draw myself
     m_mesh->Draw();
@@ -163,7 +161,7 @@ int Drawable::GetChildCount()
 }
 
 
-QVector4D Drawable::GetID()
+vector<unsigned char> Drawable::GetID()
 {
     return m_id;
 }

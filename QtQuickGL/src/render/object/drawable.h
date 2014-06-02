@@ -129,7 +129,7 @@ public:
     /// \brief GetID returns the unique id
     /// \return the id
     ///
-    QVector4D GetID();
+    std::vector<unsigned char> GetID();
 
 private:
 
@@ -137,7 +137,7 @@ private:
     /// \brief Generates a new unique ID
     /// \return the unique id
     ///
-    QVector4D makeNewID();
+    std::vector<unsigned char> makeNewID();
 
 
     Mesh *m_mesh;                               ///< Geometry Mesh
@@ -151,8 +151,9 @@ private:
 
     std::vector<Drawable*> m_childList;         ///< List of Childs
 
-    QVector4D m_id;                             ///< unique id
-    static QVector4D s_idCount;                 ///< gloabal count of all Drawables
+    std::vector<unsigned char> m_id;                             ///< unique id
+    static std::vector<unsigned char> s_idCount;                 ///< gloabal count of all Drawables
+    //static QMap<Drawable,std::vector drawable_map
 };
 
 #endif // DRAWABLE_H
