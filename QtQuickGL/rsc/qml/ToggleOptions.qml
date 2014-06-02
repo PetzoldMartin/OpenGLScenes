@@ -13,6 +13,10 @@ Rectangle {
     property color colorOnHover: Qt.rgba(1,0.25,0,1)
     property color colorOffHover: Qt.rgba(0,0,0,0.5)
 
+    signal turnOn()
+    signal turnOff()
+
+
     Rectangle {
         id: r1
         color: parent.colorOffHover
@@ -64,9 +68,9 @@ Rectangle {
 
     function toggleOptions() {
         if(toggle) {
-            parent.close()
+            turnOff()
         } else {
-            parent.open()
+            turnOn()
         }
         toggle = !toggle
     }

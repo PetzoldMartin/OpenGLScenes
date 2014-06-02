@@ -2,7 +2,7 @@
     <qresource prefix="/qml">
         <file alias="main.qml">qml/main.qml</file>
         <file alias="CreateTab.qml">qml/CreateTab.qml</file>
-        <file alias="ButtonOptions.qml">qml/ButtonOptions.qml</file>
+        <file alias="ToggleOptions.qml">qml/ToggleOptions.qml</file>
         <file alias="ModifyTab.qml">qml/ModifyTab.qml</file>
     </qresource>
     <qresource prefix="/shader">
