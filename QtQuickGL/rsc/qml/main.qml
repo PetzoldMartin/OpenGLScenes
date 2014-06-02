@@ -123,58 +123,48 @@ Item {
                     width: parent.width
                     anchors.left: parent.left
                     anchors.top: parent.top
-                    anchors.topMargin: 16
-                    anchors.leftMargin: 32
+                    anchors.topMargin: 20
                     visible: false
 
-
                     Row {
+                        id: row
                         anchors.left: parent.left
                         anchors.verticalCenter: parent.verticalCenter
                         layer.enabled: true
                         spacing: 5
 
-                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                            width: 70; height: 20;
-                            Text { anchors.centerIn: parent
-                                color: "white"
-                                font.pointSize: 12; text: "CREATE" } }
-                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                            width: 70; height: 20
-                            Text { anchors.centerIn: parent
-                                color: "white"
-                                font.pointSize: 12; text: "DELETE" } }
-                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                                    width: 70; height: 20
-                                    Text { anchors.centerIn: parent
-                                           color: "white"
-                                           font.pointSize: 12; text: "MODIFY" }
-                                    function mouseEnterToogleOption() {
-                                        color = toggleOptions.colorOnHover
+                        Rectangle { width: 32; height: 32; color: Qt.rgba(0, 0, 0, 0) }
 
-                                    }
+                        Button { text: "create"; onClicked: menu.tapChange(1) }
 
-                                    function mouseExitedToogleOption() {
-                                        color = toggleOptions.colorOffHover
-                                    }
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        hoverEnabled: true
-                                        onEntered: parent.mouseEnterToogleOption()
-                                        onExited: parent.mouseExitedToogleOption()
-                                        onClicked: modifyOptions.toggleOptions()
-                                    }
+                        Button { text: "delete"; onClicked: menu.tapChange(2) }
 
-                        }
+                        Button { text: "modify"; onClicked: menu.tapChange(3) }
 
                     }
 
+                    CreateTab { id: createOptions; anchors.top: row.bottom }
+                    ModifyTab { id: modifyOptions; anchors.top: row.bottom }
+
                 }
-                //Modify Inlay
-                CreateTab { id: createOptions }
-                ModifyTab { id: modifyOptions }
 
-
+                function tapChange(tap) {
+                    switch(tap) {
+                    case 1: // Show Create Options
+                        createOptions.visible = true
+                        modifyOptions.visible = false
+                        break
+                    case 2: // Show Delete Options
+                        createOptions.visible = false
+                        modifyOptions.visible = false
+                        break
+                    case 3: // Show Modify Options
+                        createOptions.visible = false
+                        modifyOptions.visible = true
+                        break
+                    default: break
+                    }
+                }
 
 
                 function open() {
@@ -185,8 +175,6 @@ Item {
                 function close() {
                     width = 0
                     modi.visible = false
-                    modifyOptions.closefromParent()
-                    createOptions.visible = false
                 }
             }
 
