@@ -143,8 +143,8 @@ Item {
 
                     }
 
-                    CreateTab { id: createOptions; anchors.top: row.bottom; anchors.topMargin: 5 }
-                    ModifyTab { id: modifyOptions; anchors.top: row.bottom; anchors.topMargin: 5 }
+                    CreateTab { id: createOptions; anchors.top: row.bottom }
+                    ModifyTab { id: modifyOptions; anchors.top: row.bottom }
 
                 }
 
