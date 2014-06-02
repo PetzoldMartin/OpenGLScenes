@@ -78,6 +78,7 @@ private:
     //TODO: Camera Class ////
     //TODO: One ore more Cameras can be part of Scenes
     QMatrix4x4 m_projM,cameraView;
+    QVector3D cameraVector;
     float tinv;
 
     int height;

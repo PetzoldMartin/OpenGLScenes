@@ -34,8 +34,6 @@ RenderEngine::RenderEngine(QObject* parent)
     cameraView.setToIdentity();
     cameraView.translate(0,-100,distance);
     cameraView.rotate(-90,1,0,0);
-
-
 }
 
 void RenderEngine::Resize(float width, float height) {
@@ -59,7 +57,7 @@ void RenderEngine::Render(bool isDrawID)
     // apply uniform to shader
     QOpenGLShaderProgram* shader = GetShader("basic");
     shader->bind();
-    shader->setUniformValue("projMatrix", m_projM * cameraView);
+    shader->setUniformValue("projMatrix",m_projM*cameraView);
     shader->setUniformValue("viewMode", m_viewMode);
     if(isDrawID) shader->setUniformValue("isDrawID", 1.0f);
     else shader->setUniformValue("isDrawID", 0.0f);
@@ -132,13 +130,17 @@ void RenderEngine::rotateView(int dx,int dy) {
 }
 
 void RenderEngine::scaleView (int delta) {
+    cameraVector= cameraView.mapVector(QVector3D(0,0,-1));
     if (delta < 0) {
-        cameraView.translate(0,0,+distance/20);
+        cameraView.translate(-cameraVector.normalized()*10);
+//        cameraView.translate(0,0,+distance/20);
 //        if (distance > -500) {
 //            distance *= 1.1;
 //        }
     } else if (delta > 0) {
-        cameraView.translate(0,0,-distance/20);
+        cameraView.translate(cameraVector.normalized()*10);
+
+//        cameraView.translate(0,0,-distance/20);
 //        if (distance < -50) {
 //            distance *= 0.9;
 //        }
