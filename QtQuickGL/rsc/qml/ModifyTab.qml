@@ -143,10 +143,10 @@ Rectangle{
         anchors.top: modifyMonitorShiftX.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 10
-         minimumValue: -10
+         maximumValue: 1000
+         minimumValue: -1000
          value: 0
-         stepSize: 0.5
+         stepSize: 10
          visible: true
          onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
      }
@@ -170,10 +170,10 @@ Rectangle{
         anchors.top: modifyMonitorShiftY.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 10
-         minimumValue: -10
+         maximumValue: 1000
+         minimumValue: -1000
          value: 0
-         stepSize: 0.5
+         stepSize: 10
          visible: true
          onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
 
@@ -198,10 +198,10 @@ Rectangle{
         anchors.top: modifyMonitorShiftZ.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 10
-         minimumValue: -10
+         maximumValue: 1000
+         minimumValue: -1000
          value: 0
-         stepSize: 0.5
+         stepSize: 10
          visible: true
          onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
 
@@ -221,4 +221,11 @@ Rectangle{
                     }
                      }
 
+    Button { text: "Accept"
+        anchors.top: modifyMonitorShiftConsole.bottom
+        //Font.bold: parent.parent.componentTextSize;
+        width: parent.width;
+        height: parent.componentHeight*2;
+
+    }
 }
