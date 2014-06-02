@@ -157,15 +157,11 @@ private:
 
     std::vector<Drawable*> m_childList;         ///< List of Childs
 
-<<<<<<< local
     std::vector<unsigned char> m_id;                             ///< unique id
     static std::vector<unsigned char> s_idCount;                 ///< gloabal count of all Drawables
     //static QMap<Drawable,std::vector drawable_map
-=======
     bool m_isSelected;                            ///< Flag for an Selected Drawable
-    QVector4D m_id;                             ///< unique id
-    static QVector4D s_idCount;                 ///< gloabal count of all Drawables
->>>>>>> other
+
 };
 
 #endif // DRAWABLE_H

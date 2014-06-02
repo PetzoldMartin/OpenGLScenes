@@ -59,15 +59,9 @@ void Drawable::Draw(QMatrix4x4 *transform)
     QMatrix4x4 sceneMatrix = *transform * m_transMatrix;
     m_shader->setUniformValue("modelMatrix", sceneMatrix * m_modelMatrix);
     m_shader->setUniformValue("sceneMatrix",sceneMatrix);
-<<<<<<< local
     m_shader->setUniformValue("id",QVector4D((float)m_id[0]/255,(float)m_id[1]/255,(float)m_id[2]/255,(float)m_id[3]/255));
-=======
-    m_shader->setUniformValue("id", m_id);
     if(m_isSelected) m_shader->setUniformValue("isSelected", 1.0f);
     else m_shader->setUniformValue("isSelected", 0.0f);
-
->>>>>>> other
-
     // draw myself
     m_mesh->Draw();
     m_shader->release();
