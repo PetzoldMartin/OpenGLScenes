@@ -21,6 +21,7 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     m_modelMatrix.setToIdentity();
     m_engine = engine;
     m_transMatrix = transform;
+    m_isSelected = false;
 
     // create new id
     // TODO: make this better
@@ -61,6 +62,9 @@ void Drawable::Draw(QMatrix4x4 *transform)
     m_shader->setUniformValue("modelMatrix", sceneMatrix * m_modelMatrix);
     m_shader->setUniformValue("sceneMatrix",sceneMatrix);
     m_shader->setUniformValue("id", m_id);
+    if(m_isSelected) m_shader->setUniformValue("isSelected", 1.0f);
+    else m_shader->setUniformValue("isSelected", 0.0f);
+
 
     // draw myself
     m_mesh->Draw();
@@ -150,6 +154,11 @@ void Drawable::AddChild(Drawable *child, QMatrix4x4 transform)
 void Drawable::SetColor(QVector4D color)
 {
     m_color = color;
+}
+
+void Drawable::SetSelected(bool value)
+{
+    m_isSelected = value;
 }
 
 Drawable *Drawable::GetChild(int index)
