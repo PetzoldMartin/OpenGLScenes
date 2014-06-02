@@ -110,7 +110,10 @@ Item {
                 property int widthOpen: 260
 
                 // Toggle to open and close the menu
-                ButtonOptions{}
+                ToggleOptions{
+                    onTurnOff: menu.close()
+                    onTurnOn: menu.open()
+                }
 
 
                 // TODO create Buttons
