@@ -166,7 +166,6 @@ Item {
                     }
                 }
 
-
                 function open() {
                     width = widthOpen
                     modi.visible = true

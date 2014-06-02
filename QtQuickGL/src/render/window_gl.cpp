@@ -100,7 +100,12 @@ void WindowGL::scaleObject(int id,int factor) {
    //TODO ObjectScaling
 }
 void WindowGL::shiftObject(int id, int dx, int dy, int dz){
-   //TODO ObjectShifting
+    //TODO ObjectShifting
+}
+
+void WindowGL::genRandomBlock()
+{
+    m_engine->genRandomBlock();
 }
 
 // Copy the state of the object in the

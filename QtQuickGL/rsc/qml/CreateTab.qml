@@ -6,7 +6,8 @@ Rectangle {
     visible: false
 
     Button {
-
+        text: Block
+        onClicked: window.genRandomBlock()
     }
 
 }

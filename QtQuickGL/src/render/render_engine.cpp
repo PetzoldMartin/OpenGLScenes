@@ -1,6 +1,7 @@
 #include "render_engine.h"
 #include "src/render/object/drawable.h"
 #include "src/render/scene/task_scene.h"
+#include "src/render/object/factory.h"
 
 #include <iostream>
 #include <QForeachContainer>
@@ -32,6 +33,7 @@ RenderEngine::RenderEngine(QObject* parent)
     Scene *scene = new TaskScene(this);
     scene->Create();
     m_scenes.push_back(scene);
+    m_sceneEdit = scene;
     cameraView.setToIdentity();
     cameraView.translate(0,-100,distance);
     cameraView.rotate(-90,1,0,0);
@@ -100,6 +102,8 @@ void RenderEngine::Render(bool isDrawID)
 
 void RenderEngine::Update()
 {
+
+
     foreach (Scene* scene, m_scenes) {
         scene->Update();
     }
@@ -180,6 +184,12 @@ int RenderEngine::pickObjectAt() {
 
 void RenderEngine::rotateObject(int id,int dx,int dy) {
     //TODO
+}
+
+void RenderEngine::genRandomBlock()
+{
+    // FIXIT: will fail
+    m_sceneEdit->CreateBlock();
 }
 
 

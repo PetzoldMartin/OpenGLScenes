@@ -67,12 +67,14 @@ public:
     //object
     int pickObjectAt();
     void rotateObject(int id,int dx,int dy);
+    void genRandomBlock();
 
     QObject *GetContext();
 private:
 
     QObject* m_parent;                                      /// GUI Parent
     std::list<Scene*> m_scenes;                             /// Senes to Draw and Update
+    Scene *m_sceneEdit;                                     /// Active Scene Edit
     std::map<QString, QOpenGLShaderProgram*> m_shaders;     /// Shader Container
 
     //TODO: Camera Class ////
