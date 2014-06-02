@@ -113,6 +113,12 @@ public:
     void SetColor(QVector4D color);
 
     ///
+    /// \brief Set the isSelected Flag
+    /// \param value the Flag
+    ///
+    void SetSelected(bool value);
+
+    ///
     /// \brief Get the Child that is on the specific index
     /// \param index Child Index
     /// \return
@@ -146,14 +152,20 @@ private:
     QOpenGLShaderProgram *m_shader;             ///< Used Shader to Draw
     RenderEngine *m_engine;                     ///< The RenderEngine Context
 
-    QMatrix4x4 m_modelMatrix;                  ///< Self Matrix
-    QMatrix4x4 m_transMatrix;                  ///< Transformation to his parent
+    QMatrix4x4 m_modelMatrix;                   ///< Self Matrix
+    QMatrix4x4 m_transMatrix;                   ///< Transformation to his parent
 
     std::vector<Drawable*> m_childList;         ///< List of Childs
 
+<<<<<<< local
     std::vector<unsigned char> m_id;                             ///< unique id
     static std::vector<unsigned char> s_idCount;                 ///< gloabal count of all Drawables
     //static QMap<Drawable,std::vector drawable_map
+=======
+    bool m_isSelected;                            ///< Flag for an Selected Drawable
+    QVector4D m_id;                             ///< unique id
+    static QVector4D s_idCount;                 ///< gloabal count of all Drawables
+>>>>>>> other
 };
 
 #endif // DRAWABLE_H
