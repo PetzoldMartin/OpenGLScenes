@@ -134,47 +134,29 @@ Item {
                         layer.enabled: true
                         spacing: 5
 
-                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                            width: 70; height: 20;
-                            Text { anchors.centerIn: parent
-                                color: "white"
-                                font.pointSize: 12; text: "CREATE" } }
-                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                            width: 70; height: 20
-                            Text { anchors.centerIn: parent
-                                color: "white"
-                                font.pointSize: 12; text: "DELETE" } }
-                        Rectangle { color: Qt.rgba(0,0.0,0,0.5)
-                                    width: 70; height: 20
-                                    Text { anchors.centerIn: parent
-                                           color: "white"
-                                           font.pointSize: 12; text: "MODIFY" }
-                                    function mouseEnterToogleOption() {
-                                        color = toggleOptions.colorOnHover
+                        Button { text: "create"; onClicked: menu.tapChange(1) }
 
-                                    }
+                        Button { text: "delete"; onClicked: menu.tapChange(2) }
 
-                                    function mouseExitedToogleOption() {
-                                        color = toggleOptions.colorOffHover
-                                    }
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        hoverEnabled: true
-                                        onEntered: parent.mouseEnterToogleOption()
-                                        onExited: parent.mouseExitedToogleOption()
-                                        onClicked: modifyOptions.toggleOptions()
-                                    }
-
-                        }
+                        Button { text: "modify"; onClicked: menu.tapChange(3) }
 
                     }
 
                 }
+
                 //Modify Inlay
                 CreateTab { id: createOptions }
                 ModifyTab { id: modifyOptions }
 
 
+                function tapChange(tap) {
+                    switch(tap) {
+                    case 1: break
+                    case 2: break
+                    case 3: modifyOptions.toggleOptions(); break
+                    default: break
+                    }
+                }
 
 
                 function open() {
