@@ -157,6 +157,7 @@ void RenderEngine::setMousePose(int x, int y)
 
 int RenderEngine::pickObjectAt(int x, int y) {
     cout << m_hoverObjectID.x() << endl;
+    Drawable::GetDrawableByID(m_hoverObjectID)->SetSelected(true);
     return 0;
 }
 
