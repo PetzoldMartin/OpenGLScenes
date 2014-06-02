@@ -1,13 +1,12 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
 
-#include <vector>       // for container drawable
-#include <QVector4D>    // for color
+#include <vector>       // container drawable
+#include <QVector4D>    // color
+#include <QMatrix4x4>   // model and transform Matrix
 
 // Forward Declaration
 class QOpenGLShaderProgram;
-class QMatrix4x4;
-class QVector4D;
 class QObject;
 class RenderEngine;
 class Mesh;
@@ -25,7 +24,7 @@ public:
     /// \param engine RenderEngine Enviroment
     /// \param transform Transformation to parent
     ///
-    Drawable(RenderEngine *engine, QMatrix4x4 *transform);
+    Drawable(RenderEngine *engine, QMatrix4x4 transform);
 
     ///
     /// \brief Draw the Drawable
@@ -37,6 +36,32 @@ public:
     /// \brief Complete the Model
     ///
     void Build();
+
+    ///
+    /// \brief Translate the Modle itself
+    /// \param transform Transformation value
+    ///
+    void TranslateDirect(QVector3D transform);
+
+    ///
+    /// \brief Translate the Drawable relative to his parent
+    /// \param transform Tranformation value
+    ///
+    void TranslateRelative(QVector3D transform);
+
+    ///
+    /// \brief Rotate the Drawable itself
+    /// \param angle rotation angle (deg)
+    /// \param axis rotation axis
+    ///
+    void RotateDirect(float angle, QVector3D axis);
+
+    ///
+    /// \brief Rotate the Drawable relative to his parent
+    /// \param angle rotation angle (deg)
+    /// \param axis rotation axis
+    ///
+    void RotateRelative(float angle, QVector3D axis);
 
     ///
     /// \brief Set the Mesh that is used to draw the Drawable
@@ -54,20 +79,32 @@ public:
     /// \brief Set the Model Matrix
     /// \param matrix The Model Matrix
     ///
-    void SetModelMatrix(QMatrix4x4 *matrix);
+    void SetModelMatrix(QMatrix4x4 matrix);
+
+    ///
+    /// \brief Returns the ModelMatrix
+    /// \return ModelMatrix
+    ///
+    QMatrix4x4 GetModelMatrix();
 
     ///
     /// \brief Set the TransformMatrix to his parent
     /// \param matrix The transform from parant to this Drawable
     ///
-    void SetTransformMatrix(QMatrix4x4 *matrix);
+    void SetTransformMatrix(QMatrix4x4 matrix);
+
+    ///
+    /// \brief Get the TransformMatrix to his parent
+    /// \return The Transform Matrix
+    ///
+    QMatrix4x4 GetTransformMatrix();
 
     ///
     /// \brief Add a Child to this Drawable with an transform offset
     /// \param child The Child
     /// \param transform The transform matrix to this Drawable
     ///
-    void AddChild(Drawable *child, QMatrix4x4 *transform);
+    void AddChild(Drawable *child, QMatrix4x4 transform);
 
     ///
     /// \brief Set the Color
@@ -89,30 +126,28 @@ public:
     int GetChildCount();
 
     ///
-    /// \brief Get the TransformMatrix to his parent
-    /// \return The Transform Matrix
-    ///
-    QMatrix4x4 *GetTransformMatrix();
-
-    ///
     /// \brief GetID returns the unique id
     /// \return the id
     ///
     QVector4D GetID();
+
+private:
+
     ///
-    /// \brief GetID returns the unique id
-    /// \return the id
+    /// \brief Generates a new unique ID
+    /// \return the unique id
     ///
     QVector4D makeNewID();
-private:
+
+
     Mesh *m_mesh;                               ///< Geometry Mesh
     QVector4D m_color;                          ///< Color for Shader
 
     QOpenGLShaderProgram *m_shader;             ///< Used Shader to Draw
     RenderEngine *m_engine;                     ///< The RenderEngine Context
 
-    QMatrix4x4 *m_modelMatrix;                  ///< Self Matrix
-    QMatrix4x4 *m_transMatrix;                  ///< Transformation to his parent
+    QMatrix4x4 m_modelMatrix;                  ///< Self Matrix
+    QMatrix4x4 m_transMatrix;                  ///< Transformation to his parent
 
     std::vector<Drawable*> m_childList;         ///< List of Childs
 
