@@ -40,4 +40,5 @@ OTHER_FILES += \
     rsc/qml/main.qml \
     rsc/shader/basic.frag \
     rsc/shader/basic.vert \
-    rsc/qml/CreateTab.qml
+    rsc/qml/CreateTab.qml \
+    rsc/qml/ModifyTab.qml
