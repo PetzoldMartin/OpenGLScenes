@@ -67,13 +67,15 @@ public:
 
     //object
     int pickObjectAt();
-    void rotateObject(int id,int dx,int dy);
+    void rotateObject(int delta,QVector3D axis = QVector3D(1.0f,0.0f,0.0f));
+    void translateObject(int dx,int dy,int dz);
+    void CreateBlock(QVector3D size, QVector3D transform);
     void CreateBlock(QVector3D size, QVector3D transform, QVector4D color);
 
     QObject *GetContext();
 private:
 
-    bool ortho=true;
+    bool ortho;
     QObject* m_parent;                                      /// GUI Parent
     std::list<Scene*> m_scenes;                             /// Senes to Draw and Update
     Scene *m_sceneEdit;                                     /// Active Scene Edit
