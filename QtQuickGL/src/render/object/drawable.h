@@ -142,6 +142,9 @@ public:
     /// \return the Drawable Pointer
     ///
     static Drawable* GetDrawableByID(QVector4D ID);
+
+    QMatrix4x4 GetSceneMatrix();
+
 private:
 
     ///
@@ -166,7 +169,7 @@ private:
     static std::vector<unsigned char> s_idCount;                 ///< gloabal count of all Drawables
     static QMap<std::vector<unsigned char>,Drawable*> s_drawableMap;
     bool m_isSelected;                            ///< Flag for an Selected Drawable
-
+    QMatrix4x4 m_SceneMatrix;
 };
 
 #endif // DRAWABLE_H

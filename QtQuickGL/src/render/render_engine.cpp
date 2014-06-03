@@ -20,13 +20,13 @@ RenderEngine::RenderEngine(QObject* parent)
 {
     selectedObject=NULL;
     m_parent = parent;
-    m_projM.setToIdentity();
+    projectionMatrix.setToIdentity();
     tinv = 1.0f;
     m_viewMode = 0;
 
     alpha=0;
     beta=90;
-    distance=-200;
+    distance=200;
     m_mouseX = 0;
     m_mouseY = 0;
 
@@ -34,18 +34,17 @@ RenderEngine::RenderEngine(QObject* parent)
     scene->Create();
     m_scenes.push_back(scene);
     m_sceneEdit = scene;
-    cameraView.setToIdentity();
-    cameraView.translate(0,-100,distance);
-    cameraView.rotate(-90,1,0,0);
 }
 
 void RenderEngine::Resize(float width, float height) {
-    m_projM.setToIdentity();
-    m_projM.perspective(90.0f, width / height, 1.0f, 5000.0f);
-
-    //QMatrix4x4 view;
-//    cameraView.setToIdentity();
-
+    projectionMatrix.setToIdentity();
+    if (false) {
+        float x= width/2.0f;
+        projectionMatrix.ortho(-x,x,-x*height / width,x*height / width, 1.0f, 5000.0f);
+    } else {
+        projectionMatrix.perspective(90.0f, width / height, 1.0f, 5000.0f);
+    }
+    glViewport(0, 0, width, height);
 }
 
 void RenderEngine::Render(bool isDrawID)
@@ -57,14 +56,27 @@ void RenderEngine::Render(bool isDrawID)
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
 
+    QVector3D cameraCenter;
+    if (selectedObject!=NULL){
+        cameraCenter = selectedObject->GetSceneMatrix()*QVector3D(0,0,0);
+    } else {
+        cameraCenter= QVector3D(0,0,100);
+    }
+    QVector3D cameraPosition = cameraTransformation * QVector3D(0, -distance,0 );
+
+//    QVector3D cameraUpDirection = cameraTransformation * QVector3D(0, 0, 1);
+
+    viewMatrix.setToIdentity();
+    viewMatrix.lookAt(cameraPosition+cameraCenter, cameraCenter, QVector3D(0, 0, 1));
+
     // apply uniform to shader
     QOpenGLShaderProgram* shader = GetShader("basic");
     shader->bind();
-    shader->setUniformValue("projMatrix",m_projM*cameraView);
+    shader->setUniformValue("projMatrix",projectionMatrix*viewMatrix);
     shader->setUniformValue("viewMode", m_viewMode);
     if(isDrawID) shader->setUniformValue("isDrawID", 1.0f);
     else shader->setUniformValue("isDrawID", 0.0f);
-    shader->setUniformValue("cameraPosition",cameraView.mapVector(QVector3D(0,0,-1)));
+    shader->setUniformValue("cameraPosition",viewMatrix * QVector3D(0,0,-1));
     shader->release();
 
 
@@ -113,44 +125,35 @@ void RenderEngine::Update()
 //global
 void RenderEngine::rotateView(int dx,int dy) {
 
-//    alpha -= dx%180;
-//    while (alpha < 0) {
-//        alpha += 360;
-//    }
-//    while (alpha >= 360) {
-//        alpha -= 360;
-//    }
-//    beta -= dy%180;
-//    if (beta < 0) {
-//        beta = 0;
-//    }
-//    if (beta > 180) {
-//        beta = 180;
-//    }
-   // qDebug() << dx << " \t" << dy ;
+    //    alpha -= dx%180;
+    //    while (alpha < 0) {
+    //        alpha += 360;
+    //    }
+    //    while (alpha >= 360) {
+    //        alpha -= 360;
+    //    }
+    //    beta -= dy%180;
+    //    if (beta < 0) {
+    //        beta = 0;
+    //    }
+    //    if (beta > 180) {
+    //        beta = 180;
+    //    }
+    cameraTransformation.rotate(dx,0, 0, 1);
 
-    cameraView.rotate(dx,0, 0,1);
-
-    cameraView.rotate(dy, 1, 0, 0);
+    cameraTransformation.rotate(dy,1, 0, 0);
 }
 
 void RenderEngine::scaleView (int delta) {
-    cameraVector= cameraView.mapVector(QVector3D(0,0,-1));
     if (delta < 0) {
-        cameraView.translate(-cameraVector.normalized()*10);
-//        cameraView.translate(0,0,+distance/20);
-//        if (distance > -500) {
-//            distance *= 1.1;
-//        }
+        if (distance < +500) {
+            distance *= 1.1;
+        }
     } else if (delta > 0) {
-        cameraView.translate(cameraVector.normalized()*10);
-
-//        cameraView.translate(0,0,-distance/20);
-//        if (distance < -50) {
-//            distance *= 0.9;
-//        }
+        if (distance > 100) {
+            distance *= 0.9;
+        }
     }
-    //cameraView.translate(0.0f,-75.0f,distance);
 }
 
 void RenderEngine::setViewMode(int viewMode)

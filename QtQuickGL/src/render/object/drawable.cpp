@@ -56,9 +56,9 @@ void Drawable::Draw(QMatrix4x4 *transform)
     m_shader->setUniformValue("color", m_color);
 
     // calculate and set uniform variable modelMatrix
-    QMatrix4x4 sceneMatrix = *transform * m_transMatrix;
-    m_shader->setUniformValue("modelMatrix", sceneMatrix * m_modelMatrix);
-    m_shader->setUniformValue("sceneMatrix",sceneMatrix);
+    m_SceneMatrix = *transform * m_transMatrix;
+    m_shader->setUniformValue("modelMatrix", m_SceneMatrix * m_modelMatrix);
+    m_shader->setUniformValue("sceneMatrix",m_SceneMatrix);
     m_shader->setUniformValue("id",QVector4D((float)m_id[0]/255,(float)m_id[1]/255,(float)m_id[2]/255,(float)m_id[3]/255));
     if(m_isSelected) m_shader->setUniformValue("isSelected", 1.0f);
     else m_shader->setUniformValue("isSelected", 0.0f);
@@ -68,7 +68,7 @@ void Drawable::Draw(QMatrix4x4 *transform)
 
     // draw my childs
     for(unsigned int i = 0; i < m_childList.size(); ++i) {
-        m_childList[i]->Draw(&sceneMatrix);
+        m_childList[i]->Draw(&m_SceneMatrix);
     }
 }
 
@@ -181,3 +181,7 @@ Drawable* Drawable::GetDrawableByID(QVector4D ID)
     ++v[2]=ID.z()*255;
     return s_drawableMap.value(v);
 }
+
+QMatrix4x4 Drawable::GetSceneMatrix() {
+        return m_SceneMatrix;
+    }

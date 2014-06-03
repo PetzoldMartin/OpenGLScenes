@@ -79,8 +79,8 @@ private:
 
     //TODO: Camera Class ////
     //TODO: One ore more Cameras can be part of Scenes
-    QMatrix4x4 m_projM,cameraView;
-    QVector3D cameraVector;
+    QMatrix4x4 projectionMatrix,viewMatrix,cameraTransformation;
+
     float tinv;
 
     int height;
@@ -96,7 +96,6 @@ private:
     int m_mouseY;
     QVector4D m_hoverObjectID;
     Drawable* selectedObject;
-
 };
 
 #endif // RENDER_ENGINE_H

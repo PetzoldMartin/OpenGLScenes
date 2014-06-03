@@ -72,7 +72,7 @@ void TaskScene::Create()
 
 void TaskScene::Update()
 {
-    m_punkt->RotateRelative(3,QVector3D(0,1,0));
-    m_schlitten->TranslateRelative(QVector3D(qSin(QTime::currentTime().second()*2)*0.9,0,0));
+    m_punkt->RotateRelative(1,QVector3D(0,1,0));
+    m_schlitten->TranslateRelative(QVector3D(qSin(QTime::currentTime().second()*2)*0.5,0,0));
 }
 
