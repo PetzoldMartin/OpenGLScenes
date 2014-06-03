@@ -16,7 +16,6 @@ uniform mat4 sceneMatrix;
 void main(void)
 {
     gl_Position =  projMatrix * modelMatrix * in_position;
-
     out_color = color;
     out_normal =   in_normal * sceneMatrix;
     out_position = gl_Position;
