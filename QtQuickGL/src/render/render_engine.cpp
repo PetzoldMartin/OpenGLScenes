@@ -38,7 +38,7 @@ RenderEngine::RenderEngine(QObject* parent)
 void RenderEngine::Resize(float width, float height) {
     projectionMatrix.setToIdentity();
     if (ortho) {
-        float x= width/2.0f;
+        float x= width*distance/400.0f;
         projectionMatrix.ortho(-x,x,-x*height / width,x*height / width, 1.0f, 5000.0f);
     } else {
         projectionMatrix.perspective(90.0f, width / height, 1.0f, 5000.0f);
