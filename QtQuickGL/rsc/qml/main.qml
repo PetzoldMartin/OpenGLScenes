@@ -71,13 +71,9 @@ Item {
             window.mouseY=mouse.y
             if (mouse.button == Qt.RightButton){
                 console.log("Object Menu")
-                toggleOptions.toggleOptions()
-
-
-
+                window.toggleRenderMode();
             }
         }
-
 
         onReleased: {
             //TODO

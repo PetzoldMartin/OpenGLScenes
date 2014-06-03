@@ -84,6 +84,11 @@ void WindowGL::setMousePose(int x, int y)
     m_engine->setMousePose(x, y);
 }
 
+void WindowGL::toggleRenderMode()
+{
+    m_engine->toggleRenderMode();
+}
+
 void WindowGL::rotateView (int dx,int dy) {
     m_engine->rotateView(dx,dy);
 }
@@ -97,7 +102,7 @@ void WindowGL::rotateObject(int id,int dx,int dy) {
 }
 
 void WindowGL::scaleObject(int id,int factor) {
-   //TODO ObjectScaling
+    //TODO ObjectScaling
 }
 void WindowGL::shiftObject(int id, int dx, int dy, int dz){
     //TODO ObjectShifting

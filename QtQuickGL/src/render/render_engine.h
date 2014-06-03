@@ -63,6 +63,7 @@ public:
     void scaleView (int distance);
     void setViewMode(int viewMode);
     void setMousePose(int x, int y);
+    void toggleRenderMode();
 
     //object
     int pickObjectAt();
@@ -72,6 +73,7 @@ public:
     QObject *GetContext();
 private:
 
+    bool ortho=true;
     QObject* m_parent;                                      /// GUI Parent
     std::list<Scene*> m_scenes;                             /// Senes to Draw and Update
     Scene *m_sceneEdit;                                     /// Active Scene Edit
@@ -81,7 +83,6 @@ private:
     //TODO: One ore more Cameras can be part of Scenes
     QMatrix4x4 projectionMatrix,viewMatrix,cameraTransformation;
 
-    float tinv;
 
     int height;
     int width;
@@ -96,6 +97,7 @@ private:
     int m_mouseY;
     QVector4D m_hoverObjectID;
     Drawable* selectedObject;
+
 };
 
 #endif // RENDER_ENGINE_H
