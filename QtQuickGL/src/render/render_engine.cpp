@@ -22,6 +22,7 @@ RenderEngine::RenderEngine(QObject* parent)
     m_parent = parent;
     projectionMatrix.setToIdentity();
     m_viewMode = 0;
+    ortho=true;
 
     alpha=0;
     beta=90;
@@ -138,7 +139,6 @@ void RenderEngine::rotateView(int dx,int dy) {
     //    }
     if (!ortho) {
         cameraTransformation.rotate(dx,0, 0, 1);
-
         cameraTransformation.rotate(dy,1, 0, 0);
     }
 }
@@ -194,13 +194,13 @@ int RenderEngine::pickObjectAt() {
     return 0;
 }
 
-void RenderEngine::rotateObject(int id,int dx,int dy) {
+void RenderEngine::rotateObject(int delta,QVector3D axis) {
     if (selectedObject != NULL) {
-        selectedObject->RotateRelative(dx,QVector3D(1.0f,0.0f,0.0f));
+        selectedObject->RotateRelative(delta,axis);
     }
 }
 
-void RenderEngine::translateObject(int id,int dx,int dy,int dz) {
+void RenderEngine::translateObject(int dx,int dy,int dz) {
         if (selectedObject != NULL) {
             selectedObject->TranslateRelative(QVector3D(dx,dy,dz));
         }

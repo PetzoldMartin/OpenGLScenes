@@ -97,15 +97,15 @@ int WindowGL::pickObjectAt() {
     return m_engine->pickObjectAt();
 }
 
-void WindowGL::rotateObject(int id,int dx,int dy) {
-    m_engine->rotateObject(id,dx,dy);
+void WindowGL::rotateObject(int delta) {
+    m_engine->rotateObject(delta);
 }
 
-void WindowGL::scaleObject(int id,int factor) {
+void WindowGL::scaleObject(int factor) {
     //TODO ObjectScaling
 }
-void WindowGL::shiftObject(int id, int dx, int dy, int dz){
-    m_engine->translateObject(id,dx,dy,dz);
+void WindowGL::shiftObject( int dx, int dy, int dz){
+    m_engine->translateObject(dx,dy,dz);
 }
 
 void WindowGL::createBlock(float sx, float sy, float sz, float tx, float ty, float tz, float cr, float cg, float cb)
