@@ -21,7 +21,6 @@ RenderEngine::RenderEngine(QObject* parent)
     selectedObject=NULL;
     m_parent = parent;
     projectionMatrix.setToIdentity();
-    tinv = 1.0f;
     m_viewMode = 0;
 
     alpha=0;
@@ -38,7 +37,7 @@ RenderEngine::RenderEngine(QObject* parent)
 
 void RenderEngine::Resize(float width, float height) {
     projectionMatrix.setToIdentity();
-    if (false) {
+    if (ortho) {
         float x= width/2.0f;
         projectionMatrix.ortho(-x,x,-x*height / width,x*height / width, 1.0f, 5000.0f);
     } else {
@@ -64,7 +63,7 @@ void RenderEngine::Render(bool isDrawID)
     }
     QVector3D cameraPosition = cameraTransformation * QVector3D(0, -distance,0 );
 
-//    QVector3D cameraUpDirection = cameraTransformation * QVector3D(0, 0, 1);
+    //    QVector3D cameraUpDirection = cameraTransformation * QVector3D(0, 0, 1);
 
     viewMatrix.setToIdentity();
     viewMatrix.lookAt(cameraPosition+cameraCenter, cameraCenter, QVector3D(0, 0, 1));
@@ -114,8 +113,6 @@ void RenderEngine::Render(bool isDrawID)
 
 void RenderEngine::Update()
 {
-
-
     foreach (Scene* scene, m_scenes) {
         scene->Update();
     }
@@ -139,9 +136,11 @@ void RenderEngine::rotateView(int dx,int dy) {
     //    if (beta > 180) {
     //        beta = 180;
     //    }
-    cameraTransformation.rotate(dx,0, 0, 1);
+    if (!ortho) {
+        cameraTransformation.rotate(dx,0, 0, 1);
 
-    cameraTransformation.rotate(dy,1, 0, 0);
+        cameraTransformation.rotate(dy,1, 0, 0);
+    }
 }
 
 void RenderEngine::scaleView (int delta) {
@@ -165,6 +164,16 @@ void RenderEngine::setMousePose(int x, int y)
 {
     m_mouseX = x;
     m_mouseY = y;
+}
+
+void RenderEngine::toggleRenderMode()
+{
+    if (ortho) {
+        ortho=false;
+    } else {
+        ortho=true;
+        cameraTransformation.setToIdentity();
+    }
 }
 
 
@@ -221,3 +230,4 @@ QObject *RenderEngine::GetContext()
 {
     return m_parent;
 }
+

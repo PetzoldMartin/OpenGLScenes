@@ -21,6 +21,7 @@ public slots:
     void scaleView (int delta);
     void setViewMode(int viewMode);
     void setMousePose(int x, int y);
+    void toggleRenderMode();
 
     //object
     int pickObjectAt();
