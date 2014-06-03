@@ -30,6 +30,8 @@ public:
 
     void CreateBlock();
 
+    void AddDrawable(QVector3D size, QVector3D transform, Drawable *parent);
+
     virtual void Update() = 0;
     virtual void Create() = 0;
 

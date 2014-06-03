@@ -22,3 +22,15 @@ void Scene::CreateBlock()
 {
     m_objects.push_back(m_factory->GenBlock(QVector3D(50,50,500),QVector4D(1,1,0,1)));
 }
+
+void Scene::AddDrawable(QVector3D size, QVector3D transform, Drawable *parent) {
+    Drawable *drawable = m_factory->GenBlock(size, QVector4D(1,0,0,1));
+    QMatrix4x4 trans;
+    trans.translate(transform);
+    drawable->SetTransformMatrix(trans);
+    if(parent != 0) {
+        parent->AddChild(drawable,trans);
+    } else {
+        m_objects.push_back(drawable);
+    }
+}

@@ -27,7 +27,7 @@ public slots:
     void rotateObject(int id,int dx,int dy);
     void scaleObject(int id,int factor);
     void shiftObject(int id,int dx,int dy,int dz);
-    void genRandomBlock();
+    void createBlock(float sx, float sy, float sz, float tx, float ty, float tz);
 
     void initialize();
     void update();
