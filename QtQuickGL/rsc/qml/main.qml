@@ -34,6 +34,12 @@ Item {
             case Qt.Key_F3:
                 window.setViewMode(2)
                 break
+            case Qt.Key_F4:
+                window.setViewMode(3)
+                break
+            case Qt.Key_F5:
+                window.setViewMode(4)
+                break
             }
         }
     }
