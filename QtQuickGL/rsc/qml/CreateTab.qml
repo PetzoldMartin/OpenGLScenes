@@ -11,12 +11,14 @@ Rectangle {
             anchors.fill: parent.anchors
 
             Button {
+                width: 80
                 anchors.fill: parent.anchors
                 text: "Block"
                 onClicked: createTab.createBlock()
             }
 
             Button {
+                width: 80
                 anchors.fill: parent.anchors
                 text: "Sphere"
                 //onClicked: createTab.createBlock()
@@ -25,10 +27,11 @@ Rectangle {
 
         Slider {
             id: sizeX
+            width: parent.width
             stepSize: 1
-            value: 250
+            value: 100
             minimumValue: 1
-            maximumValue: 500
+            maximumValue: 200
             Text {
                 id: valueX
                 color: "white"
@@ -40,10 +43,11 @@ Rectangle {
 
         Slider {
             id: sizeY
+            width: parent.width
             stepSize: 1
-            value: 250
+            value: 100
             minimumValue: 1
-            maximumValue: 500
+            maximumValue: 200
             Text {
                 id: valueY
                 color: "white"
@@ -55,10 +59,11 @@ Rectangle {
 
         Slider {
             id: sizeZ
+            width: parent.width
             stepSize: 1
-            value: 250
+            value: 100
             minimumValue: 1
-            maximumValue: 500
+            maximumValue: 200
             Text {
                 id: valueZ
                 color: "white"
@@ -70,6 +75,7 @@ Rectangle {
 
         Slider {
             id: posX
+            width: parent.width
             stepSize: 1
             value: 0
             minimumValue: -250
@@ -85,6 +91,7 @@ Rectangle {
 
         Slider {
             id: posY
+            width: parent.width
             stepSize: 1
             value: 0.0
             minimumValue: -250
@@ -100,6 +107,7 @@ Rectangle {
 
         Slider {
             id: posZ
+            width: parent.width
             stepSize: 1
             value: 0
             minimumValue: -250
@@ -114,6 +122,7 @@ Rectangle {
             }
         }
     }
+
     function createBlock() {
         window.createBlock(sizeX.value, sizeY.value, sizeZ.value,posX.value,posY.value,posZ.value)
     }
