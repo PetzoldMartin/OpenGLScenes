@@ -52,7 +52,6 @@ Drawable *Factory::GenBlock(QVector3D size, QVector4D color)
     block->SetModelMatrix(modelMatrix);
     block->SetShader(m_engine->GetShader("basic"));
     block->SetColor(color);
-    block->Build();
 
     return block;
 }
