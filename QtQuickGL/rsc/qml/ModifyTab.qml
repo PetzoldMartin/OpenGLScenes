@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import OpenGLUnderQML 1.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.0
 
 Rectangle{
     id: modifyOptions
@@ -67,7 +67,12 @@ Rectangle{
          value: 0
          stepSize: 10
          visible: true
-         onValueChanged:window.rotateObject(window.selectedObjectId,value,modifySliderY.value)
+         onValueChanged:{
+             window.rotateObject(window.selectedObjectId,value,modifySliderY.value);
+
+         }
+
+
      }
     Rectangle { id: modifyMonitorY
                 anchors.top: modifySliderX.bottom
@@ -94,7 +99,8 @@ Rectangle{
          value: 0
          stepSize: 10
          visible: true
-         onValueChanged:window.rotateObject(window.selectedObjectId,modifySliderX.value,value)
+         onValueChanged:{
+             window.rotateObject(window.selectedObjectId,modifySliderX.value,value);}
      }
     Rectangle { id: modifyMonitorScale
                 anchors.top: modifySliderY.bottom
@@ -226,6 +232,14 @@ Rectangle{
         //Font.bold: parent.parent.componentTextSize;
         width: parent.width;
         height: parent.componentHeight*2;
-
+        onClicked: {
+            modifySliderScale.value=0;
+            modifySliderShiftX.value=0;
+            modifySliderShiftY.value=0;
+            modifySliderShiftZ.value=0;
+            modifySliderX.value=0;
+            modifySliderY.value=0;
+            parent.update();
+        }
     }
 }

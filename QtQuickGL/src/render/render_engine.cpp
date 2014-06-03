@@ -202,7 +202,7 @@ void RenderEngine::rotateObject(int id,int dx,int dy) {
 
 void RenderEngine::translateObject(int id,int dx,int dy,int dz) {
         if (selectedObject != NULL) {
-            selectedObject->TranslateRelative(QVector3D(dx,dy,dz));
+            selectedObject->TranslateRelative(QVector3D((float)dx,(float)dy,(float)dz));
         }
 
 }

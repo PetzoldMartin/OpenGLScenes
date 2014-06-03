@@ -38,10 +38,12 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
 
 vector<unsigned char> Drawable::makeNewID(){
     vector<unsigned char>v(4,255);
-    s_idCount[0]+=32;
+    s_idCount[0]+=3;
+    s_idCount[1]-=7;
+    s_idCount[2]+=23;
     ++v[0]=s_idCount[0];
-    ++v[1]=200;
-    ++v[2]=200;
+    ++v[1]=s_idCount[1];
+    ++v[2]=s_idCount[2];
     cout<<(float)v[0]/255<<"x "<<(float)v[1]/255<<"y "<<(float)v[2]/255<<"z "<<(float)v[3]/255<<endl;
 
     return v;

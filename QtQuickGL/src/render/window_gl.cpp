@@ -106,6 +106,7 @@ void WindowGL::scaleObject(int id,int factor) {
 }
 void WindowGL::shiftObject(int id, int dx, int dy, int dz){
     m_engine->translateObject(id,dx,dy,dz);
+
 }
 
 void WindowGL::createBlock(float sx, float sy, float sz, float tx, float ty, float tz, float cr, float cg, float cb)
