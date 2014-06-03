@@ -186,10 +186,9 @@ void RenderEngine::rotateObject(int id,int dx,int dy) {
     //TODO
 }
 
-void RenderEngine::genRandomBlock()
+void RenderEngine::CreateBlock(QVector3D size, QVector3D transform)
 {
-    // FIXIT: will fail
-    m_sceneEdit->CreateBlock();
+    m_sceneEdit->AddDrawable(size,transform,selectedObject);
 }
 
 

@@ -6,19 +6,20 @@ Rectangle {
     visible: false
 
     Column {
+        id: properties
         Row {
             anchors.fill: parent.anchors
 
             Button {
                 anchors.fill: parent.anchors
                 text: "Block"
-                onClicked: window.genRandomBlock()
+                onClicked: createTab.createBlock()
             }
 
             Button {
                 anchors.fill: parent.anchors
                 text: "Sphere"
-                //onClicked: window.genRandomBlock()
+                //onClicked: createTab.createBlock()
             }
         }
 
@@ -103,6 +104,9 @@ Rectangle {
             value: 250
             minimumValue: 1
             maximumValue: 500
+
+            property int v: 250
+
             Text {
                 id: posValueZ
                 color: "white"
@@ -112,5 +116,7 @@ Rectangle {
             onValueChanged: posValueZ.text = "pos z: " + posZ.value
         }
     }
-
+    function createBlock() {
+        window.createBlock(sizeX.value, sizeY.value, sizeZ.value,posX.value,posY.value,posZ.value)
+    }
 }

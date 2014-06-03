@@ -103,9 +103,9 @@ void WindowGL::shiftObject(int id, int dx, int dy, int dz){
     //TODO ObjectShifting
 }
 
-void WindowGL::genRandomBlock()
+void WindowGL::createBlock(float sx, float sy, float sz, float tx, float ty, float tz)
 {
-    m_engine->genRandomBlock();
+    m_engine->CreateBlock(QVector3D(sx,sy,sz),QVector3D(tx,ty,tz));
 }
 
 // Copy the state of the object in the
