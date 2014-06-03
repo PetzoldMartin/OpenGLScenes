@@ -143,10 +143,10 @@ Rectangle{
         anchors.top: modifyMonitorShiftX.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 1000
-         minimumValue: -1000
+         maximumValue: 10
+         minimumValue: -10
          value: 0
-         stepSize: 10
+         stepSize: 1
          visible: true
          onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
      }
@@ -170,10 +170,10 @@ Rectangle{
         anchors.top: modifyMonitorShiftY.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 1000
-         minimumValue: -1000
+         maximumValue: 10
+         minimumValue: -10
          value: 0
-         stepSize: 10
+         stepSize: 1
          visible: true
          onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
 
@@ -198,10 +198,10 @@ Rectangle{
         anchors.top: modifyMonitorShiftZ.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 1000
-         minimumValue: -1000
+         maximumValue: 10
+         minimumValue: -10
          value: 0
-         stepSize: 10
+         stepSize: 1
          visible: true
          onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
 
