@@ -75,7 +75,7 @@ void RenderEngine::Render(bool isDrawID)
     shader->setUniformValue("viewMode", m_viewMode);
     if(isDrawID) shader->setUniformValue("isDrawID", 1.0f);
     else shader->setUniformValue("isDrawID", 0.0f);
-    shader->setUniformValue("cameraPosition",viewMatrix * QVector3D(0,0,-1));
+    shader->setUniformValue("cameraPosition",cameraPosition);
     shader->release();
 
 
