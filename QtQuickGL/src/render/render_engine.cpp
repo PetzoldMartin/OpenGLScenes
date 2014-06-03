@@ -183,7 +183,16 @@ int RenderEngine::pickObjectAt() {
 }
 
 void RenderEngine::rotateObject(int id,int dx,int dy) {
-    //TODO
+    if (selectedObject != NULL) {
+        selectedObject->RotateRelative(dx,QVector3D(1.0f,0,0f,0.0f));
+    }
+}
+
+void RenderEngine::translateObject(int id,int dx,int dy,int dz) {
+        if (selectedObject != NULL) {
+            selectedObject->TranslateRelative(QVector3D(dx,dy,dz));
+        }
+
 }
 
 void RenderEngine::CreateBlock(QVector3D size, QVector3D transform)
