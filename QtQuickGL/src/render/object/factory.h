@@ -29,7 +29,7 @@ public:
     /// \param shader Shader to be used when Draw
     /// \return A new Drawable that is a Rectangle
     ///
-    Drawable *GenRectangle(QVector3D size, QVector4D color, QOpenGLShaderProgram *shader);
+    Drawable *GenRectangle(QVector3D size, QVector4D color);
 
     ///
     /// \brief Generate a new Block
@@ -38,7 +38,7 @@ public:
     /// \param shader Shader to be used when Draw
     /// \return A new Drawable that is a Block
     ///
-    Drawable *GenBlock(QVector3D size, QVector4D color, QOpenGLShaderProgram *shader);
+    Drawable *GenBlock(QVector3D size, QVector4D color);
 
 private:
 

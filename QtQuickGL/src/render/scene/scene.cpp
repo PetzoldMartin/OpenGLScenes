@@ -20,7 +20,7 @@ void Scene::Draw() {
 
 void Scene::CreateBlock()
 {
-    m_objects.push_back(m_factory->GenBlock(QVector3D(50,50,500),QVector4D(1,1,0,1), m_engine->GetShader("basic")));
+    m_objects.push_back(m_factory->GenBlock(QVector3D(50,50,500),QVector4D(1,1,0,1)));
 }
 
 void Scene::AddSceneTask(SceneTask task)
