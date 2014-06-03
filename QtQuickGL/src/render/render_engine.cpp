@@ -186,9 +186,9 @@ void RenderEngine::rotateObject(int id,int dx,int dy) {
     //TODO
 }
 
-void RenderEngine::CreateBlock(QVector3D size, QVector3D transform)
+void RenderEngine::CreateBlock(QVector3D size, QVector3D transform, QVector4D color)
 {
-    m_sceneEdit->AddDrawable(size,transform,selectedObject);
+    m_sceneEdit->AddBlock(size,transform, color, selectedObject);
 }
 
 

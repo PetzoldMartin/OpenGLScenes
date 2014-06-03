@@ -30,7 +30,7 @@ public:
 
     void CreateBlock();
 
-    void AddDrawable(QVector3D size, QVector3D transform, Drawable *parent);
+    void AddBlock(QVector3D size, QVector3D transform, QVector4D color, Drawable *parent);
 
     virtual void Update() = 0;
     virtual void Create() = 0;

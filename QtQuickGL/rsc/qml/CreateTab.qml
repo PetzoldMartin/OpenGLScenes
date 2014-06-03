@@ -121,9 +121,60 @@ Rectangle {
                 text: "pos z: " + posZ.value
             }
         }
+
+        Slider {
+            id: colorR
+            width: parent.width
+            stepSize: 0.015625
+            value: 0.5
+            minimumValue: 0
+            maximumValue: 1
+            Text {
+                id: valueColorR
+                color: "white"
+                anchors.left: parent.right
+                anchors.leftMargin: 8
+                text: "R: " + colorR.value
+            }
+        }
+
+        Slider {
+            id: colorG
+            width: parent.width
+            stepSize: 0.015625
+            value: 0.5
+            minimumValue: 0
+            maximumValue: 1
+            Text {
+                id: valueColorG
+                color: "white"
+                anchors.left: parent.right
+                anchors.leftMargin: 8
+                text: "G: " + colorG.value
+            }
+        }
+
+        Slider {
+            id: colorB
+            width: parent.width
+            stepSize: 0.015625
+            value: 0.5
+            minimumValue: 0
+            maximumValue: 1
+            Text {
+                id: valueColorB
+                color: "white"
+                anchors.left: parent.right
+                anchors.leftMargin: 8
+                text: "B: " + colorB.value
+            }
+        }
     }
 
     function createBlock() {
-        window.createBlock(sizeX.value, sizeY.value, sizeZ.value,posX.value,posY.value,posZ.value)
+        window.createBlock(
+                    sizeX.value,sizeY.value,sizeZ.value,
+                    posX.value,posY.value,posZ.value,
+                    colorR.value,colorG.value,colorB.value)
     }
 }
