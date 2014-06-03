@@ -34,8 +34,8 @@ Rectangle {
                 color: "white"
                 anchors.left: parent.right
                 anchors.leftMargin: 8
+                text: "size x: " + sizeX.value
             }
-            onValueChanged: valueX.text = "size x: " + sizeX.value
         }
 
         Slider {
@@ -49,8 +49,8 @@ Rectangle {
                 color: "white"
                 anchors.left: parent.right
                 anchors.leftMargin: 8
+                text: "size y: " + sizeY.value
             }
-            onValueChanged: valueY.text = "size y: " + sizeY.value
         }
 
         Slider {
@@ -71,49 +71,47 @@ Rectangle {
         Slider {
             id: posX
             stepSize: 1
-            value: 250
-            minimumValue: 1
-            maximumValue: 500
+            value: 0
+            minimumValue: -250
+            maximumValue: 250
             Text {
                 id: posValueX
                 color: "white"
                 anchors.left: parent.right
                 anchors.leftMargin: 8
+                text: "pos x: " + posX.value
             }
-            onValueChanged: posValueX.text = "pos x: " + posX.value
         }
 
         Slider {
             id: posY
             stepSize: 1
-            value: 250
-            minimumValue: 1
-            maximumValue: 500
+            value: 0.0
+            minimumValue: -250
+            maximumValue: 250
             Text {
                 id: posValueY
                 color: "white"
                 anchors.left: parent.right
                 anchors.leftMargin: 8
+                text: "pos y: " + posY.value
             }
-            onValueChanged: posValueY.text = "pos y: " + posY.value
         }
 
         Slider {
             id: posZ
             stepSize: 1
-            value: 250
-            minimumValue: 1
-            maximumValue: 500
-
-            property int v: 250
+            value: 0
+            minimumValue: -250
+            maximumValue: 250
 
             Text {
                 id: posValueZ
                 color: "white"
                 anchors.left: parent.right
                 anchors.leftMargin: 8
+                text: "pos z: " + posZ.value
             }
-            onValueChanged: posValueZ.text = "pos z: " + posZ.value
         }
     }
     function createBlock() {
