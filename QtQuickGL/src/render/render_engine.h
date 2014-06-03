@@ -68,12 +68,9 @@ public:
     //object
     int pickObjectAt();
     void rotateObject(int id,int dx,int dy);
-<<<<<<< local
     void translateObject(int id,int dx,int dy,int dz);
     void CreateBlock(QVector3D size, QVector3D transform);
-=======
     void CreateBlock(QVector3D size, QVector3D transform, QVector4D color);
->>>>>>> other
 
     QObject *GetContext();
 private:

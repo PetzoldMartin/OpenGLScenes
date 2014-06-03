@@ -196,7 +196,7 @@ int RenderEngine::pickObjectAt() {
 
 void RenderEngine::rotateObject(int id,int dx,int dy) {
     if (selectedObject != NULL) {
-        selectedObject->RotateRelative(dx,QVector3D(1.0f,0,0f,0.0f));
+        selectedObject->RotateRelative(dx,QVector3D(1.0f,0.0f,0.0f));
     }
 }
 
