@@ -21,7 +21,7 @@ Rectangle {
                 width: 80
                 anchors.fill: parent.anchors
                 text: "Sphere"
-                //onClicked: createTab.createBlock()
+                onClicked: createTab.createSphere()
             }
         }
 
@@ -173,6 +173,13 @@ Rectangle {
 
     function createBlock() {
         window.createBlock(
+                    sizeX.value,sizeY.value,sizeZ.value,
+                    posX.value,posY.value,posZ.value,
+                    colorR.value,colorG.value,colorB.value)
+    }
+
+    function createSphere() {
+        window.createSphere(
                     sizeX.value,sizeY.value,sizeZ.value,
                     posX.value,posY.value,posZ.value,
                     colorR.value,colorG.value,colorB.value)

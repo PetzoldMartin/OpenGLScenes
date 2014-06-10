@@ -25,6 +25,17 @@ void Scene::CreateBlock()
 
 void Scene::AddBlock(QVector3D size, QVector3D transform, QVector4D color, Drawable *parent) {
     Drawable *drawable = m_factory->GenBlock(size, color);
+    AddDrawable(drawable, transform, parent);
+}
+
+void Scene::AddSphere(QVector3D size, QVector3D transform, QVector4D color, Drawable *parent)
+{
+    Drawable *drawable = m_factory->GenSphere(size, color);
+    AddDrawable(drawable, transform, parent);
+}
+
+void Scene::AddDrawable(Drawable *drawable, QVector3D transform, Drawable *parent)
+{
     QMatrix4x4 trans;
     trans.translate(transform);
     drawable->SetTransformMatrix(trans);

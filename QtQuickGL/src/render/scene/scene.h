@@ -31,6 +31,8 @@ public:
     void CreateBlock();
 
     void AddBlock(QVector3D size, QVector3D transform, QVector4D color, Drawable *parent);
+    void AddSphere(QVector3D size, QVector3D transform, QVector4D color, Drawable *parent);
+    void AddDrawable(Drawable *drawable, QVector3D color, Drawable *parent);
 
     virtual void Update() = 0;
     virtual void Create() = 0;

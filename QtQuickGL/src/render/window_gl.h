@@ -29,6 +29,7 @@ public slots:
     void scaleObject(int factor);
     void shiftObject(int dx, int dy, int dz);
     void createBlock(float sx, float sy, float sz, float tx, float ty, float tz, float cr, float cg, float cb);
+    void createSphere(float sx, float sy, float sz, float tx, float ty, float tz, float cr, float cg, float cb);
 
     void initialize();
     void update();
