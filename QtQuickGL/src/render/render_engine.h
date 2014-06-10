@@ -71,6 +71,7 @@ public:
     void translateObject(int dx,int dy,int dz);
     void CreateBlock(QVector3D size, QVector3D transform);
     void CreateBlock(QVector3D size, QVector3D transform, QVector4D color);
+    void CreateSphere(QVector3D size, QVector3D transform, QVector4D color);
 
     QObject *GetContext();
 private:

@@ -212,6 +212,11 @@ void RenderEngine::CreateBlock(QVector3D size, QVector3D transform, QVector4D co
     m_sceneEdit->AddBlock(size,transform, color, selectedObject);
 }
 
+void RenderEngine::CreateSphere(QVector3D size, QVector3D transform, QVector4D color)
+{
+    m_sceneEdit->AddSphere(size,transform, color, selectedObject);
+}
+
 
 // S OBJECTS METHODS ///////////////////////////////////////////////////////////// AREA //
 

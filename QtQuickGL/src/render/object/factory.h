@@ -40,6 +40,14 @@ public:
     ///
     Drawable *GenBlock(QVector3D size, QVector4D color);
 
+    ///
+    /// \brief Generate a new Sphere
+    /// \param size Size for the Sphere
+    /// \param color Color
+    /// \return
+    ///
+    Drawable *GenSphere(QVector3D size, QVector4D color);
+
 private:
 
     RenderEngine *m_engine;         ///< The RenderEngine Context
