@@ -104,9 +104,10 @@ void Drawable::TranslateRelative(QVector3D transform)
     m_transMatrix.translate(transform);
 }
 
-void Drawable::RotateDirect(float angle, QVector3D axis)
+void Drawable::RotateDirect(int deltax,int deltay)
 {   m_modelMatrix=m_manipulateMatrix;
-    m_modelMatrix.rotate(angle, axis);
+    m_modelMatrix.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
+    m_modelMatrix.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
 }
 void Drawable::scale(float factor){
     m_modelMatrix=m_manipulateMatrix;

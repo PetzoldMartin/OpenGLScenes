@@ -201,9 +201,9 @@ void RenderEngine::deselect(){
     }
 }
 
-void RenderEngine::rotateObject(int delta,QVector3D axis) {
+void RenderEngine::rotateObject(int deltax,int deltay) {
     if (selectedObject != NULL) {
-        selectedObject->RotateRelative(delta,axis);
+        selectedObject->RotateDirect(deltax,deltay);
     }
 }
 

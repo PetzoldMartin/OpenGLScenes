@@ -54,7 +54,7 @@ public:
     /// \param angle rotation angle (deg)
     /// \param axis rotation axis
     ///
-    void RotateDirect(float angle, QVector3D axis);
+    void RotateDirect(int deltax, int deltay);
 
     ///
     /// \brief Rotate the Drawable relative to his parent
