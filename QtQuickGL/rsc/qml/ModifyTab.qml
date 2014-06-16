@@ -68,7 +68,7 @@ Rectangle{
          stepSize: 10
          visible: true
          onValueChanged:{
-             window.rotateObject(window.selectedObjectId,value,modifySliderY.value);
+             window.rotateObject(value,modifySliderY.value);
 
          }
 
@@ -100,7 +100,7 @@ Rectangle{
          stepSize: 10
          visible: true
          onValueChanged:{
-             window.rotateObject(window.selectedObjectId,modifySliderX.value,value);}
+             window.rotateObject(modifySliderX.value,value);}
      }
     Rectangle { id: modifyMonitorScale
                 anchors.top: modifySliderY.bottom

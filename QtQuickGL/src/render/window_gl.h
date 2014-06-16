@@ -26,7 +26,7 @@ public slots:
     //object
     int pickObjectAt();
     void deselect();
-    void rotateObject(int delta);
+    void rotateObject(int deltax,int deltay);
     void scaleObject(float factor);
     void shiftObject(int dx, int dy, int dz);
     void forceModification();

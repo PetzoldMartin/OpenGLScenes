@@ -67,7 +67,7 @@ public:
 
     //object
     int pickObjectAt();
-    void rotateObject(int delta,QVector3D axis = QVector3D(1.0f,0.0f,0.0f));
+    void rotateObject(int deltax,int deltay);
     void translateObject(int dx,int dy,int dz);
     void scaleObject(float factor);
     void forceModification();
