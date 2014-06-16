@@ -144,7 +144,8 @@ public:
     static Drawable* GetDrawableByID(QVector4D ID);
 
     QMatrix4x4 GetSceneMatrix();
-
+    void scale(float factor);
+    void forceModification();
 private:
 
     ///
@@ -162,7 +163,7 @@ private:
 
     QMatrix4x4 m_modelMatrix;                   ///< Self Matrix
     QMatrix4x4 m_transMatrix;                   ///< Transformation to his parent
-
+    QMatrix4x4 m_manipulateMatrix;              ///Temporary for Object manipulating
     std::vector<Drawable*> m_childList;         ///< List of Childs
 
     std::vector<unsigned char> m_id;                             ///< unique id
