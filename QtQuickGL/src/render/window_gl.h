@@ -25,9 +25,11 @@ public slots:
 
     //object
     int pickObjectAt();
+    void deselect();
     void rotateObject(int delta);
-    void scaleObject(int factor);
+    void scaleObject(float factor);
     void shiftObject(int dx, int dy, int dz);
+    void forceModification();
     void createBlock(float sx, float sy, float sz, float tx, float ty, float tz, float cr, float cg, float cb);
     void createSphere(float sx, float sy, float sz, float tx, float ty, float tz, float cr, float cg, float cb);
 

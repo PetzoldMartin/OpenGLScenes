@@ -122,12 +122,12 @@ Rectangle{
         anchors.top: modifyMonitorScale.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 10
-         minimumValue: -10
-         value: 0
-         stepSize: 1
+         maximumValue: 200
+         minimumValue: 0
+         value: 100
+         stepSize: 5
          visible: true
-         onValueChanged:window.scaleObject(window.selectedObjectId,value)
+         onValueChanged:window.scaleObject(value/100)
      }
     Rectangle { id: modifyMonitorShiftX
                 anchors.top: modifySliderScale.bottom
@@ -139,7 +139,7 @@ Rectangle{
                        anchors.bottom: parent.bottom
                        anchors.bottomMargin: parent.parent.componentTextBottom
                        font.pointSize: parent.parent.componentTextSize;
-                       text: modifySliderShiftX.value}
+                       text: modifySliderShiftX.value/100}
                 Text { anchors.centerIn: parent
                        color: "white"
                        font.pointSize: parent.parent.componentTextSize;
@@ -233,7 +233,10 @@ Rectangle{
         width: parent.width;
         height: parent.componentHeight*2;
         onClicked: {
-            modifySliderScale.value=0;
+            window.forceModification();
+            window.deselect();
+
+            modifySliderScale.value=100;
             modifySliderShiftX.value=0;
             modifySliderShiftY.value=0;
             modifySliderShiftZ.value=0;

@@ -96,18 +96,24 @@ void WindowGL::rotateView (int dx,int dy) {
 int WindowGL::pickObjectAt() {
     return m_engine->pickObjectAt();
 }
+void WindowGL::deselect(){
+    m_engine->deselect();
+}
 
 void WindowGL::rotateObject(int delta) {
     m_engine->rotateObject(delta);
 }
 
-void WindowGL::scaleObject(int factor) {
-    //TODO ObjectScaling
+void WindowGL::scaleObject(float factor) {
+    m_engine->scaleObject(factor);
 }
 
 void WindowGL::shiftObject( int dx, int dy, int dz){
     m_engine->translateObject(dx,dy,dz);
 
+}
+void WindowGL::forceModification(){
+    m_engine->forceModification();
 }
 
 void WindowGL::createBlock(float sx, float sy, float sz, float tx, float ty, float tz, float cr, float cg, float cb)

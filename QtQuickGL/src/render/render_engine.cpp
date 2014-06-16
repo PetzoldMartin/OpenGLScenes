@@ -194,6 +194,13 @@ int RenderEngine::pickObjectAt() {
     return 0;
 }
 
+void RenderEngine::deselect(){
+    if (selectedObject != NULL) {
+        selectedObject->SetSelected(false);
+        selectedObject=NULL;
+    }
+}
+
 void RenderEngine::rotateObject(int delta,QVector3D axis) {
     if (selectedObject != NULL) {
         selectedObject->RotateRelative(delta,axis);
@@ -205,6 +212,17 @@ void RenderEngine::translateObject(int dx,int dy,int dz) {
             selectedObject->TranslateRelative(QVector3D((float)dx,(float)dy,(float)dz));
         }
 
+}
+void RenderEngine::scaleObject(float factor){
+    if (selectedObject != NULL) {
+        selectedObject->scale(factor);
+    }
+}
+
+void RenderEngine::forceModification(){
+    if (selectedObject != NULL) {
+        selectedObject->forceModification();
+    }
 }
 
 void RenderEngine::CreateBlock(QVector3D size, QVector3D transform, QVector4D color)

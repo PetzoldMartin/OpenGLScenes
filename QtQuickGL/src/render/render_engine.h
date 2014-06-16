@@ -69,6 +69,9 @@ public:
     int pickObjectAt();
     void rotateObject(int delta,QVector3D axis = QVector3D(1.0f,0.0f,0.0f));
     void translateObject(int dx,int dy,int dz);
+    void scaleObject(float factor);
+    void forceModification();
+    void deselect();
     void CreateBlock(QVector3D size, QVector3D transform);
     void CreateBlock(QVector3D size, QVector3D transform, QVector4D color);
     void CreateSphere(QVector3D size, QVector3D transform, QVector4D color);
