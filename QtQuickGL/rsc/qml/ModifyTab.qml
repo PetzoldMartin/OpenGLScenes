@@ -112,7 +112,7 @@ Rectangle{
                        anchors.bottom: parent.bottom
                        anchors.bottomMargin: parent.parent.componentTextBottom
                        font.pointSize: parent.parent.componentTextSize;
-                       text: modifySliderScale.value}
+                       text: modifySliderScale.value/100}
                 Text { anchors.centerIn: parent
                        color: "white"
                        font.pointSize: parent.parent.componentTextSize;
@@ -124,7 +124,7 @@ Rectangle{
          height: parent.componentHeight;
          maximumValue: 200
          minimumValue: 0
-         value: 100
+         value: 0
          stepSize: 5
          visible: true
          onValueChanged:window.scaleObject(value/100)
@@ -139,7 +139,7 @@ Rectangle{
                        anchors.bottom: parent.bottom
                        anchors.bottomMargin: parent.parent.componentTextBottom
                        font.pointSize: parent.parent.componentTextSize;
-                       text: modifySliderShiftX.value/100}
+                       text: modifySliderShiftX.value}
                 Text { anchors.centerIn: parent
                        color: "white"
                        font.pointSize: parent.parent.componentTextSize;
@@ -236,7 +236,7 @@ Rectangle{
             window.forceModification();
             window.deselect();
 
-            modifySliderScale.value=100;
+            modifySliderScale.value=0;
             modifySliderShiftX.value=0;
             modifySliderShiftY.value=0;
             modifySliderShiftZ.value=0;
