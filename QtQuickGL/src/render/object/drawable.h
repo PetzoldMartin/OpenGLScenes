@@ -48,7 +48,7 @@ public:
     /// \param transform Tranformation value
     ///
     void TranslateRelative(QVector3D transform);
-
+    void TranslateSelectedRelative(QVector3D transform);
     ///
     /// \brief Rotate the Drawable itself
     /// \param angle rotation angle (deg)
@@ -62,7 +62,7 @@ public:
     /// \param axis rotation axis
     ///
     void RotateRelative(float angle, QVector3D axis);
-
+    void RotateSelectedRelative(int deltax, int deltay);
     ///
     /// \brief Set the Mesh that is used to draw the Drawable
     /// \param mesh The Mesh
@@ -163,7 +163,9 @@ private:
 
     QMatrix4x4 m_modelMatrix;                   ///< Self Matrix
     QMatrix4x4 m_transMatrix;                   ///< Transformation to his parent
-    QMatrix4x4 m_manipulateMatrix;              ///Temporary for Object manipulating
+    QMatrix4x4 m_manipulateMatrix;              ///Temporary for Object direct manipulating
+    QMatrix4x4 m_manipulateRMatrix;              ///Temporary for Object relativ manipulating
+
     std::vector<Drawable*> m_childList;         ///< List of Childs
 
     std::vector<unsigned char> m_id;                             ///< unique id

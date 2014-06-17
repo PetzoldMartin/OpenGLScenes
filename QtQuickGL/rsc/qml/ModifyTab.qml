@@ -154,7 +154,7 @@ Rectangle{
          value: 0
          stepSize: 1
          visible: true
-         onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
+         onValueChanged:window.shiftObject(modifySliderShiftX.value,0,0)
      }
     Rectangle { id: modifyMonitorShiftY
                 anchors.top: modifySliderShiftX.bottom
@@ -181,7 +181,7 @@ Rectangle{
          value: 0
          stepSize: 1
          visible: true
-         onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
+         onValueChanged:window.shiftObject(0,modifySliderShiftY.value,0)
 
      }
     Rectangle { id: modifyMonitorShiftZ
@@ -209,7 +209,7 @@ Rectangle{
          value: 0
          stepSize: 1
          visible: true
-         onValueChanged:window.shiftObject(window.selectedObjectId,modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value)
+         onValueChanged:window.shiftObject(0,0,modifySliderShiftZ.value)
 
      }
     Rectangle { id: modifyMonitorShiftConsole
