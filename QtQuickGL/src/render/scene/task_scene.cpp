@@ -77,8 +77,8 @@ void TaskScene::Create()
 
 void TaskScene::Update()
 {
-    m_sphere->RotateRelative(1,QVector3D(0,0,1));
-    m_punkt->RotateRelative(1,QVector3D(0,1,0));
-    m_schlitten->TranslateRelative(QVector3D(qSin(QTime::currentTime().second()*2.8),0,0));
+    //m_sphere->RotateRelative(1,QVector3D(0,0,1));
+    //m_punkt->RotateRelative(1,QVector3D(0,1,0));
+    //m_schlitten->TranslateRelative(QVector3D(qSin(QTime::currentTime().second()*2.8),0,0));
 }
 
