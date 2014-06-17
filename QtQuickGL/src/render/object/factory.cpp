@@ -251,8 +251,9 @@ void Factory::createMeshSphere() {
 #endif
 
     float rad = 0.5;
-    unsigned int segu = 32;
-    unsigned int segv = 16;
+    unsigned int segv = 23;
+    unsigned int segu = 2*segv;
+
 
     for (unsigned int v = 1; v<segv; ++v)
     {
