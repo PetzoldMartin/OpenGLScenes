@@ -20,6 +20,7 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     m_mesh = NULL;
     m_modelMatrix.setToIdentity();
     m_manipulateMatrix.setToIdentity();
+    m_manipulateRMatrix.setToIdentity();
     m_engine = engine;
     m_transMatrix = transform;
     m_isSelected = false;
@@ -103,7 +104,11 @@ void Drawable::TranslateRelative(QVector3D transform)
 {
     m_transMatrix.translate(transform);
 }
-
+void Drawable::TranslateSelectedRelative(QVector3D transform)
+{
+    m_transMatrix=m_manipulateRMatrix;
+    m_transMatrix.translate(transform);
+}
 void Drawable::RotateDirect(int deltax,int deltay)
 {   m_modelMatrix=m_manipulateMatrix;
     m_modelMatrix.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
@@ -115,11 +120,17 @@ void Drawable::scale(float factor){
 }
 void Drawable::forceModification(){
     m_manipulateMatrix=m_modelMatrix;
+    m_manipulateRMatrix=m_transMatrix;
 }
 
 void Drawable::RotateRelative(float angle, QVector3D axis)
 {
     m_transMatrix.rotate(angle, axis);
+}
+void Drawable::RotateSelectedRelative(int deltax, int deltay){
+    m_transMatrix=m_manipulateRMatrix;
+    m_transMatrix.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
+    m_transMatrix.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
 }
 
 void Drawable::SetMesh(Mesh *mesh)
@@ -166,8 +177,10 @@ void Drawable::SetColor(QVector4D color)
 void Drawable::SetSelected(bool value)
 {
     m_isSelected = value;
-    if(value){m_manipulateMatrix=m_modelMatrix;}
-    else{ m_modelMatrix=m_manipulateMatrix;}
+    if(value){m_manipulateMatrix=m_modelMatrix;
+    m_manipulateRMatrix=m_transMatrix;}
+    else{ m_modelMatrix=m_manipulateMatrix;
+    m_transMatrix=m_manipulateRMatrix;}
 }
 
 Drawable *Drawable::GetChild(int index)

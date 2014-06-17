@@ -203,13 +203,13 @@ void RenderEngine::deselect(){
 
 void RenderEngine::rotateObject(int deltax,int deltay) {
     if (selectedObject != NULL) {
-        selectedObject->RotateDirect(deltax,deltay);
+        selectedObject->RotateSelectedRelative(deltax,deltay);
     }
 }
 
 void RenderEngine::translateObject(int dx,int dy,int dz) {
         if (selectedObject != NULL) {
-            selectedObject->TranslateRelative(QVector3D((float)dx,(float)dy,(float)dz));
+            selectedObject->TranslateSelectedRelative(QVector3D((float)dx,(float)dy,(float)dz));
         }
 
 }
