@@ -32,7 +32,7 @@ private:
     /// All Objects from Task 1
     Drawable *m_gestell, *m_klotz,
     *m_schlitten, *m_vsp, *m_punkt,
-    *m_hl, *m_block1, *m_block2;
+    *m_hl, *m_block1, *m_block2, *m_sphere;
 };
 
 #endif // TASK_SCENE_H

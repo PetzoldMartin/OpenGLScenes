@@ -53,9 +53,10 @@ private:
     RenderEngine *m_engine;         ///< The RenderEngine Context
     Mesh *m_rectangle;              ///< The Default Rectangle Mesh
     Mesh *m_block;                  ///< The Default Block Mesh
-
+    Mesh *m_sphere;
     void createMeshRectangle();
     void createMeshBlock();
+    void createMeshSphere();
 };
 
 #endif // FACTORY_H

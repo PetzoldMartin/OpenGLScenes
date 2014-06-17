@@ -10,6 +10,8 @@
 #include <QVector3D>
 #include <QVector4D>
 #include <QDataStream>
+#include <glm/glm.hpp>
+#include <iostream>
 
 
 Factory::Factory(RenderEngine *engine)
@@ -17,9 +19,11 @@ Factory::Factory(RenderEngine *engine)
     m_engine = engine;
     m_rectangle = NULL;
     m_block = NULL;
+    m_sphere = NULL;
 
     createMeshRectangle();
     createMeshBlock();
+    createMeshSphere();
 }
 
 Drawable* Factory::GenRectangle(QVector3D size,  QVector4D color) {
@@ -58,8 +62,16 @@ Drawable *Factory::GenBlock(QVector3D size, QVector4D color)
 
 Drawable *Factory::GenSphere(QVector3D size, QVector4D color)
 {
-    // TODO: Create a Sphere Drawable
-    return 0;
+    QMatrix4x4 modelMatrix;
+    modelMatrix.setToIdentity();
+    modelMatrix.scale(size);
+    Drawable *sphere = new Drawable(m_engine, QMatrix4x4());
+    sphere->SetMesh(m_sphere);
+    sphere->SetModelMatrix(modelMatrix);
+    sphere->SetShader(m_engine->GetShader("basic"));
+    sphere->SetColor(color);
+
+    return sphere;
 }
 
 void Factory::createMeshRectangle()
@@ -220,4 +232,122 @@ void Factory::createMeshBlock()
     m_block->SetVertices(vert,36);
     m_block->SetNormals(normal,36);
     m_block->BuildVAO(m_engine->GetContext(),m_engine->GetShader("basic"));
+}
+
+void Factory::createMeshSphere() {
+    m_sphere=new Mesh();
+    QVector<QVector3D> bodyVert;
+    QVector<QVector3D> normals;
+    QVector<QVector3D> vertecies;
+
+    /** the infamous PI */
+#ifndef PI
+#define PI (3.1415926535897932384626433832795)
+#endif
+
+    /** 2.0 * PI */
+#ifndef TWO_PI
+#define TWO_PI (6.283185307179586476925286766559)
+#endif
+
+    float rad = 0.5;
+    unsigned int segu = 32;
+    unsigned int segv = 16;
+
+    for (unsigned int v = 1; v<segv; ++v)
+    {
+        // current vertex offset
+        int rown = bodyVert.size();
+
+        // body vertices
+        for (unsigned int u = 0; u<segu; ++u)
+        {
+            float ut = (float)u / segu*TWO_PI;
+            float vt= (float)v / segv*PI;
+
+            glm::vec3 p = glm::vec3(
+                        // rotate a point (0,1,0) around z
+                        -sin(vt), std::cos(vt), 0 );
+            // rotate this point around y
+            p.z = -p.x * std::sin(ut);
+            p.x =  p.x * std::cos(ut);
+            bodyVert << QVector3D(p.x * rad, p.y * rad, p.z * rad);
+        }
+
+        // triangles on each 'row'
+        for (unsigned int u = 0; u<segu; ++u)
+        {
+            // connect to top point
+            if (v==1)
+            {
+                vertecies << (QVector3D(bodyVert.at(0)))
+                          << (QVector3D(bodyVert.at(rown+u)))
+                          << (QVector3D(bodyVert.at(rown+(u+1)%segu)));
+                //  bodyVert->addTriangle(0, rown + u, rown + (u + 1) % segu);
+            }
+            else
+            {
+                vertecies << (QVector3D(bodyVert.at(rown - segu + u)))
+                          << (QVector3D(bodyVert.at(rown + u)))
+                          << (QVector3D(bodyVert.at(rown + (u + 1) % segu)));
+                // connect
+                //                m_sphere->addTriangle(
+                //                            // previous row
+                //                            rown - segu + u,
+                //                            // with this row
+                //                            rown + u, rown + (u + 1) % segu);
+                vertecies << (QVector3D(bodyVert.at(rown - segu + (u + 1) % segu)))
+                          << (QVector3D(bodyVert.at(rown - segu + u)))
+                          << (QVector3D(bodyVert.at(rown + (u + 1) % segu)));
+                //                // .. and the other triangle of the quad
+                //                m_sphere->addTriangle(rown - segu + (u + 1) % segu,
+                //                                      rown - segu + u,
+                //                                      rown + (u + 1) % segu);
+            }
+        }
+    }
+
+    int rown = bodyVert.size() - segu - 1;
+
+    // bottom point
+    //m_sphere->addVertex(0, -rad, 0);
+    vertecies << (QVector3D(bodyVert.at(0)))
+              << (QVector3D(bodyVert.at(-rad)))
+              << (QVector3D(bodyVert.at(0)));
+
+    // connect to bottom point
+    for (unsigned int u = 0; u<segu; ++u)
+    {
+        vertecies << (QVector3D(bodyVert.at(bodyVert.size()-1)))
+                  << (QVector3D(bodyVert.at(rown + (u + 1) % segu)))
+                  << (QVector3D(bodyVert.at(rown + u)));
+        //        m_sphere->addTriangle(m->numVertices()-1,
+        //                              rown + (u + 1) % segu, rown + u);
+    }
+
+    for (int i=0;i<vertecies.size();++i) {
+        std::cout << vertecies.at(i).x() << "\t" << vertecies.at(i).y() << "\t" << vertecies.at(i).z() <<std::endl;
+    }
+    m_sphere->SetVertices(&(vertecies[0]),vertecies.size());
+
+    // an array to memorize the number of
+    // adjacent vertices for each vertex
+    std::vector<size_t> nr_adds(vertecies.size());
+
+    // for each triangle
+    for (size_t i=0; i<vertecies.size()/3; ++i)
+    {
+        // vector of each triangle corner
+        QVector3D p1 = vertecies.at(i*3),
+                p2 = vertecies.at(i*3+1),
+                p3 = vertecies.at(i*3+2);
+
+        // calculate the normal of the triangle
+        QVector3D n = QVector3D::crossProduct((p2-p1),(p3-p1));
+        n.normalize();
+        normals << QVector3D(n) << QVector3D(n) << QVector3D(n);
+    }
+    //m_sphere->SetNormals(&(vertecies[0]),vertecies.size());
+    m_sphere->SetNormals(&(normals[0]),normals.size());
+    m_sphere->BuildVAO(m_engine->GetContext(),m_engine->GetShader("basic"));
 }

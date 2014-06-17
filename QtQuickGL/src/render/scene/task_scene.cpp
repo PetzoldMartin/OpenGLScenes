@@ -68,11 +68,17 @@ void TaskScene::Create()
 
     m_objects.push_back(m_gestell);
 
+    m_sphere= m_factory->GenSphere(QVector3D(50,50,50),QVector4D(1.0,1.0,1.0,1.0));
+    QMatrix4x4 mSphere;
+    mSphere.setToIdentity();
+    mSphere.translate(QVector3D(-30,0,80));
+    m_klotz->AddChild(m_sphere,mSphere);
 }
 
 void TaskScene::Update()
 {
+    m_sphere->RotateRelative(1,QVector3D(0,0,1));
     m_punkt->RotateRelative(1,QVector3D(0,1,0));
-    m_schlitten->TranslateRelative(QVector3D(qSin(QTime::currentTime().second()*2)*0.5,0,0));
+    m_schlitten->TranslateRelative(QVector3D(qSin(QTime::currentTime().second()*2.8),0,0));
 }
 
