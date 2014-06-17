@@ -41,6 +41,16 @@ Rectangle{
             myConsole.text=out
             myConsole.update()
         }
+    function reset(){
+        modifySliderScale.value=0;
+        modifySliderShiftX.value=0;
+        modifySliderShiftY.value=0;
+        modifySliderShiftZ.value=0;
+        modifySliderX.value=0;
+        modifySliderY.value=0;
+        parent.update();
+    }
+
     Rectangle { id: modifyMonitorX
                 color: Qt.rgba(0,0.0,0,0.5)
                 width: parent.width;
