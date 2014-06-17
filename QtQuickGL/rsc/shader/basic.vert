@@ -17,6 +17,6 @@ void main(void)
 {
     gl_Position =  projMatrix * sceneMatrix * modelMatrix * in_position;
     out_color = color;
-    out_normal = normalize(in_normal * sceneMatrix * modelMatrix);
+    out_normal = normalize(sceneMatrix * modelMatrix* in_normal);
     out_position = in_position;
 }

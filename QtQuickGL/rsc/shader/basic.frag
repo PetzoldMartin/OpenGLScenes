@@ -13,7 +13,7 @@ void main(void)
     vec3 ray_norm = -normalize(vec3(-4.0,7.0,-5.0));
 
     if(viewMode == 1) { // Normalview
-        gl_FragColor.xyz = out_normal.xyz * 0.5 + 0.5;
+        gl_FragColor.xyz = out_normal.xyz  *0.5 + 0.5;
         gl_FragColor.w = 1.0;
     } else if (viewMode == 2){ // color view
         gl_FragColor = out_color;
