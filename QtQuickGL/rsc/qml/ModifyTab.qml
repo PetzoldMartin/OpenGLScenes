@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import OpenGLUnderQML 1.0
-import QtQuick.Controls 1.0
+import QtQuick.Controls 1.1
 
 Rectangle{
     id: modifyOptions
@@ -65,7 +65,7 @@ Rectangle{
          maximumValue: 180
          minimumValue: -180
          value: 0
-         stepSize: 10
+         stepSize: 1
          visible: true
          onValueChanged:{
              window.rotateObject(value,modifySliderY.value);
@@ -97,10 +97,11 @@ Rectangle{
          maximumValue: 180
          minimumValue: -180
          value: 0
-         stepSize: 10
+         stepSize: 1
          visible: true
          onValueChanged:{
-             window.rotateObject(modifySliderX.value,value);}
+             window.rotateObject(modifySliderX.value,modifySliderY.value);
+         }
      }
     Rectangle { id: modifyMonitorScale
                 anchors.top: modifySliderY.bottom
@@ -112,7 +113,7 @@ Rectangle{
                        anchors.bottom: parent.bottom
                        anchors.bottomMargin: parent.parent.componentTextBottom
                        font.pointSize: parent.parent.componentTextSize;
-                       text: modifySliderScale.value/100}
+                       text: (modifySliderScale.value+100)/100}
                 Text { anchors.centerIn: parent
                        color: "white"
                        font.pointSize: parent.parent.componentTextSize;
@@ -122,12 +123,13 @@ Rectangle{
         anchors.top: modifyMonitorScale.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 200
-         minimumValue: 0
+
          value: 0
+         maximumValue: 100
+         minimumValue: -100
          stepSize: 5
          visible: true
-         onValueChanged:window.scaleObject(value/100)
+         onValueChanged:window.scaleObject((value+100)/100)
      }
     Rectangle { id: modifyMonitorShiftX
                 anchors.top: modifySliderScale.bottom
@@ -149,12 +151,14 @@ Rectangle{
         anchors.top: modifyMonitorShiftX.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 10
-         minimumValue: -10
+         maximumValue: 100
+         minimumValue: -100
          value: 0
          stepSize: 1
          visible: true
-         onValueChanged:window.shiftObject(modifySliderShiftX.value,0,0)
+         onValueChanged:{window.shiftObject(modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value);
+             }
+
      }
     Rectangle { id: modifyMonitorShiftY
                 anchors.top: modifySliderShiftX.bottom
@@ -176,12 +180,13 @@ Rectangle{
         anchors.top: modifyMonitorShiftY.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 10
-         minimumValue: -10
+         maximumValue: 100
+         minimumValue: -100
          value: 0
          stepSize: 1
          visible: true
-         onValueChanged:window.shiftObject(0,modifySliderShiftY.value,0)
+         onValueChanged:{window.shiftObject(modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value);
+             }
 
      }
     Rectangle { id: modifyMonitorShiftZ
@@ -204,12 +209,13 @@ Rectangle{
         anchors.top: modifyMonitorShiftZ.bottom
          width: parent.width
          height: parent.componentHeight;
-         maximumValue: 10
-         minimumValue: -10
+         maximumValue: 100
+         minimumValue: -100
          value: 0
          stepSize: 1
          visible: true
-         onValueChanged:window.shiftObject(0,0,modifySliderShiftZ.value)
+         onValueChanged:{window.shiftObject(modifySliderShiftX.value,modifySliderShiftY.value,modifySliderShiftZ.value);
+             }
 
      }
     Rectangle { id: modifyMonitorShiftConsole
