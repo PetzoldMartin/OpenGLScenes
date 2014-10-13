@@ -13,7 +13,10 @@ SOURCES += \
     src/render/scene/test_scene.cpp \
     src/render/object/mesh.cpp \
     src/render/scene/task_scene.cpp \
-    src/render/utility/rendertarget.cpp
+    src/render/utility/rendertarget.cpp \
+    src/render/object/primitive/cvertex.cpp \
+    src/render/object/primitive/cedge.cpp \
+    src/render/object/primitive/cface.cpp
 
 RESOURCES += \
     rsc/resource.qrc
@@ -34,7 +37,10 @@ HEADERS += \
     src/render/scene/test_scene.h \
     src/render/object/mesh.h \
     src/render/scene/task_scene.h \
-    src/render/utility/rendertarget.h
+    src/render/utility/rendertarget.h \
+    src/render/object/primitive/cvertex.h \
+    src/render/object/primitive/cedge.h \
+    src/render/object/primitive/cface.h
 
 OTHER_FILES += \
     rsc/qml/main.qml \
