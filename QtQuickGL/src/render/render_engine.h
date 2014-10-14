@@ -101,6 +101,7 @@ private:
 
     int m_mouseX;
     int m_mouseY;
+    QMatrix4x4 lightPosition,lightPositionBack;
     QVector4D m_hoverObjectID;
     Drawable* selectedObject;
 
