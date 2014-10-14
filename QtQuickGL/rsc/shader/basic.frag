@@ -4,13 +4,14 @@ varying vec4 out_position;
 
 uniform int viewMode;
 uniform vec4 cameraPosition;
+uniform vec3 lightPosition;
 uniform float isDrawID;
 uniform float isSelected;
 uniform vec4 id;
 
 void main(void)
 {
-    vec3 ray_norm = -normalize(vec3(-4.0,7.0,-5.0));
+    vec3 ray_norm = normalize(lightPosition);
 
     if(viewMode == 1) { // Normalview
         gl_FragColor.xyz = out_normal.xyz  *0.5 + 0.5;
@@ -33,6 +34,6 @@ void main(void)
     }
 
     // Draw ID Case
-    gl_FragColor.xyz *= 1.0 - isDrawID;
-    gl_FragColor.xyz += isDrawID     * id.xyz;
+    gl_FragColor.xyz *= 1.0 - isDrawID; // invert
+    gl_FragColor.xyz += isDrawID     * id.xyz; // wtf???
 }
