@@ -9,3 +9,5 @@ QtQuickGL\Makefile.Debug
 QtQuickGL\Makefile.Release
 *.Debug
 *.Release
+*.o
+moc_*
