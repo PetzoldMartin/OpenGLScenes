@@ -12,6 +12,7 @@
 #include <QDataStream>
 #include <glm/glm.hpp>
 #include <iostream>
+#include <QFile>
 
 
 Factory::Factory(RenderEngine *engine)
@@ -24,6 +25,66 @@ Factory::Factory(RenderEngine *engine)
     createMeshRectangle();
     createMeshBlock();
     createMeshSphere();
+}
+
+Mesh *Factory::generateMeshFromFile(QFile* file){
+    file->open(QIODevice::ReadOnly);
+    //QMap<QString, QVector < QVector <int> > > data;
+    QVector<QVector<int> >  data;
+    while (!file->atEnd()) {
+        QTextStream stream(file->readLine());
+
+        QString sType; // element type
+        stream >> sType;
+
+        int id; // element id
+        stream >> id;
+
+        // face color
+        if (!sType.compare("F",Qt::CaseInsensitive)) {
+            int color;
+            stream >> color;
+           // qDebug() << color << "\t" << sType;
+        }
+
+        //qDebug() << sType << "\t" << id;
+
+        QVector<int> line;
+        while (true) {
+
+            int var;
+            stream >> var;
+
+            if (stream.atEnd()) {
+                break;
+            }
+
+            line.push_back(var);
+        }
+        //qDebug() << line;
+        data.push_back(line);
+    }
+    qDebug() << data;
+    return NULL;
+}
+
+
+Drawable *Factory::GenFromFile(QFile* file, QVector4D color, QVector3D size) {
+    // create internal model matrix that create the size
+    QMatrix4x4 modelMatrix;
+    modelMatrix.setToIdentity();
+    modelMatrix.scale(size);
+
+    // create a new Drawable from file
+    Drawable *model = new Drawable(m_engine, QMatrix4x4());
+    Mesh *modelMesh = generateMeshFromFile(file);
+
+    model->SetMesh(modelMesh);
+    model->SetModelMatrix(modelMatrix);
+    model->SetShader(m_engine->GetShader("basic")); //TODO new Shader
+    model->SetColor(color);
+
+    return model;
 }
 
 Drawable* Factory::GenRectangle(QVector3D size,  QVector4D color) {
@@ -326,9 +387,9 @@ void Factory::createMeshSphere() {
         //                              rown + (u + 1) % segu, rown + u);
     }
 
-    for (int i=0;i<vertecies.size();++i) {
-        std::cout << vertecies.at(i).x() << "\t" << vertecies.at(i).y() << "\t" << vertecies.at(i).z() <<std::endl;
-    }
+    //    for (int i=0;i<vertecies.size();++i) {
+    //        std::cout << vertecies.at(i).x() << "\t" << vertecies.at(i).y() << "\t" << vertecies.at(i).z() <<std::endl;
+    //    }
     m_sphere->SetVertices(&(vertecies[0]),vertecies.size());
 
     // an array to memorize the number of
@@ -352,3 +413,5 @@ void Factory::createMeshSphere() {
     m_sphere->SetNormals(&(normals[0]),normals.size());
     m_sphere->BuildVAO(m_engine->GetContext(),m_engine->GetShader("basic"));
 }
+
+

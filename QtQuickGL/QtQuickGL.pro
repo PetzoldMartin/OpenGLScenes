@@ -1,6 +1,7 @@
 TEMPLATE = app
 
 QT += qml quick
+#CONFIG += c++11
 
 SOURCES += \
     src/render/window_gl.cpp \
@@ -43,8 +44,8 @@ HEADERS += \
     src/render/object/primitive/cface.h
 
 OTHER_FILES += \
+    rsc/file/*.dat\
     rsc/qml/main.qml \
-    rsc/shader/basic.frag \
-    rsc/shader/basic.vert \
-    rsc/qml/CreateTab.qml \
-    rsc/qml/ModifyTab.qml
+    rsc/shader/*.frag \
+    rsc/shader/*.vert \
+    rsc/qml/*.qml \

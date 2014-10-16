@@ -48,7 +48,7 @@ vector<unsigned char> Drawable::makeNewID(){
     ++v[0]=s_idCount[0];
     ++v[1]=s_idCount[1];
     ++v[2]=s_idCount[2];
-    cout<<(float)v[0]/255<<"x "<<(float)v[1]/255<<"y "<<(float)v[2]/255<<"z "<<(float)v[3]/255<<endl;
+   // cout<<(float)v[0]/255<<"x "<<(float)v[1]/255<<"y "<<(float)v[2]/255<<"z "<<(float)v[3]/255<<endl;
 
     return v;
 }

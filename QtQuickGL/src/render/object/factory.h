@@ -7,6 +7,7 @@ class QVector4D;
 class QVector3D;
 class RenderEngine;
 class Mesh;
+class QFile;
 
 ///
 /// \brief The Factory class Produces Drawables
@@ -48,12 +49,22 @@ public:
     ///
     Drawable *GenSphere(QVector3D size, QVector4D color);
 
+    ///
+    /// \brief Generate a new Model from a file
+    /// \param file file to read from
+    /// \param size scale factor of the model
+    /// \param color Color
+    /// \return
+    ///
+    Drawable *GenFromFile(QFile* file, QVector4D color, QVector3D size);
+
 private:
 
     RenderEngine *m_engine;         ///< The RenderEngine Context
     Mesh *m_rectangle;              ///< The Default Rectangle Mesh
     Mesh *m_block;                  ///< The Default Block Mesh
     Mesh *m_sphere;
+    Mesh *generateMeshFromFile(QFile *file);
     void createMeshRectangle();
     void createMeshBlock();
     void createMeshSphere();

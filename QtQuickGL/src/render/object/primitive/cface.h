@@ -1,15 +1,17 @@
 #ifndef CFACE_H
 #define CFACE_H
 
+#include <qvector.h>
+
+#include "cedge.h"
+
 class CFace
 {
 public:
     CFace();
+    void addEdge(const CEdge &edge);
 private:
-    int objID;
-    int colorID;
-    int edgeCount;
-    int edges[4];
+    QVector<CEdge> mEdges;
 };
 
 #endif // CFACE_H
