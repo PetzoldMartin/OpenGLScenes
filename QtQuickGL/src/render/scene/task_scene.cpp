@@ -73,6 +73,12 @@ void TaskScene::Create()
     mSphere.setToIdentity();
     mSphere.translate(QVector3D(-30,0,80));
     m_klotz->AddChild(m_sphere,mSphere);
+
+
+    // TODO testing read file
+    QFile* file = new QFile(QString(":/file/file/Test.dat"));
+    Drawable* fileModel = m_factory->GenFromFile(file,QVector4D(1.0,1.0,1.0,1.0),QVector3D(1,1,1));
+
 }
 
 void TaskScene::Update()
