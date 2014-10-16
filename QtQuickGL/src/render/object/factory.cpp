@@ -28,9 +28,10 @@ Factory::Factory(RenderEngine *engine)
 }
 
 Mesh *Factory::generateMeshFromFile(QFile* file){
+
     file->open(QIODevice::ReadOnly);
     //QMap<QString, QVector < QVector <int> > > data;
-    QVector<QVector<int> >  data;
+    QVector<QPair<QPair<QString,int>, QVector<int> > > data;
     while (!file->atEnd()) {
         QTextStream stream(file->readLine());
 
@@ -40,16 +41,19 @@ Mesh *Factory::generateMeshFromFile(QFile* file){
         int id; // element id
         stream >> id;
 
-        // face color
-        if (!sType.compare("F",Qt::CaseInsensitive)) {
-            int color;
-            stream >> color;
-           // qDebug() << color << "\t" << sType;
-        }
 
         //qDebug() << sType << "\t" << id;
 
         QVector<int> line;
+
+        // face color
+        if (!sType.compare("F",Qt::CaseInsensitive)) {
+            int color;
+            stream >> color;
+            line.push_back(color);
+           // qDebug() << color << "\t" << sType;
+        }
+
         while (true) {
 
             int var;
@@ -62,7 +66,7 @@ Mesh *Factory::generateMeshFromFile(QFile* file){
             line.push_back(var);
         }
         //qDebug() << line;
-        data.push_back(line);
+        data.push_back(QPair<QPair<QString,int>, QVector<int> >(QPair<QString,int>(sType,id),line));
     }
     qDebug() << data;
     return NULL;
