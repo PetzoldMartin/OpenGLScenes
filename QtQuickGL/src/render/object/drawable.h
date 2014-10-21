@@ -173,7 +173,7 @@ private:
     static QMap<std::vector<unsigned char>,Drawable*> s_drawableMap;
     bool m_isSelected;                            ///< Flag for an Selected Drawable
     QMatrix4x4 m_SceneMatrix;
-    int xr,yr;
+    int xr,yr,zr;
     QVector3D m_transform;
 };
 
