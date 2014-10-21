@@ -10,6 +10,7 @@ Mesh::Mesh()
     m_vao = 0;
     m_normalBuffer = 0;
     m_positionBuffer = 0;
+    m_textcoordBuffer = 0;
     m_vertexCount = 0;
 }
 
@@ -17,6 +18,7 @@ Mesh::~Mesh()
 {
     delete m_normalBuffer;
     delete m_positionBuffer;
+    delete m_textcoordBuffer;
     delete m_vao;
 }
 
@@ -60,7 +62,16 @@ void Mesh::BuildVAO(QObject *context, QOpenGLShaderProgram *shader)
         // release the buffer from active context
         m_normalBuffer->release();
     }
-
+    // setup textcoord buffer
+    if(m_textcoordBuffer != 0){
+        m_textcoordBuffer->bind();
+        int in_tcoord = shader->attributeLocation("in_tcoord");
+        shader->enableAttributeArray(in_tcoord);
+        shader->setAttributeBuffer(in_tcoord, GL_FLOAT, 0, 2, 0);
+        m_textcoordBuffer->release();
+    }
+    //TODO find Right place
+    glBindTexture(GL_TEXTURE_2D, 0);
     // release the VertexArrayObject from active context
     m_vao->release();
 }
@@ -91,6 +102,16 @@ void Mesh::SetNormals(void *normals, int count)
         m_normalBuffer->create();
     }
     writeBuffer(m_normalBuffer, normals, sizeof(float) * count * 3);
+}
+
+void Mesh::SetTextCoords(void *textcoords, int count)
+{
+    if(m_textcoordBuffer == 0) {
+        m_textcoordBuffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
+        m_textcoordBuffer->create();
+
+    }
+    writeBuffer(m_textcoordBuffer, textcoords,sizeof(float) * count * 2);
 }
 
 void Mesh::writeBuffer(QOpenGLBuffer *buffer, void *data, int size)

@@ -48,11 +48,21 @@ public:
     ///
     void SetNormals(void *normals, int count);
 
+    ///
+    ///
+    ///
+    /// \param textchoords coordinates of the Texture
+    /// \param count
+
+    void SetTextCoords(void *textcoords, int count);
+
+
 private:
 
     QOpenGLVertexArrayObject *m_vao;    ///< Vertex to Shader Group
     QOpenGLBuffer *m_positionBuffer;    ///< GPU Buffer for Vertex Positions
     QOpenGLBuffer *m_normalBuffer;      ///< GPU Buffer for Vertex Normals
+    QOpenGLBuffer *m_textcoordBuffer;      ///< GPU Buffer for Texture Positions
 
     int m_vertexCount;                  ///< Number of Vertices
 
