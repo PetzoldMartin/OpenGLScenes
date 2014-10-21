@@ -17,7 +17,8 @@ SOURCES += \
     src/render/utility/rendertarget.cpp \
     src/render/object/primitive/cvertex.cpp \
     src/render/object/primitive/cedge.cpp \
-    src/render/object/primitive/cface.cpp
+    src/render/object/primitive/cface.cpp \
+    src/render/object/collada.cpp
 
 RESOURCES += \
     rsc/resource.qrc
@@ -41,7 +42,8 @@ HEADERS += \
     src/render/utility/rendertarget.h \
     src/render/object/primitive/cvertex.h \
     src/render/object/primitive/cedge.h \
-    src/render/object/primitive/cface.h
+    src/render/object/primitive/cface.h \
+    src/render/object/collada.h
 
 OTHER_FILES += \
     rsc/file/*.dat\
