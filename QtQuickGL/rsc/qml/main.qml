@@ -40,6 +40,9 @@ Item {
             case Qt.Key_F5:
                 window.setViewMode(4)
                 break
+            case Qt.Key_F6:
+                window.setViewMode(5)
+                break
             }
         }
     }

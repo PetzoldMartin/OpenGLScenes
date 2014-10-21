@@ -292,11 +292,62 @@ void Factory::createMeshBlock()
         QVector3D( +0.5, -0.5, -0.5),
 
     };
+    QVector2D tcoord[] = {
+        // top
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+0.0),
+
+        // bottom
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+0.0),
+
+        // left
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+0.0),
+
+        // right
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+0.0),
+
+        // back
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+0.0),
+
+        // front
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+1.0),
+        QVector2D(+0.0,+0.0),
+        QVector2D(+1.0,+0.0),
+    };
 
     m_block = new Mesh();
     m_block->SetVertices(vert,36);
     m_block->SetNormals(normal,36);
+    m_block->SetTextCoords(tcoord,36);
     m_block->BuildVAO(m_engine->GetContext(),m_engine->GetShader("basic"));
+
 }
 
 void Factory::createMeshSphere() {
