@@ -48,6 +48,7 @@ Rectangle{
         modifySliderShiftZ.value=0;
         modifySliderX.value=0;
         modifySliderY.value=0;
+        modifySliderZ.value=0;
         parent.update();
     }
 
@@ -78,7 +79,7 @@ Rectangle{
          stepSize: 1
          visible: true
          onValueChanged:{
-             window.rotateObject(value,modifySliderY.value);
+             window.rotateObject(value,modifySliderY.value,modifySliderZ.value);
 
          }
 
@@ -110,11 +111,40 @@ Rectangle{
          stepSize: 1
          visible: true
          onValueChanged:{
-             window.rotateObject(modifySliderX.value,modifySliderY.value);
+             window.rotateObject(modifySliderX.value,modifySliderY.value,modifySliderZ.value);
+         }
+     }
+    Rectangle { id: modifyMonitorZ
+                anchors.top: modifySliderY.bottom
+                color: Qt.rgba(0,0.0,0,0.5)
+                width: parent.width;
+                height: parent.componentHeight;
+                Text { anchors.right: parent.right
+                       anchors.bottom: parent.bottom
+                       anchors.bottomMargin: parent.parent.componentTextBottom
+                       color: "white"
+                       font.pointSize: parent.parent.componentTextSize;
+                       text: modifySliderZ.value}
+                Text { anchors.centerIn: parent
+                       color: "white"
+                       font.pointSize: parent.parent.componentTextSize;
+                       text: "ZRotation" } }
+    Slider {
+        id:modifySliderZ
+        anchors.top: modifyMonitorZ.bottom
+         width: parent.width
+         height: parent.componentHeight;
+         maximumValue: 180
+         minimumValue: -180
+         value: 0
+         stepSize: 1
+         visible: true
+         onValueChanged:{
+             window.rotateObject(modifySliderX.value,modifySliderY.value,modifySliderZ.value);
          }
      }
     Rectangle { id: modifyMonitorScale
-                anchors.top: modifySliderY.bottom
+                anchors.top: modifySliderZ.bottom
                 color: Qt.rgba(0,0.0,0,0.5)
                 width: parent.width;
                 height: parent.componentHeight;

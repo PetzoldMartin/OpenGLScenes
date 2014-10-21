@@ -24,7 +24,8 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     m_engine = engine;
     m_transMatrix = transform;
     m_isSelected = false;
-    xr,yr=0;
+    xr=1;
+    yr=1;
     m_transform=QVector3D(0.0,0.0,0.0);
 
     // create new id
@@ -116,10 +117,11 @@ void Drawable::TranslateSelectedRelative(QVector3D transform)
     m_transMatrix.rotate(((float)yr), QVector3D(0.0f,1.0f,0.0f));
 
 }
-void Drawable::RotateDirect(int deltax,int deltay)
+void Drawable::RotateDirect(int deltax,int deltay,int deltaz)
 {   m_modelMatrix=m_manipulateMatrix;
     m_modelMatrix.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
     m_modelMatrix.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
+    m_modelMatrix.rotate(((float)deltaz), QVector3D(0.0f,0.0f,1.0f));
 }
 void Drawable::scale(float factor){
     m_modelMatrix=m_manipulateMatrix;
@@ -134,13 +136,14 @@ void Drawable::RotateRelative(float angle, QVector3D axis)
 {
     m_transMatrix.rotate(angle, axis);
 }
-void Drawable::RotateSelectedRelative(int deltax, int deltay){
+void Drawable::RotateSelectedRelative(int deltax, int deltay, int deltaz){
     xr=deltax;yr=deltay;
     m_transMatrix=m_manipulateRMatrix;
     m_transMatrix.translate(m_transform);
 
     m_transMatrix.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
     m_transMatrix.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
+    m_transMatrix.rotate(((float)deltaz), QVector3D(0.0f,0.0f,0.1f));
 }
 
 void Drawable::SetMesh(Mesh *mesh)

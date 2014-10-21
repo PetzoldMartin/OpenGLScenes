@@ -67,7 +67,7 @@ public:
 
     //object
     int pickObjectAt();
-    void rotateObject(int deltax,int deltay);
+    void rotateObject(int deltax,int deltay,int deltaz);
     void translateObject(int dx,int dy,int dz);
     void scaleObject(float factor);
     void forceModification();

@@ -54,7 +54,7 @@ public:
     /// \param angle rotation angle (deg)
     /// \param axis rotation axis
     ///
-    void RotateDirect(int deltax, int deltay);
+    void RotateDirect(int deltax, int deltay,int deltaz);
 
     ///
     /// \brief Rotate the Drawable relative to his parent
@@ -62,7 +62,7 @@ public:
     /// \param axis rotation axis
     ///
     void RotateRelative(float angle, QVector3D axis);
-    void RotateSelectedRelative(int deltax, int deltay);
+    void RotateSelectedRelative(int deltax, int deltay, int deltaz);
     ///
     /// \brief Set the Mesh that is used to draw the Drawable
     /// \param mesh The Mesh
