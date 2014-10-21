@@ -1,6 +1,6 @@
 #include "render_engine.h"
 #include "src/render/object/drawable.h"
-#include "src/render/scene/task_scene.h"
+#include "src/render/scene/snowman_scene.h"
 #include "src/render/object/factory.h"
 
 #include <iostream>
@@ -18,26 +18,31 @@ using namespace std;
 
 RenderEngine::RenderEngine(QObject* parent)
 {
+    //projection
     selectedObject=NULL;
     m_parent = parent;
     projectionMatrix.setToIdentity();
     m_viewMode = 0;
-    ortho=true;
+    ortho=false;
 
+    //view
     alpha=0;
     beta=90;
     distance=200;
     m_mouseX = 0;
     m_mouseY = 0;
 
-    Scene *scene = new TaskScene(this);
+    //scene
+    Scene *scene = new SnowmanScene(this);
     scene->Create();
     m_scenes.push_back(scene);
     m_sceneEdit = scene;
+
+    // light
     lightPosition.setToIdentity();
-    lightPosition.translate(4.0,-7.0,5.0);
+    lightPosition.translate(0,0,10);
     lightPositionBack=lightPosition;
-    this->CreateSphere(QVector3D(1,1,1),lightPositionBack*QVector4D(0,0,0,1).toVector3D(),QVector4D(1,0,0,1));
+    this->CreateSphere(QVector3D(3,3,3),lightPosition*QVector4D(0,0,0,1).toVector3D(),QVector4D(1,0,0,1));
 }
 
 void RenderEngine::Resize(float width, float height) {
@@ -64,7 +69,7 @@ void RenderEngine::Render(bool isDrawID)
     if (selectedObject!=NULL){
         cameraCenter = selectedObject->GetSceneMatrix()*QVector3D(0,0,0);
     } else {
-        cameraCenter= QVector3D(0,0,100);
+        cameraCenter= QVector3D(0,0,20);
     }
     QVector3D cameraPosition = cameraTransformation * QVector3D(0, -distance,0 );
 
@@ -211,10 +216,10 @@ void RenderEngine::rotateObject(int deltax,int deltay) {
     if (selectedObject != NULL) {
         selectedObject->RotateSelectedRelative(deltax,deltay);
     } else {
-//       qDebug() << deltax << "\t" << deltay << "\n" << lightPosition;
-//       lightPosition.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
-//       lightPosition.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
-//       qDebug() << lightPosition* QVector4D(0,0,0,1);
+       qDebug() << deltax << "\t" << deltay << "\n" << lightPosition;
+       lightPosition.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
+       lightPosition.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
+       qDebug() << lightPosition* QVector4D(0,0,0,1);
     }
 }
 
