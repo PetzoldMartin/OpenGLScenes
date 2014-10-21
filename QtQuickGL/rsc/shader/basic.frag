@@ -11,7 +11,7 @@ uniform vec4 id;
 
 void main(void)
 {
-    vec3 ray_norm = normalize(lightPosition);
+    vec3 ray_norm = normalize(lightPosition-out_position.xyz);
 
     if(viewMode == 1) { // Normalview
         gl_FragColor.xyz = out_normal.xyz  *0.5 + 0.5;
@@ -27,7 +27,7 @@ void main(void)
         // Light calculation
         gl_FragColor = out_color;
         gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal.xyz),0.25,1.0);
-        //gl_FragColor.xyz /= clamp(distance(out_position, ray_posi) * 0.005, 0.5,1.5);
+        gl_FragColor.xyz /= clamp(pow(distance(out_position.xyz, lightPosition.xyz),2) * 0.0005, 0.5,1.5);
 
         // Is Selected Case
         gl_FragColor.xyz += 0.05 * isSelected * mod(gl_FragCoord.x + gl_FragCoord.y , 8.0);
