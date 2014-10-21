@@ -12,7 +12,7 @@ SnowmanScene::SnowmanScene(RenderEngine *engine)
 
 
 void SnowmanScene::Create(){
-   Drawable *ground = m_factory->GenBlock(QVector3D(100,100,3),QVector4D(1,1,1,1.0));
+   Drawable *ground = m_factory->GenBlock(QVector3D(50,50,50),QVector4D(1,1,1,1.0));
 
    m_objects.push_back(ground);
 

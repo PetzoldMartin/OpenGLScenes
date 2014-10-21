@@ -17,7 +17,6 @@ void main(void)
 
 
     if(viewMode == 1) { // Normalview
-        //gl_FragColor= texture2D(texture,out_tcoord);
         gl_FragColor.xyz = out_normal.xyz  *0.5 + 0.5;
         gl_FragColor.w = 1.0;
 
