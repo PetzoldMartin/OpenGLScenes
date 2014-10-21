@@ -212,9 +212,9 @@ void RenderEngine::deselect(){
     }
 }
 
-void RenderEngine::rotateObject(int deltax,int deltay) {
+void RenderEngine::rotateObject(int deltax,int deltay, int deltaz) {
     if (selectedObject != NULL) {
-        selectedObject->RotateSelectedRelative(deltax,deltay);
+        selectedObject->RotateSelectedRelative(deltax,deltay,deltaz);
     } else {
        qDebug() << deltax << "\t" << deltay << "\n" << lightPosition;
        lightPosition.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));

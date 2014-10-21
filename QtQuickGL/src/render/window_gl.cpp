@@ -100,8 +100,8 @@ void WindowGL::deselect(){
     m_engine->deselect();
 }
 
-void WindowGL::rotateObject(int deltax,int deltay) {
-    m_engine->rotateObject(deltax,deltay);
+void WindowGL::rotateObject(int deltax,int deltay,int deltaz) {
+    m_engine->rotateObject(deltax,deltay,deltaz);
 }
 
 void WindowGL::scaleObject(float factor) {
