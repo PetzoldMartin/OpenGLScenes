@@ -76,14 +76,15 @@ void Collada::readFloatArray(QXmlStreamReader& xml) {
 void Collada::readIndexArray(QXmlStreamReader& xml) {
 
     // read the array size and allocate mem
-    int count = xml.attributes().value("count").toInt();
+    int count = xml.attributes().value("count").toInt() *8 * 3;
     indices = new int[count];
 
     // skip to indices
-    while(!xml.atEnd()) {
+    bool finish = false;
+    while(!xml.atEnd() && !finish) {
         if (xml.readNextStartElement()) {
             if(xml.name() == "p") {
-                break;
+                finish = true;
             }
         }
     }
@@ -94,12 +95,12 @@ void Collada::readIndexArray(QXmlStreamReader& xml) {
     // convert string to float array
     int i = -1;
     QTextStream ts(&str_array);
+    cout << "blub";
     while(!ts.atEnd()) {
         ts >> indices[++i];
     }
 
     // calculate index count per vertex
-    //                    p   n   t
     indexCount = count / 8;
 }
 
@@ -115,27 +116,51 @@ void Collada::convert() {
     float* pNorI = iNormalBuffer -1;
     float* pTexI = iTexCoordBuffer -1;
 
-    float* pPosB = buffer.at(0) -1;
-    float* pNorB = buffer.at(1) -1;
-    float* pTexB = buffer.at(2) -1;
+    float* pPosB = buffer[0];
+    float* pNorB = buffer[1];
+    float* pTexB = buffer[2];
+
+    int* pIndB = indices -1;
 
     // convert to indexed order
-    for(int i = 0; i < indexCount; ++i) {
+    /*
+    for(int i = 0; i < indexCount; i += 3) {
 
         // Positions
-        *(++pPosI) = *(++pPosB); // X
-        *(++pPosI) = *(++pPosB); // Y
-        *(++pPosI) = *(++pPosB); // Z
+        ++pIndB;
+        *(++pPosI) = pPosB[*pIndB * 3]; // X
+        *(++pPosI) = pPosB[*pIndB * 3 + 1]; // Y
+        *(++pPosI) = pPosB[*pIndB * 3 + 2]; // Z
 
         // Normals
-        *(++pNorI) = *(++pNorB); // X
-        *(++pNorI) = *(++pNorB); // Y
-        *(++pNorI) = *(++pNorB); // Z
+        ++pIndB;
+        *(++pNorI) = pNorB[*pIndB * 3]; // X
+        *(++pNorI) = pNorB[*pIndB * 3 + 1]; // Y
+        *(++pNorI) = pNorB[*pIndB * 3 + 2]; // Z
 
         // TexCoords
-        *(++pTexI) = *(++pTexB); // U
-        *(++pTexI) = *(++pTexB); // V
+        ++pIndB;
+        *(++pTexI) = pTexB[*(++pIndB)]; // U
+        *(++pTexI) = pTexB[*(++pIndB)]; // V
+    }
+    */
 
+
+
+    int p = -1;
+    int n = -1;
+    int t = -1;
+    for(int i = 0; i < indexCount*3; i += 3) {
+        iPositionBuffer[++p] = pPosB[indices[i] * 3 + 0];
+        iPositionBuffer[++p] = pPosB[indices[i] * 3 + 1];
+        iPositionBuffer[++p] = pPosB[indices[i] * 3 + 2];
+
+        iNormalBuffer[++n] = pNorB[indices[i+1] * 3 + 0];
+        iNormalBuffer[++n] = pNorB[indices[i+1] * 3 + 1];
+        iNormalBuffer[++n] = pNorB[indices[i+1] * 3 + 2];
+
+        iTexCoordBuffer[++t] = pTexB[indices[i+2] * 2 + 0];
+        iTexCoordBuffer[++t] = pTexB[indices[i+2] * 2 + 1];
     }
 }
 
