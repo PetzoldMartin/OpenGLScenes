@@ -9,7 +9,9 @@
         <file alias="basic.frag">shader/basic.frag</file>
         <file alias="basic.vert">shader/basic.vert</file>
     </qresource>
-    <qresource prefix="/texture"/>
+    <qresource prefix="/texture">
+        <file>texture/Cubemap_2_320x240.jpg</file>
+    </qresource>
     <qresource prefix="/file">
         <file>file/modell.dat</file>
         <file>file/modell_w5.dat</file>

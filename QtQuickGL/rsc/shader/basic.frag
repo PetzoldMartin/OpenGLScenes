@@ -32,7 +32,7 @@ void main(void)
     else{ // default view
 
         // Light calculation
-        gl_FragColor = out_color;
+        gl_FragColor = out_color*texture2D(texture,out_tcoord);
         gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal.xyz),0.25,1.0);
         gl_FragColor.xyz /= clamp(pow(distance(out_position.xyz, lightPosition.xyz),2) * 0.0005, 0.5,1.5);
 

@@ -294,20 +294,22 @@ void Factory::createMeshBlock()
     };
     QVector2D tcoord[] = {
         // top
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+0.0),
+        QVector2D(+0.5,+0.0),
+        QVector2D(+0.25,+0.0),
+        QVector2D(+0.25,+0.33),
+        QVector2D(+0.5,+0.0),
+        QVector2D(+0.25,+0.33),
+        QVector2D(+0.5,+0.33),
 
         // bottom
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+0.0),
+
+        QVector2D(+0.25,+0.66),
+        QVector2D(+0.5,+0.66),
+        QVector2D(+0.25,+1.0),
+        QVector2D(+0.25,+0.66),
+        QVector2D(+0.5,+1.0),
+        QVector2D(+0.5,+0.66),
+
 
         // left
         QVector2D(+1.0,+1.0),

@@ -4,6 +4,8 @@
 #include <vector>       // container drawable
 #include <QVector4D>    // color
 #include <QMatrix4x4>   // model and transform Matrix
+#include <GL/gl.h>
+#include <QOpenGLTexture>
 
 // Forward Declaration
 class QOpenGLShaderProgram;
@@ -175,6 +177,8 @@ private:
     QMatrix4x4 m_SceneMatrix;
     int xr,yr,zr;
     QVector3D m_transform;
+    GLuint texture;
+    QOpenGLTexture* qot;
 };
 
 #endif // DRAWABLE_H
