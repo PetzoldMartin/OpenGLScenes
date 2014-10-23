@@ -26,15 +26,25 @@ void main(void)
         gl_FragColor = out_position;
     } else if (viewMode == 4) { // id view
         gl_FragColor = id;
-    }else if (viewMode == 5) { // id view
+    }else if (viewMode == 5) { // texture view
         gl_FragColor= texture2D(texture,out_tcoord);
     }
     else{ // default view
 
         // Light calculation
+<<<<<<< local
         gl_FragColor = out_color*texture2D(texture,out_tcoord);
         gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal.xyz),0.25,1.0);
         gl_FragColor.xyz /= clamp(pow(distance(out_position.xyz, lightPosition.xyz),2) * 0.0005, 0.5,1.5);
+=======
+        gl_FragColor.w = out_color.w;
+        gl_FragColor.xyz =clamp((dot(normalize(lightPosition-out_position.xyz),out_normal.xyz)*out_color.xyz/
+                                  pow(clamp((distance(lightPosition.xyz, out_position.xyz)),0.1,1),2)),0,1);
+
+//        gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal.xyz),0.25,1.0);
+//        gl_FragColor.xyz /= clamp(pow(distance(out_position.xyz, lightPosition.xyz),2) * 0.0005, 0.5,1.5);
+
+>>>>>>> other
 
         // Is Selected Case
         gl_FragColor.xyz += 0.05 * isSelected * mod(gl_FragCoord.x + gl_FragCoord.y , 8.0);

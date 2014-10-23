@@ -9,13 +9,23 @@ Scene::Scene(RenderEngine *engine)
 {
     m_engine = engine;
     m_factory = new Factory(m_engine);
+    m_lightSource = m_factory->GenSphere(QVector3D(1,1,1),QVector4D(1,1,1,1));
 }
 
 void Scene::Draw() {
     QMatrix4x4 world;
+    m_lightSource->Draw(&world); // display light source
     foreach (Drawable *d, m_objects) {
         d->Draw(&world);
     }
+}
+
+void Scene::SetLightSourceMatrix(QMatrix4x4 lightMatrix) {
+    m_lightSource->SetTransformMatrix(lightMatrix);
+}
+
+Drawable* Scene::GetLightSource() {
+    return m_lightSource;
 }
 
 void Scene::CreateBlock()
