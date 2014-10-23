@@ -11,6 +11,7 @@
     </qresource>
     <qresource prefix="/texture">
         <file>texture/Cubemap_2_320x240.jpg</file>
+        <file>texture/Cubemap_2_2048x1536.jpg</file>
     </qresource>
     <qresource prefix="/file">
         <file>file/modell.dat</file>

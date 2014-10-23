@@ -32,7 +32,6 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     yr,zr=0;
     xr=1;
     m_transform=QVector3D(0.0,0.0,0.0);
-    texture = 0;
     // create new id
     // TODO: make this better
 
@@ -42,8 +41,8 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     s_drawableMap[m_id]=this;
     //SetColor(m_id);
 
-    //texture to modell try
-    const QImage* qi = new QImage(QString(":/texture/texture/Cubemap_2_320x240.jpg"));
+    //Set Standard Texture
+    const QImage* qi = new QImage(QString(":/texture/texture/Cubemap_2_2048x1536.jpg"));
     qot= new QOpenGLTexture(*qi,QOpenGLTexture::GenerateMipMaps) ;
 
 
@@ -80,7 +79,9 @@ void Drawable::Draw(QMatrix4x4 *transform)
 
     //texture upload
 
+    //bind Texture
     qot->bind();
+
     if(m_isSelected) m_shader->setUniformValue("isSelected", 1.0f);
     else m_shader->setUniformValue("isSelected", 0.0f);
     // draw myself
@@ -111,6 +112,11 @@ void Drawable::Build()
     m_mesh->BuildVAO(m_engine->GetContext(), m_shader);
 
 
+}
+
+void Drawable::SetTexture(QChar location){
+    const QImage* qi = new QImage(QString(location));
+    qot= new QOpenGLTexture(*qi,QOpenGLTexture::GenerateMipMaps) ;
 }
 
 void Drawable::TranslateDirect(QVector3D transform)
