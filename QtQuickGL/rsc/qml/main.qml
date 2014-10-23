@@ -7,8 +7,8 @@ import QtQuick.Controls 1.1
 Item {
     id: mainItem
 
-    width: 600
-    height: 480
+    width: 1024
+    height: 768
 
     WindowGL {
         id: window

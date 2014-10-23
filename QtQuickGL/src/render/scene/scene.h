@@ -28,6 +28,9 @@ public:
     ///
     void Draw();
 
+    void SetLightSourceMatrix(QMatrix4x4 lightMatrix);
+    Drawable* GetLightSource();
+
     void CreateBlock();
 
     void AddBlock(QVector3D size, QVector3D transform, QVector4D color, Drawable *parent);
@@ -37,7 +40,9 @@ public:
     virtual void Update() = 0;
     virtual void Create() = 0;
 
+
 protected:
+    Drawable* m_lightSource;                    ///< lightsource of this scene
     std::vector<Drawable*> m_objects;           ///< Container for all Objects
     RenderEngine *m_engine;                     ///< RenderEngine Context
     Factory *m_factory;                         ///< Factory to Generate Drawables
