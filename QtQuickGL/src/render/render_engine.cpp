@@ -40,7 +40,7 @@ RenderEngine::RenderEngine(QObject* parent)
 
     // light
     lightPosition.setToIdentity();
-    lightPosition.translate(0,0,10);
+    lightPosition.translate(32,-0,92);
     lightPositionBack=lightPosition;
     this->CreateSphere(QVector3D(3,3,3),lightPosition*QVector4D(0,0,0,1).toVector3D(),QVector4D(1,0,0,1));
 }

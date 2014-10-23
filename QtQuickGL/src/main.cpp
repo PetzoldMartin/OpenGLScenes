@@ -11,10 +11,6 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<WindowGL>("OpenGLUnderQML", 1, 0, "WindowGL");
 
-
-    // Collada TestArea
-    Collada col(":/model/model/test/test.dae");
-
     QQuickView view;
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.setSource(QUrl("qrc:///qml/main.qml"));
