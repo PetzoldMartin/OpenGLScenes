@@ -115,6 +115,12 @@ public:
     void SetColor(QVector4D color);
 
     ///
+    /// \brief Set the Texture
+    /// \param String Location of the texture in recourses
+    ///
+    void SetTexture(QChar location);
+
+    ///
     /// \brief Set the isSelected Flag
     /// \param value the Flag
     ///
@@ -175,10 +181,9 @@ private:
     static QMap<std::vector<unsigned char>,Drawable*> s_drawableMap;
     bool m_isSelected;                            ///< Flag for an Selected Drawable
     QMatrix4x4 m_SceneMatrix;
-    int xr,yr,zr;
+    int xr,yr,zr;                                  ///Buffer for rotation angles as float
     QVector3D m_transform;
-    GLuint texture;
-    QOpenGLTexture* qot;
+    QOpenGLTexture* qot;                           ///QT OpenGL Texture of the Drawable
 };
 
 #endif // DRAWABLE_H

@@ -12,13 +12,13 @@ SnowmanScene::SnowmanScene(RenderEngine *engine)
 
 
 void SnowmanScene::Create(){
-   m_Ground = m_factory->GenBlock(QVector3D(100,100,5),QVector4D(0.5,0.5,0.5,1));
+   m_Ground = m_factory->GenBlock(QVector3D(100,100,100),QVector4D(0.5,0.5,0.5,1));
 
    {
        m_DownSphere = m_factory->GenSphere(QVector3D(55,55,55),QVector4D(0.9,0.9,0.9,1));
        QMatrix4x4 mdown;
            mdown.setToIdentity();
-           mdown.translate(0,0,30);
+           mdown.translate(0,0,110);
        m_Ground->AddChild(m_DownSphere,mdown);
 
    }

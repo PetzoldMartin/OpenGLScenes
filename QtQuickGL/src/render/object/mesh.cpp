@@ -106,6 +106,7 @@ void Mesh::SetNormals(void *normals, int count)
 
 void Mesh::SetTextCoords(void *textcoords, int count)
 {
+    //Create a Texture coordinatesbuffer if it is the first time
     if(m_textcoordBuffer == 0) {
         m_textcoordBuffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
         m_textcoordBuffer->create();
