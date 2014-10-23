@@ -12,10 +12,30 @@ Collada::Collada(const QString fileName)
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         parse(file);
+        convert();
     } else {
         cerr << "Cant open File: " << fileName.toStdString() << endl;
     }
 
+}
+float *Collada::getPositions() const
+{
+    return iPositionBuffer;
+}
+
+float *Collada::getNormals() const
+{
+    return iNormalBuffer;
+}
+
+float *Collada::getTexCoords() const
+{
+    return iTexCoordBuffer;
+}
+
+int Collada::getIndexCount() const
+{
+    return indexCount;
 }
 
 void Collada:: parse(QFile& file) {
@@ -61,8 +81,10 @@ void Collada::readIndexArray(QXmlStreamReader& xml) {
 
     // skip to indices
     while(!xml.atEnd()) {
-        if (xml.readNextStartElement() && xml.name() == "p") {
-            break;
+        if (xml.readNextStartElement()) {
+            if(xml.name() == "p") {
+                break;
+            }
         }
     }
 
@@ -75,10 +97,46 @@ void Collada::readIndexArray(QXmlStreamReader& xml) {
     while(!ts.atEnd()) {
         ts >> indices[++i];
     }
+
+    // calculate index count per vertex
+    //                    p   n   t
+    indexCount = count / 8;
 }
 
-void Collada::readStride(QXmlStreamReader& xml) {
+void Collada::convert() {
 
+    // alloc mem
+    iPositionBuffer = new float[indexCount * 3];
+    iNormalBuffer = new float[indexCount * 3];
+    iTexCoordBuffer = new float[indexCount * 2];
+
+    // init convert pointer
+    float* pPosI = iPositionBuffer -1;
+    float* pNorI = iNormalBuffer -1;
+    float* pTexI = iTexCoordBuffer -1;
+
+    float* pPosB = buffer.at(0) -1;
+    float* pNorB = buffer.at(1) -1;
+    float* pTexB = buffer.at(2) -1;
+
+    // convert to indexed order
+    for(int i = 0; i < indexCount; ++i) {
+
+        // Positions
+        *(++pPosI) = *(++pPosB); // X
+        *(++pPosI) = *(++pPosB); // Y
+        *(++pPosI) = *(++pPosB); // Z
+
+        // Normals
+        *(++pNorI) = *(++pNorB); // X
+        *(++pNorI) = *(++pNorB); // Y
+        *(++pNorI) = *(++pNorB); // Z
+
+        // TexCoords
+        *(++pTexI) = *(++pTexB); // U
+        *(++pTexI) = *(++pTexB); // V
+
+    }
 }
 
 
