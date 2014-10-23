@@ -2,12 +2,18 @@
 #include <QtQuick/QQuickView>
 
 #include "render/window_gl.h"
+#include "render/object/collada.h"
+
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<WindowGL>("OpenGLUnderQML", 1, 0, "WindowGL");
+
+
+    // Collada TestArea
+    Collada col(":/model/model/test/test.dae");
 
     QQuickView view;
     view.setResizeMode(QQuickView::SizeRootObjectToView);
