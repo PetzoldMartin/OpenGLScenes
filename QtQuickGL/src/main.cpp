@@ -2,6 +2,8 @@
 #include <QtQuick/QQuickView>
 
 #include "render/window_gl.h"
+#include "render/object/collada.h"
+
 
 int main(int argc, char *argv[])
 {

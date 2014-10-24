@@ -1,7 +1,7 @@
 TEMPLATE = app
 
 QT += qml quick
-#CONFIG += c++11
+CONFIG += c++11
 
 SOURCES += \
     src/render/window_gl.cpp \
@@ -18,6 +18,7 @@ SOURCES += \
     src/render/object/primitive/cvertex.cpp \
     src/render/object/primitive/cedge.cpp \
     src/render/object/primitive/cface.cpp \
+    src/render/object/collada.cpp \
     src/render/scene/snowman_scene.cpp
 
 RESOURCES += \
@@ -43,6 +44,7 @@ HEADERS += \
     src/render/object/primitive/cvertex.h \
     src/render/object/primitive/cedge.h \
     src/render/object/primitive/cface.h \
+    src/render/object/collada.h \
     src/render/scene/snowman_scene.h
 
 OTHER_FILES += \

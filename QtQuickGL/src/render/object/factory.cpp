@@ -4,6 +4,7 @@
 #include "src/render/render_engine.h"
 #include "src/render/object/mesh.h"
 #include "src/io/console.h"
+#include "src/render/object/collada.h"
 
 #include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
@@ -13,7 +14,6 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include <QFile>
-
 
 Factory::Factory(RenderEngine *engine)
 {
@@ -70,6 +70,29 @@ Mesh *Factory::generateMeshFromFile(QFile* file){
     }
     qDebug() << data;
     return NULL;
+}
+
+
+Drawable *Factory::GenCollada(const QString name, QVector3D size, QVector4D color) {
+    Collada collada(":/model/model/" + name + "/" + name + ".dae");
+
+    QMatrix4x4 modelMatrix;
+    modelMatrix.setToIdentity();
+    modelMatrix.scale(size);
+    Drawable *model = new Drawable(m_engine, QMatrix4x4());
+
+    Mesh *mesh = new Mesh();
+    mesh->SetVertices(collada.getPositions(), collada.getIndexCount());
+    mesh->SetNormals(collada.getNormals(), collada.getIndexCount());
+    mesh->SetTextCoords(collada.getTexCoords(), collada.getIndexCount());
+    mesh->BuildVAO(m_engine->GetContext(),m_engine->GetShader("basic"));
+
+    model->SetMesh(mesh);
+    model->SetModelMatrix(modelMatrix);
+    model->SetShader(m_engine->GetShader("basic"));
+    model->SetColor(color);
+
+    return model;
 }
 
 

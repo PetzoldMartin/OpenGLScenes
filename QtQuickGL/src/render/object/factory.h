@@ -8,6 +8,7 @@ class QVector3D;
 class RenderEngine;
 class Mesh;
 class QFile;
+class QString;
 
 ///
 /// \brief The Factory class Produces Drawables
@@ -58,6 +59,14 @@ public:
     ///
     Drawable *GenFromFile(QFile* file, QVector4D color, QVector3D size);
 
+    ///
+    /// \brief Generate a new Model an collada file
+    /// \param name Folder name
+    /// \param size scale factor of the model
+    /// \param color Color
+    /// \return
+    ///
+    Drawable *GenCollada(const QString name, QVector3D size, QVector4D color);
 private:
 
     RenderEngine *m_engine;         ///< The RenderEngine Context

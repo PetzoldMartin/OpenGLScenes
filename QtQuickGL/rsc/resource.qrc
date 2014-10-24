@@ -22,4 +22,8 @@
         <file>file/netz.dat</file>
         <file>file/Test.dat</file>
     </qresource>
+    <qresource prefix="/model">
+        <file>model/test/test.dae</file>
+        <file>model/test/defuse.png</file>
+    </qresource>
 </RCC>
