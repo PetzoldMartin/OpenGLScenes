@@ -120,47 +120,17 @@ void Collada::convert() {
     float* pNorB = buffer[1];
     float* pTexB = buffer[2];
 
-    int* pIndB = indices -1;
-
-    // convert to indexed order
-    /*
-    for(int i = 0; i < indexCount; i += 3) {
-
-        // Positions
-        ++pIndB;
-        *(++pPosI) = pPosB[*pIndB * 3]; // X
-        *(++pPosI) = pPosB[*pIndB * 3 + 1]; // Y
-        *(++pPosI) = pPosB[*pIndB * 3 + 2]; // Z
-
-        // Normals
-        ++pIndB;
-        *(++pNorI) = pNorB[*pIndB * 3]; // X
-        *(++pNorI) = pNorB[*pIndB * 3 + 1]; // Y
-        *(++pNorI) = pNorB[*pIndB * 3 + 2]; // Z
-
-        // TexCoords
-        ++pIndB;
-        *(++pTexI) = pTexB[*(++pIndB)]; // U
-        *(++pTexI) = pTexB[*(++pIndB)]; // V
-    }
-    */
-
-
-
-    int p = -1;
-    int n = -1;
-    int t = -1;
     for(int i = 0; i < indexCount*3; i += 3) {
-        iPositionBuffer[++p] = pPosB[indices[i] * 3 + 0];
-        iPositionBuffer[++p] = pPosB[indices[i] * 3 + 1];
-        iPositionBuffer[++p] = pPosB[indices[i] * 3 + 2];
+        *(++pPosI) = pPosB[indices[i] * 3 + 0];
+        *(++pPosI) = pPosB[indices[i] * 3 + 1];
+        *(++pPosI) = pPosB[indices[i] * 3 + 2];
 
-        iNormalBuffer[++n] = pNorB[indices[i+1] * 3 + 0];
-        iNormalBuffer[++n] = pNorB[indices[i+1] * 3 + 1];
-        iNormalBuffer[++n] = pNorB[indices[i+1] * 3 + 2];
+        *(++pNorI) = pNorB[indices[i+1] * 3 + 0];
+        *(++pNorI) = pNorB[indices[i+1] * 3 + 1];
+        *(++pNorI) = pNorB[indices[i+1] * 3 + 2];
 
-        iTexCoordBuffer[++t] = pTexB[indices[i+2] * 2 + 0];
-        iTexCoordBuffer[++t] = pTexB[indices[i+2] * 2 + 1];
+        *(++pTexI) = pTexB[indices[i+2] * 2 + 0];
+        *(++pTexI) = pTexB[indices[i+2] * 2 + 1];
     }
 }
 
