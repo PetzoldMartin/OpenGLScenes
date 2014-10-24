@@ -41,7 +41,7 @@ RenderEngine::RenderEngine(QObject* parent)
     // light
     QMatrix4x4 lightPosition;
     lightPosition.setToIdentity();
-    lightPosition.translate(20,-50,150);
+    lightPosition.translate(0,0,5);
     scene->GetLightSource()->SetTransformMatrix(lightPosition);
     scene->GetLightSource()->forceModification();
 }

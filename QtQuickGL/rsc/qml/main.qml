@@ -43,6 +43,21 @@ Item {
             case Qt.Key_F6:
                 window.setViewMode(5)
                 break
+            case Qt.Key_F7:
+                window.setViewMode(6)
+                break
+            case Qt.Key_F8:
+                window.setViewMode(7)
+                break
+            case Qt.Key_F9:
+                window.setViewMode(8)
+                break
+            case Qt.Key_F10:
+                window.setViewMode(9)
+                break
+            case Qt.Key_F11:
+                window.setViewMode(10)
+                break
             }
         }
     }
