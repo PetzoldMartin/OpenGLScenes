@@ -4,6 +4,8 @@
 #include "src/render/object/drawable.h"
 #include "src/render/object/factory.h"
 
+#include <QString>
+
 SnowmanScene::SnowmanScene(RenderEngine *engine)
     : Scene(engine)
 {
@@ -12,27 +14,22 @@ SnowmanScene::SnowmanScene(RenderEngine *engine)
 
 
 void SnowmanScene::Create(){
-   m_Ground = m_factory->GenBlock(QVector3D(100,100,100),QVector4D(0.5,0.5,0.5,1));
+   Drawable *ground = m_factory->GenBlock(QVector3D(256,256,1),QVector4D(1,1,1,1.0));
 
-   {
-       m_DownSphere = m_factory->GenSphere(QVector3D(55,55,55),QVector4D(0.9,0.9,0.9,1));
-       QMatrix4x4 mdown;
-           mdown.setToIdentity();
-           mdown.translate(0,0,110);
-       m_Ground->AddChild(m_DownSphere,mdown);
 
-   }
 
-   m_objects.push_back(m_Ground);
+
+   Drawable *test = m_factory->GenCollada("test", QVector3D(64,64,64),QVector4D(1.0,0.0,0.25,1.0));
+   QMatrix4x4 mat_test;
+   mat_test.setToIdentity();
+   mat_test.translate(-32,32,32);
+   ground->AddChild(test,mat_test);
+
+
+   m_objects.push_back(ground);
 }
 
 void SnowmanScene::Update()
 {
-    m_DownSphere->RotateRelative(1,QVector3D(0,0,1));
-//    //qDebug() << m_lightSource->GetTransformMatrix().rotate(1,QVector3D(1,1,0));
-//    QMatrix4x4 lightM = m_lightSource->GetTransformMatrix();
-//    lightM.rotate(1,QVector3D(0,0,1));
-//    m_lightSource->SetTransformMatrix(lightM);
-//    qDebug() << lightM;
-//   // m_lightSource->RotateRelative(1,QVector3D(1,1,0));
+
 }
