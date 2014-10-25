@@ -49,7 +49,8 @@ void main(void)
         float att = 1.0/(k+pow(k*dist,1)+pow(k*dist,2));
         float dot = clamp(dot(ray_norm,out_normal.xyz),0.0,1.0);
 
-        gl_FragColor += att * ( dot * out_color ) + ( ambient * out_color );
+        vec4 defuse = out_color * texture2D(texture,out_tcoord);
+        gl_FragColor += att * ( dot * defuse) + ( ambient * defuse );
         gl_FragColor.w = out_color.w;
 
         //        gl_FragColor.w = out_color.w;
