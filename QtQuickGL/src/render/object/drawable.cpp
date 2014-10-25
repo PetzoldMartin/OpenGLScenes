@@ -21,8 +21,9 @@ vector<unsigned char> Drawable::s_idCount(4,0);
 QMap<vector<unsigned char>,Drawable*> Drawable::s_drawableMap;
 Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
 {
-    m_shader = NULL;
-    m_mesh = NULL;
+    m_shader = nullptr;
+    m_mesh = nullptr;
+    m_texture = nullptr;
     m_modelMatrix.setToIdentity();
     m_manipulateMatrix.setToIdentity();
     m_manipulateRMatrix.setToIdentity();
@@ -40,12 +41,6 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     m_id=makeNewID();
     s_drawableMap[m_id]=this;
     //SetColor(m_id);
-
-    //Set Standard Texture
-    const QImage* qi = new QImage(QString(":/texture/texture/Cubemap_2_2048x1536.jpg"));
-    qot= new QOpenGLTexture(*qi,QOpenGLTexture::GenerateMipMaps) ;
-
-
 
 }
 
@@ -80,7 +75,8 @@ void Drawable::Draw(QMatrix4x4 *transform)
     //texture upload
 
     //bind Texture
-    qot->bind();
+    if(m_texture)
+        m_texture->bind();
 
     if(m_isSelected) m_shader->setUniformValue("isSelected", 1.0f);
     else m_shader->setUniformValue("isSelected", 0.0f);
@@ -114,9 +110,8 @@ void Drawable::Build()
 
 }
 
-void Drawable::SetTexture(QChar location){
-    const QImage* qi = new QImage(QString(location));
-    qot= new QOpenGLTexture(*qi,QOpenGLTexture::GenerateMipMaps) ;
+void Drawable::SetTexture(QOpenGLTexture *texture){
+    m_texture = texture;
 }
 
 void Drawable::TranslateDirect(QVector3D transform)

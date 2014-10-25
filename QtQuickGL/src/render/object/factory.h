@@ -1,6 +1,9 @@
 #ifndef FACTORY_H
 #define FACTORY_H
 
+#include <QMap>
+#include <QOpenGLTexture>
+
 class Drawable;
 class QOpenGLShaderProgram;
 class QVector4D;
@@ -67,6 +70,10 @@ public:
     /// \return
     ///
     Drawable *GenCollada(const QString name, QVector3D size, QVector4D color);
+
+    /// \brief Generate a new Texture
+    /// \param fileName stored location
+    QOpenGLTexture *GenTexture(const QString fileName);
 private:
 
     RenderEngine *m_engine;         ///< The RenderEngine Context
@@ -74,6 +81,9 @@ private:
     Mesh *m_block;                  ///< The Default Block Mesh
     Mesh *m_sphere;
     Mesh *generateMeshFromFile(QFile *file);
+
+    QMap<QString,QOpenGLTexture*> m_textureMap;
+
     void createMeshRectangle();
     void createMeshBlock();
     void createMeshSphere();
