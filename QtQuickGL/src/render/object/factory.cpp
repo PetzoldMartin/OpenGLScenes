@@ -91,8 +91,16 @@ Drawable *Factory::GenCollada(const QString name, QVector3D size, QVector4D colo
     model->SetModelMatrix(modelMatrix);
     model->SetShader(m_engine->GetShader("basic"));
     model->SetColor(color);
+    model->SetTexture(GenTexture(":/model/model/" + name + "/" + collada.getDefuseTextureName()));
 
     return model;
+}
+
+QOpenGLTexture *Factory::GenTexture(const QString fileName)
+{
+    if(!m_textureMap.contains(fileName))
+        m_textureMap[fileName] = new QOpenGLTexture(QImage(fileName));
+    return m_textureMap[fileName];
 }
 
 
