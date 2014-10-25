@@ -95,6 +95,13 @@ Drawable *Factory::GenCollada(const QString name, QVector3D size, QVector4D colo
     return model;
 }
 
+QOpenGLTexture *Factory::GenTexture(const QString fileName)
+{
+    if(!m_textureMap.contains(fileName))
+        m_textureMap[fileName] = new QOpenGLTexture(QImage(fileName));
+    return m_textureMap[fileName];
+}
+
 
 Drawable *Factory::GenFromFile(QFile* file, QVector4D color, QVector3D size) {
     // create internal model matrix that create the size

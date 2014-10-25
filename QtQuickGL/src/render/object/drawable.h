@@ -118,7 +118,7 @@ public:
     /// \brief Set the Texture
     /// \param String Location of the texture in recourses
     ///
-    void SetTexture(QChar location);
+    void SetTexture(QOpenGLTexture *texture);
 
     ///
     /// \brief Set the isSelected Flag
@@ -163,27 +163,27 @@ private:
     std::vector<unsigned char> makeNewID();
 
 
-    Mesh *m_mesh;                               ///< Geometry Mesh
-    QVector4D m_color;                          ///< Color for Shader
+    Mesh *m_mesh;                                                       ///< Geometry Mesh
+    QVector4D m_color;                                                  ///< Color for Shader
 
-    QOpenGLShaderProgram *m_shader;             ///< Used Shader to Draw
-    RenderEngine *m_engine;                     ///< The RenderEngine Context
+    QOpenGLShaderProgram *m_shader;                                     ///< Used Shader to Draw
+    RenderEngine *m_engine;                                             ///< The RenderEngine Context
 
-    QMatrix4x4 m_modelMatrix;                   ///< Self Matrix
-    QMatrix4x4 m_transMatrix;                   ///< Transformation to his parent
-    QMatrix4x4 m_manipulateMatrix;              ///Temporary for Object direct manipulating
-    QMatrix4x4 m_manipulateRMatrix;              ///Temporary for Object relativ manipulating
+    QMatrix4x4 m_modelMatrix;                                           ///< Self Matrix
+    QMatrix4x4 m_transMatrix;                                           ///< Transformation to his parent
+    QMatrix4x4 m_manipulateMatrix;                                      ///< Temporary for Object direct manipulating
+    QMatrix4x4 m_manipulateRMatrix;                                     ///< Temporary for Object relativ manipulating
 
-    std::vector<Drawable*> m_childList;         ///< List of Childs
+    std::vector<Drawable*> m_childList;                                 ///< List of Childs
 
-    std::vector<unsigned char> m_id;                             ///< unique id
-    static std::vector<unsigned char> s_idCount;                 ///< gloabal count of all Drawables
+    std::vector<unsigned char> m_id;                                    ///< unique id
+    static std::vector<unsigned char> s_idCount;                        ///< gloabal count of all Drawables
     static QMap<std::vector<unsigned char>,Drawable*> s_drawableMap;
-    bool m_isSelected;                            ///< Flag for an Selected Drawable
+    bool m_isSelected;                                                  ///< Flag for an Selected Drawable
     QMatrix4x4 m_SceneMatrix;
-    int xr,yr,zr;                                  ///Buffer for rotation angles as float
+    int xr,yr,zr;                                                       ///< Buffer for rotation angles as float
     QVector3D m_transform;
-    QOpenGLTexture* qot;                           ///QT OpenGL Texture of the Drawable
+    QOpenGLTexture *m_texture;                                          ///< QT OpenGL Texture of the Drawable
 };
 
 #endif // DRAWABLE_H
