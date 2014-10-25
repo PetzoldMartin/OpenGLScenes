@@ -33,6 +33,11 @@ float *Collada::getTexCoords() const
     return iTexCoordBuffer;
 }
 
+QString Collada::getDefuseTextureName() const
+{
+    return defuseTextureName;
+}
+
 int Collada::getIndexCount() const
 {
     return indexCount;
@@ -45,7 +50,9 @@ void Collada:: parse(QFile& file) {
     while (!xml.atEnd()) {
         if (xml.readNextStartElement()) {
             // seach for needed informations
-            if (xml.name() == "float_array") {
+            if (xml.name() == "image") {
+                readImage(xml);
+            } else if (xml.name() == "float_array") {
                 readFloatArray(xml);
             } else if (xml.name() == "polylist") {
                 readIndexArray(xml);
@@ -80,14 +87,7 @@ void Collada::readIndexArray(QXmlStreamReader& xml) {
     indices = new int[count];
 
     // skip to indices
-    bool finish = false;
-    while(!xml.atEnd() && !finish) {
-        if (xml.readNextStartElement()) {
-            if(xml.name() == "p") {
-                finish = true;
-            }
-        }
-    }
+    goTo(xml, "p");
 
     // get the big float string from xml
     QString str_array = xml.readElementText();
@@ -102,6 +102,17 @@ void Collada::readIndexArray(QXmlStreamReader& xml) {
 
     // calculate index count per vertex
     indexCount = count / 8;
+}
+
+void Collada::readImage(QXmlStreamReader &xml)
+{
+    QString id = xml.attributes().value("id").toString();
+    goTo(xml,"init_from");
+    QString textureName = xml.readElementText();
+
+    if(id == "defuse")
+        defuseTextureName = textureName;
+    // to be continued for more textures...
 }
 
 void Collada::convert() {
@@ -131,6 +142,19 @@ void Collada::convert() {
 
         *(++pTexI) = pTexB[indices[i+2] * 2 + 0];
         *(++pTexI) = pTexB[indices[i+2] * 2 + 1];
+    }
+}
+
+void Collada::goTo(QXmlStreamReader &xml, QString name)
+{
+    // skip to name
+    bool finish = false;
+    while(!xml.atEnd() && !finish) {
+        if (xml.readNextStartElement()) {
+            if(xml.name() == name) {
+                finish = true;
+            }
+        }
     }
 }
 

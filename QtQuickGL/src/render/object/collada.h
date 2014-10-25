@@ -14,6 +14,7 @@ public:
     float *getPositions() const;
     float *getNormals() const;
     float *getTexCoords() const;
+    QString getDefuseTextureName() const;
     int getIndexCount() const;
 
 private:
@@ -27,10 +28,15 @@ private:
     float* iNormalBuffer;
     float* iTexCoordBuffer;
 
+    QString defuseTextureName;
+
     void parse(QFile &xml);
     void readFloatArray(QXmlStreamReader& xml);
     void readIndexArray(QXmlStreamReader& xml);
+    void readImage(QXmlStreamReader& xml);
+
     void convert();
+    void goTo(QXmlStreamReader& xml, QString name);
 };
 
 #endif // COLLADA_H
