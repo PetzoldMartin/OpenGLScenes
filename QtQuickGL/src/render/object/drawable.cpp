@@ -37,7 +37,6 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     // TODO: make this better
 
 
-
     m_id=makeNewID();
     s_drawableMap[m_id]=this;
     //SetColor(m_id);

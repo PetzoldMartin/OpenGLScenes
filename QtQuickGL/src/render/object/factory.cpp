@@ -152,6 +152,7 @@ Drawable *Factory::GenBlock(QVector3D size, QVector4D color)
     block->SetModelMatrix(modelMatrix);
     block->SetShader(m_engine->GetShader("basic"));
     block->SetColor(color);
+    block->SetTexture(GenTexture(":/texture/texture/default_defuse.png"));
 
     return block;
 }
@@ -166,6 +167,7 @@ Drawable *Factory::GenSphere(QVector3D size, QVector4D color)
     sphere->SetModelMatrix(modelMatrix);
     sphere->SetShader(m_engine->GetShader("basic"));
     sphere->SetColor(color);
+    sphere->SetTexture(GenTexture(":/texture/texture/default_defuse.png"));
 
     return sphere;
 }
