@@ -28,7 +28,7 @@ RenderEngine::RenderEngine(QObject* parent)
     //view
     alpha=0;
     beta=90;
-    distance=200;
+    distance=100;
     m_mouseX = 0;
     m_mouseY = 0;
 
@@ -39,10 +39,11 @@ RenderEngine::RenderEngine(QObject* parent)
     m_sceneEdit = scene;
 
     // light
+    QMatrix4x4 lightPosition;
     lightPosition.setToIdentity();
     lightPosition.translate(32,-0,92);
-    lightPositionBack=lightPosition;
-    this->CreateSphere(QVector3D(3,3,3),lightPosition*QVector4D(0,0,0,1).toVector3D(),QVector4D(1,0,0,1));
+    scene->GetLightSource()->SetTransformMatrix(lightPosition);
+    scene->GetLightSource()->forceModification();
 }
 
 void RenderEngine::Resize(float width, float height) {
@@ -87,7 +88,7 @@ void RenderEngine::Render(bool isDrawID)
     if(isDrawID) shader->setUniformValue("isDrawID", 1.0f);
     else shader->setUniformValue("isDrawID", 0.0f);
     shader->setUniformValue("cameraPosition",cameraPosition+cameraCenter);
-    shader->setUniformValue("lightPosition",lightPosition*QVector4D(0,0,0,1).toVector3D());
+    shader->setUniformValue("lightPosition",m_sceneEdit->GetLightSource()->GetTransformMatrix()*QVector4D(0,0,0,1).toVector3D());
     shader->release();
 
 
@@ -160,7 +161,7 @@ void RenderEngine::scaleView (int delta) {
             distance *= 1.1;
         }
     } else if (delta > 0) {
-        if (distance > 100) {
+        if (distance > 20) {
             distance *= 0.9;
         }
     }
@@ -216,21 +217,17 @@ void RenderEngine::rotateObject(int deltax,int deltay, int deltaz) {
     if (selectedObject != NULL) {
         selectedObject->RotateSelectedRelative(deltax,deltay,deltaz);
     } else {
-       qDebug() << deltax << "\t" << deltay << "\n" << lightPosition;
-       lightPosition.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
-       lightPosition.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
-       qDebug() << lightPosition* QVector4D(0,0,0,1);
+        m_sceneEdit->GetLightSource()->RotateSelectedRelative(deltax,deltay,deltaz);
+        // qDebug() << deltax << "\t" << deltay << "\n" << lightPosition;
     }
 }
 
 void RenderEngine::translateObject(int dx,int dy,int dz) {
-        if (selectedObject != NULL) {
-            selectedObject->TranslateSelectedRelative(QVector3D((float)dx,(float)dy,(float)dz));
-        } else {
-            lightPosition=lightPositionBack;
-            lightPosition.translate(dx,dy,dz);
-            qDebug() << lightPosition* QVector4D(0,0,0,1);
-        }
+    if (selectedObject != NULL) {
+        selectedObject->TranslateSelectedRelative(QVector3D((float)dx,(float)dy,(float)dz));
+    } else {
+        m_sceneEdit->GetLightSource()->TranslateSelectedRelative(QVector3D(dx,dy,dz));
+    }
 
 }
 void RenderEngine::scaleObject(float factor){
@@ -243,7 +240,7 @@ void RenderEngine::forceModification(){
     if (selectedObject != NULL) {
         selectedObject->forceModification();
     } else {
-        lightPositionBack=lightPosition;
+        m_sceneEdit->GetLightSource()->forceModification();
     }
 }
 

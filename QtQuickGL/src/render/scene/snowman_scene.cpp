@@ -14,10 +14,7 @@ SnowmanScene::SnowmanScene(RenderEngine *engine)
 
 
 void SnowmanScene::Create(){
-   Drawable *ground = m_factory->GenBlock(QVector3D(256,256,1),QVector4D(1,1,1,1.0));
-
-
-
+   Drawable *ground = m_factory->GenBlock(QVector3D(512,512,3),QVector4D(0.9,0.9,0.9,1.0));
 
    Drawable *test = m_factory->GenCollada("test", QVector3D(64,64,64),QVector4D(1.0,0.0,0.25,1.0));
    QMatrix4x4 mat_test;

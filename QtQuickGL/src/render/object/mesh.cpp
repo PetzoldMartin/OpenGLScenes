@@ -71,7 +71,7 @@ void Mesh::BuildVAO(QObject *context, QOpenGLShaderProgram *shader)
         m_textcoordBuffer->release();
     }
     //TODO find Right place
-    glBindTexture(GL_TEXTURE_2D, 0);
+
     // release the VertexArrayObject from active context
     m_vao->release();
 }
@@ -106,6 +106,7 @@ void Mesh::SetNormals(void *normals, int count)
 
 void Mesh::SetTextCoords(void *textcoords, int count)
 {
+    //Create a Texture coordinatesbuffer if it is the first time
     if(m_textcoordBuffer == 0) {
         m_textcoordBuffer = new QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
         m_textcoordBuffer->create();
