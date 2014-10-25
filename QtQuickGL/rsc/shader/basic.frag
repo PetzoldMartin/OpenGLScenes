@@ -31,7 +31,7 @@ void main(void)
         float dist = distance(lightPosition.xyz, out_position.xyz);
 
         gl_FragColor.xyz = ray_norm;
-        gl_FragColor.w = 1/(k+pow(k*dist,1)+pow(k*dist,2));
+        gl_FragColor.w = 1.0 / (k+pow(k*dist,1)+pow(k*dist,2));
     }
     else{ // default view
 
@@ -46,7 +46,7 @@ void main(void)
 
         vec3 ray_norm = normalize(lightPosition-out_position.xyz);
         float dist = distance(lightPosition.xyz, out_position.xyz);
-        float att = 1/(k+pow(k*dist,1)+pow(k*dist,2));
+        float att = 1.0/(k+pow(k*dist,1)+pow(k*dist,2));
         float dot = clamp(dot(ray_norm,out_normal.xyz),0.0,1.0);
 
         gl_FragColor += att * ( dot * out_color ) + ( ambient * out_color );
