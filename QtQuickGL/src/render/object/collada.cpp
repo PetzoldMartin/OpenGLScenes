@@ -141,7 +141,7 @@ void Collada::convert() {
         *(++pNorI) = pNorB[indices[i+1] * 3 + 2];
 
         *(++pTexI) = pTexB[indices[i+2] * 2 + 0];
-        *(++pTexI) = pTexB[indices[i+2] * 2 + 1];
+        *(++pTexI) = 1.0f - pTexB[indices[i+2] * 2 + 1];
     }
 }
 
