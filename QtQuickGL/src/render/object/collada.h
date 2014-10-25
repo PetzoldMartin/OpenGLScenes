@@ -22,6 +22,7 @@ private:
     int* indices;
     int indexCount;
 
+    // Converted Buffers
     float* iPositionBuffer;
     float* iNormalBuffer;
     float* iTexCoordBuffer;

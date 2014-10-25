@@ -44,7 +44,7 @@ void Collada:: parse(QFile& file) {
 
     while (!xml.atEnd()) {
         if (xml.readNextStartElement()) {
-
+            // seach for needed informations
             if (xml.name() == "float_array") {
                 readFloatArray(xml);
             } else if (xml.name() == "polylist") {
@@ -115,11 +115,11 @@ void Collada::convert() {
     float* pPosI = iPositionBuffer -1;
     float* pNorI = iNormalBuffer -1;
     float* pTexI = iTexCoordBuffer -1;
-
     float* pPosB = buffer[0];
     float* pNorB = buffer[1];
     float* pTexB = buffer[2];
 
+    // start converting
     for(int i = 0; i < indexCount*3; i += 3) {
         *(++pPosI) = pPosB[indices[i] * 3 + 0];
         *(++pPosI) = pPosB[indices[i] * 3 + 1];
