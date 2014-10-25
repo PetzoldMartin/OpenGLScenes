@@ -14,6 +14,9 @@ public:
 private:
     Drawable *m_Snowman;
     Drawable *m_Mouth;
+    Drawable *m_Ground;
+    Drawable *m_DownSphere;
+
 };
 
 #endif // SNOWMAN_SCENE_H

@@ -317,52 +317,55 @@ void Factory::createMeshBlock()
     };
     QVector2D tcoord[] = {
         // top
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+0.0),
+        QVector2D(+0.5,+0.0),
+        QVector2D(+0.25,+0.0),
+        QVector2D(+0.25,+0.33),
+        QVector2D(+0.5,+0.0),
+        QVector2D(+0.25,+0.33),
+        QVector2D(+0.5,+0.33),
 
         // bottom
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+0.0),
+
+        QVector2D(+0.25,+0.66),
+        QVector2D(+0.5,+0.66),
+        QVector2D(+0.25,+1.0),
+        QVector2D(+0.25,+1.0),
+        QVector2D(+0.5,+0.66),
+        QVector2D(+0.5,+1.0),
 
         // left
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+0.0),
+        QVector2D(+0.25,+0.33),
+        QVector2D(+0.0,+0.33),
+        QVector2D(+0.25,+0.66),
+        QVector2D(+0.25,+0.66),
+        QVector2D(+0.0,+0.33),
+        QVector2D(+0.0,+0.66),
 
         // right
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+0.0),
+
+        QVector2D(+0.75,+0.33),
+        QVector2D(+0.5,+0.33),
+        QVector2D(+0.5,+0.66),
+        QVector2D(+0.75,+0.33),
+        QVector2D(+0.5,+0.66),
+        QVector2D(+0.75,+0.66),
 
         // back
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+0.0),
+
+        QVector2D(+1.0,+0.33),
+        QVector2D(+0.75,+0.33),
+        QVector2D(+1.0,+0.66),
+        QVector2D(+1.0,+0.66),
+        QVector2D(+0.75,+0.33),
+        QVector2D(+0.75,+0.66),
 
         // front
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+1.0),
-        QVector2D(+0.0,+0.0),
-        QVector2D(+1.0,+0.0),
+        QVector2D(+0.5,+0.33),
+        QVector2D(+0.25,+0.33),
+        QVector2D(+0.25,+0.66),
+        QVector2D(+0.5,+0.33),
+        QVector2D(+0.25,+0.66),
+        QVector2D(+0.5,+0.66),
     };
 
     m_block = new Mesh();
@@ -390,7 +393,7 @@ void Factory::createMeshSphere() {
 #endif
 
     float rad = 0.5;
-    unsigned int segv = 8;
+    unsigned int segv = 64;
     unsigned int segu = 2*segv;
 
 

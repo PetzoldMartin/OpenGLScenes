@@ -10,6 +10,11 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
 #include <QMatrix4x4>
+#include <qpixmap.h>
+#include <GL/gl.h>
+#include <QOpenGLTexture>
+#include <qcolor.h>
+
 using namespace std;
 
 vector<unsigned char> Drawable::s_idCount(4,0);
@@ -27,7 +32,6 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     yr,zr=0;
     xr=1;
     m_transform=QVector3D(0.0,0.0,0.0);
-
     // create new id
     // TODO: make this better
 
@@ -36,6 +40,10 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     m_id=makeNewID();
     s_drawableMap[m_id]=this;
     //SetColor(m_id);
+
+    //Set Standard Texture
+    const QImage* qi = new QImage(QString(":/texture/texture/Cubemap_2_2048x1536.jpg"));
+    qot= new QOpenGLTexture(*qi,QOpenGLTexture::GenerateMipMaps) ;
 
 
 
@@ -67,6 +75,13 @@ void Drawable::Draw(QMatrix4x4 *transform)
     m_shader->setUniformValue("modelMatrix", m_modelMatrix);
     m_shader->setUniformValue("sceneMatrix",m_SceneMatrix);
     m_shader->setUniformValue("id",QVector4D((float)m_id[0]/255,(float)m_id[1]/255,(float)m_id[2]/255,(float)m_id[3]/255));
+    m_shader->setUniformValue("texture", 0);
+
+    //texture upload
+
+    //bind Texture
+    qot->bind();
+
     if(m_isSelected) m_shader->setUniformValue("isSelected", 1.0f);
     else m_shader->setUniformValue("isSelected", 0.0f);
     // draw myself
@@ -96,6 +111,12 @@ void Drawable::Build()
     m_shader->setUniformValue("modelMatrix", m_modelMatrix);
     m_mesh->BuildVAO(m_engine->GetContext(), m_shader);
 
+
+}
+
+void Drawable::SetTexture(QChar location){
+    const QImage* qi = new QImage(QString(location));
+    qot= new QOpenGLTexture(*qi,QOpenGLTexture::GenerateMipMaps) ;
 }
 
 void Drawable::TranslateDirect(QVector3D transform)
