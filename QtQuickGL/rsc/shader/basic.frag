@@ -41,16 +41,16 @@ void main(void)
         //gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal.xyz),0.25,1.0);
         //gl_FragColor.xyz /= clamp(pow(distance(out_position.xyz, lightPosition.xyz),2) * 0.0005, 0.5,1.5);
 
-        vec4 ambient = vec4(0.3,0.3,0.3,1.0);
-        float k=0.01;
+        vec4 ambient = vec4(0.3, 0.3, 0.3, 1.0);
+        float k = 0.01;
 
-        vec3 ray_norm = normalize(lightPosition-out_position.xyz);
+        vec3 ray_norm = normalize(lightPosition - out_position.xyz);
         float dist = distance(lightPosition.xyz, out_position.xyz);
-        float att = 1.0/(k+pow(k*dist,1)+pow(k*dist,2));
-        float dot = clamp(dot(ray_norm,out_normal.xyz),0.0,1.0);
+        float att = 1.0 / (k + pow(k * dist, 1) + pow(k * dist, 2));
+        float dot = clamp(dot(ray_norm, out_normal.xyz), 0.0, 1.0);
 
-        vec4 defuse = out_color * texture2D(texture,out_tcoord);
-        gl_FragColor += att * ( dot * defuse) + ( ambient * defuse );
+        vec4 defuse = out_color * texture2D(texture, out_tcoord);
+        gl_FragColor = att * (dot * defuse) + (ambient * defuse );
         gl_FragColor.w = out_color.w;
 
         //        gl_FragColor.w = out_color.w;
