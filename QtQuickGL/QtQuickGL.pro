@@ -15,9 +15,6 @@ SOURCES += \
     src/render/object/mesh.cpp \
     src/render/scene/task_scene.cpp \
     src/render/utility/rendertarget.cpp \
-    src/render/object/primitive/cvertex.cpp \
-    src/render/object/primitive/cedge.cpp \
-    src/render/object/primitive/cface.cpp \
     src/render/object/collada.cpp \
     src/render/scene/snowman_scene.cpp
 
@@ -41,14 +38,10 @@ HEADERS += \
     src/render/object/mesh.h \
     src/render/scene/task_scene.h \
     src/render/utility/rendertarget.h \
-    src/render/object/primitive/cvertex.h \
-    src/render/object/primitive/cedge.h \
-    src/render/object/primitive/cface.h \
     src/render/object/collada.h \
     src/render/scene/snowman_scene.h
 
 OTHER_FILES += \
-    rsc/file/*.dat\
     rsc/qml/main.qml \
     rsc/shader/*.frag \
     rsc/shader/*.vert \
