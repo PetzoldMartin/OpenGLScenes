@@ -16,6 +16,10 @@ private:
     Drawable *m_Mouth;
     Drawable *m_Ground;
     Drawable *m_DownSphere;
+    Drawable *m_MiddleSphere;
+    Drawable *m_TopSphere;
+    Drawable *m_Hat;
+    Drawable *m_Nose;
 
 };
 
