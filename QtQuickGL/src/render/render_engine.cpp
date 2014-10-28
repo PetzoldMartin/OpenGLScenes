@@ -38,12 +38,6 @@ RenderEngine::RenderEngine(QObject* parent)
     m_scenes.push_back(scene);
     m_sceneEdit = scene;
 
-    // light
-    QMatrix4x4 lightPosition;
-    lightPosition.setToIdentity();
-    lightPosition.translate(32,-0,92);
-    scene->GetLightSource()->SetTransformMatrix(lightPosition);
-    scene->GetLightSource()->forceModification();
 }
 
 void RenderEngine::Resize(float width, float height) {
