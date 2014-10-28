@@ -26,5 +26,7 @@
     <qresource prefix="/model">
         <file>model/test/test.dae</file>
         <file>model/test/defuse.png</file>
+        <file>model/cylinder/cylinder.dae</file>
+        <file>model/cylinder/cylinder.png</file>
     </qresource>
 </RCC>
