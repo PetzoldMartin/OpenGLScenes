@@ -5,6 +5,7 @@
 #include "src/render/object/factory.h"
 
 #include <QString>
+#include <cmath>
 
 SnowmanScene::SnowmanScene(RenderEngine *engine)
     : Scene(engine)
@@ -69,9 +70,18 @@ void SnowmanScene::Create(){
     mat_hat_brim.translate(0,0,-tsize/4);
     m_Hat->AddChild(m_hat_brim,mat_hat_brim);
 
-    //eye
+    // eye
+    Drawable *l_eye = m_factory->GenSphere(QVector3D(cole_size,cole_size,cole_size),color_cole);
+    QMatrix4x4 m_l_eye;
+    m_l_eye.setToIdentity();
+    m_l_eye.translate(QVector3D(-tsize/6,-tsize/2,tsize/8));
+    m_TopSphere->AddChild(l_eye,m_l_eye);
 
-
+    Drawable *r_eye = m_factory->GenSphere(QVector3D(cole_size,cole_size,cole_size),color_cole);
+    QMatrix4x4 m_r_eye;
+    m_r_eye.setToIdentity();
+    m_r_eye.translate(QVector3D(+tsize/6,-tsize/2,tsize/8));
+    m_TopSphere->AddChild(r_eye,m_r_eye);
 
     // mouth
     m_Mouth = m_factory->GenSphere(QVector3D(cole_size,cole_size,cole_size),color_cole);
@@ -80,12 +90,36 @@ void SnowmanScene::Create(){
     m_mouth.translate(QVector3D(0.0,-tsize/2,-tsize/6));
     m_TopSphere->AddChild(m_Mouth,m_mouth);
 
+    Drawable *mouthl1 = m_factory->GenSphere(QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
+    QMatrix4x4 m_mouthl1;
+    m_mouthl1.setToIdentity();
+    m_mouthl1.translate(QVector3D(-cole_size*1.2,0.5,0));
+    m_Mouth->AddChild(mouthl1,m_mouthl1);
+
+    Drawable *mouthl2 = m_factory->GenSphere(QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
+    QMatrix4x4 m_mouthl2;
+    m_mouthl2.setToIdentity();
+    m_mouthl2.translate(QVector3D(-cole_size*0.8,1,0));
+    mouthl1->AddChild(mouthl2,m_mouthl2);
+
+    Drawable *mouthr1 = m_factory->GenSphere(QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
+    QMatrix4x4 m_mouthr1;
+    m_mouthr1.setToIdentity();
+    m_mouthr1.translate(QVector3D(+cole_size*1.2,0.5,0));
+    m_Mouth->AddChild(mouthr1,m_mouthr1);
+
+    Drawable *mouthr2 = m_factory->GenSphere(QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
+    QMatrix4x4 m_mouthr2;
+    m_mouthr2.setToIdentity();
+    m_mouthr2.translate(QVector3D(+cole_size*0.8,1,0));
+    mouthr1->AddChild(mouthr2,m_mouthr2);
+
+    // nose
     m_Nose = m_factory->GenCollada("cone",QVector3D(nose_size/3,nose_size/3,nose_size),color_carrot);
     QMatrix4x4 m_nose;
     m_nose.setToIdentity();
     m_nose.translate(0,-tsize*2/3,0);
     m_nose.rotate(90,QVector3D(1,0,0));
-    //m_nose.translate(QVector3D(0.0,-tsize/2,-tsize/8));
     m_TopSphere->AddChild(m_Nose,m_nose);
 
     }
@@ -94,5 +128,13 @@ void SnowmanScene::Create(){
 
 void SnowmanScene::Update()
 {
-
+    static int i=15;
+    QVector3D change = QVector3D(0,0,0.05 * (i%60>=30 ? 1 : -1));
+    foreach(Drawable* child , m_Mouth->m_childList) {
+        foreach (Drawable* child2, child->m_childList) {
+            child2->TranslateRelative(change*2);
+        }
+        child->TranslateRelative(change);
+    }
+    i++;
 }

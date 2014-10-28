@@ -154,6 +154,10 @@ public:
     QMatrix4x4 GetSceneMatrix();
     void scale(float factor);
     void forceModification();
+
+    std::vector<Drawable*> m_childList;                                 ///< List of Childs
+
+
 private:
 
     ///
@@ -174,7 +178,6 @@ private:
     QMatrix4x4 m_manipulateMatrix;                                      ///< Temporary for Object direct manipulating
     QMatrix4x4 m_manipulateRMatrix;                                     ///< Temporary for Object relativ manipulating
 
-    std::vector<Drawable*> m_childList;                                 ///< List of Childs
 
     std::vector<unsigned char> m_id;                                    ///< unique id
     static std::vector<unsigned char> s_idCount;                        ///< gloabal count of all Drawables
