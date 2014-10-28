@@ -12,7 +12,7 @@ SnowmanScene::SnowmanScene(RenderEngine *engine)
     // light
     QMatrix4x4 lightPosition;
     lightPosition.setToIdentity();
-    lightPosition.translate(-100,-100,100);
+    lightPosition.translate(+100,-100,100);
     m_lightSource->SetTransformMatrix(lightPosition);
     m_lightSource->forceModification();
 }
@@ -29,25 +29,64 @@ void SnowmanScene::Create(){
         int dsize= 64;
         int msize= 42;
         int tsize= 26;
+        int cole_size= 3;
+        int nose_size= 10;
 
+        QVector4D color_snow = QVector4D(1.0,1.0,1.0,1.0);
+        QVector4D color_hat = QVector4D(0.0,0.0,0.0,1.0);
+        QVector4D color_cole = QVector4D(0.0,0.0,0.0,1.0);
+        QVector4D color_carrot = QVector4D(1.0,0.55,0.0,1.0);
 
-    m_DownSphere = m_factory->GenSphere(QVector3D(dsize,dsize,dsize),QVector4D(QVector4D(0.9,0.9,0.9,1.0)));
+    // body
+    m_DownSphere = m_factory->GenSphere(QVector3D(dsize,dsize,dsize),color_snow);
     QMatrix4x4 m_dsphere;
     m_dsphere.setToIdentity();
     m_dsphere.translate(QVector3D(0.0,0.0,dsize/2));
     ground->AddChild(m_DownSphere,m_dsphere);
 
-    m_MiddleSphere = m_factory->GenSphere(QVector3D(msize,msize,msize),QVector4D(QVector4D(0.9,0.9,0.9,1.0)));
+    m_MiddleSphere = m_factory->GenSphere(QVector3D(msize,msize,msize),color_snow);
     QMatrix4x4 m_msphere;
     m_msphere.setToIdentity();
     m_msphere.translate(QVector3D(0.0,0.0,msize));
     m_DownSphere->AddChild(m_MiddleSphere,m_msphere);
 
-    m_TopSphere = m_factory->GenSphere(QVector3D(tsize,tsize,tsize),QVector4D(QVector4D(0.9,0.9,0.9,1.0)));
+    m_TopSphere = m_factory->GenSphere(QVector3D(tsize,tsize,tsize),color_snow);
     QMatrix4x4 m_tsphere;
     m_tsphere.setToIdentity();
     m_tsphere.translate(QVector3D(0.0,0.0,tsize));
     m_MiddleSphere->AddChild(m_TopSphere,m_tsphere);
+
+    // hat
+    m_Hat = m_factory->GenCollada("cylinder", QVector3D(tsize,tsize,tsize/2),color_hat);
+    QMatrix4x4 mat_hat;
+    mat_hat.setToIdentity();
+    mat_hat.translate(0,0,tsize/2);
+    m_TopSphere->AddChild(m_Hat,mat_hat);
+
+    Drawable * m_hat_brim = m_factory->GenCollada("cylinder", QVector3D(tsize*1.5,tsize*1.5,tsize/8),color_hat);
+    QMatrix4x4 mat_hat_brim;
+    mat_hat_brim.setToIdentity();
+    mat_hat_brim.translate(0,0,-tsize/4);
+    m_Hat->AddChild(m_hat_brim,mat_hat_brim);
+
+    //eye
+
+
+
+    // mouth
+    m_Mouth = m_factory->GenSphere(QVector3D(cole_size,cole_size,cole_size),color_cole);
+    QMatrix4x4 m_mouth;
+    m_mouth.setToIdentity();
+    m_mouth.translate(QVector3D(0.0,-tsize/2,-tsize/6));
+    m_TopSphere->AddChild(m_Mouth,m_mouth);
+
+    m_Nose = m_factory->GenCollada("cone",QVector3D(nose_size/3,nose_size/3,nose_size),color_carrot);
+    QMatrix4x4 m_nose;
+    m_nose.setToIdentity();
+    m_nose.translate(0,-tsize*2/3,0);
+    m_nose.rotate(90,QVector3D(1,0,0));
+    //m_nose.translate(QVector3D(0.0,-tsize/2,-tsize/8));
+    m_TopSphere->AddChild(m_Nose,m_nose);
 
     }
     m_objects.push_back(ground);
