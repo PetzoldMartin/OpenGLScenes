@@ -54,15 +54,6 @@ public:
     Drawable *GenSphere(QVector3D size, QVector4D color);
 
     ///
-    /// \brief Generate a new Model from a file
-    /// \param file file to read from
-    /// \param size scale factor of the model
-    /// \param color Color
-    /// \return
-    ///
-    Drawable *GenFromFile(QFile* file, QVector4D color, QVector3D size);
-
-    ///
     /// \brief Generate a new Model an collada file
     /// \param name Folder name
     /// \param size scale factor of the model

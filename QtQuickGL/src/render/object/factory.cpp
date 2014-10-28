@@ -27,52 +27,6 @@ Factory::Factory(RenderEngine *engine)
     createMeshSphere();
 }
 
-Mesh *Factory::generateMeshFromFile(QFile* file){
-
-    file->open(QIODevice::ReadOnly);
-    //QMap<QString, QVector < QVector <int> > > data;
-    QVector<QPair<QPair<QString,int>, QVector<int> > > data;
-    while (!file->atEnd()) {
-        QTextStream stream(file->readLine());
-
-        QString sType; // element type
-        stream >> sType;
-
-        int id; // element id
-        stream >> id;
-
-
-        //qDebug() << sType << "\t" << id;
-
-        QVector<int> line;
-
-        // face color
-        if (!sType.compare("F",Qt::CaseInsensitive)) {
-            int color;
-            stream >> color;
-            line.push_back(color);
-           // qDebug() << color << "\t" << sType;
-        }
-
-        while (true) {
-
-            int var;
-            stream >> var;
-
-            if (stream.atEnd()) {
-                break;
-            }
-
-            line.push_back(var);
-        }
-        //qDebug() << line;
-        data.push_back(QPair<QPair<QString,int>, QVector<int> >(QPair<QString,int>(sType,id),line));
-    }
-    qDebug() << data;
-    return NULL;
-}
-
-
 Drawable *Factory::GenCollada(const QString name, QVector3D size, QVector4D color) {
     Collada collada(":/model/model/" + name + "/" + name + ".dae");
 
@@ -101,25 +55,6 @@ QOpenGLTexture *Factory::GenTexture(const QString fileName)
     if(!m_textureMap.contains(fileName))
         m_textureMap[fileName] = new QOpenGLTexture(QImage(fileName));
     return m_textureMap[fileName];
-}
-
-
-Drawable *Factory::GenFromFile(QFile* file, QVector4D color, QVector3D size) {
-    // create internal model matrix that create the size
-    QMatrix4x4 modelMatrix;
-    modelMatrix.setToIdentity();
-    modelMatrix.scale(size);
-
-    // create a new Drawable from file
-    Drawable *model = new Drawable(m_engine, QMatrix4x4());
-    Mesh *modelMesh = generateMeshFromFile(file);
-
-    model->SetMesh(modelMesh);
-    model->SetModelMatrix(modelMatrix);
-    model->SetShader(m_engine->GetShader("basic")); //TODO new Shader
-    model->SetColor(color);
-
-    return model;
 }
 
 Drawable* Factory::GenRectangle(QVector3D size,  QVector4D color) {
