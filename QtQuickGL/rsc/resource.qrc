@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file alias="main.qml">qml/main.qml</file>
+        <file alias="CreateTab.qml">qml/CreateTab.qml</file>
+        <file alias="ToggleOptions.qml">qml/ToggleOptions.qml</file>
+        <file alias="ModifyTab.qml">qml/ModifyTab.qml</file>
+    </qresource>
+    <qresource prefix="/shader">
+        <file alias="basic.frag">shader/basic.frag</file>
+        <file alias="basic.vert">shader/basic.vert</file>
+    </qresource>
+    <qresource prefix="/texture">
+        <file>texture/Cubemap_2_320x240.jpg</file>
+        <file>texture/Cubemap_2_2048x1536.jpg</file>
+        <file>texture/default_defuse.png</file>
+    </qresource>
+    <qresource prefix="/file">
+        <file>file/modell.dat</file>
+        <file>file/modell_w5.dat</file>
+        <file>file/modell_w6.dat</file>
+        <file>file/modell_w6f.dat</file>
+        <file>file/modell_wk.dat</file>
+        <file>file/netz.dat</file>
+        <file>file/Test.dat</file>
+    </qresource>
+    <qresource prefix="/model">
+        <file>model/test/test.dae</file>
+        <file>model/test/defuse.png</file>
+    </qresource>
+</RCC>
