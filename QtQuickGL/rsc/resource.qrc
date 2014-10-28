@@ -21,5 +21,7 @@
         <file>model/cylinder/cylinder.png</file>
         <file>model/room/room.dae</file>
         <file>model/room/Untitled.png</file>
+        <file>model/cone/cone.dae</file>
+        <file>model/cone/Untitled.png</file>
     </qresource>
 </RCC>
