@@ -110,7 +110,7 @@ void Collada::readImage(QXmlStreamReader &xml)
     goTo(xml,"init_from");
     QString textureName = xml.readElementText();
 
-    if(id == "defuse")
+    //if(id == "defuse")
         defuseTextureName = textureName;
     // to be continued for more textures...
 }
