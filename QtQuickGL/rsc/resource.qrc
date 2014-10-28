@@ -19,5 +19,7 @@
         <file>model/test/defuse.png</file>
         <file>model/cylinder/cylinder.dae</file>
         <file>model/cylinder/cylinder.png</file>
+        <file>model/room/room.dae</file>
+        <file>model/room/Untitled.png</file>
     </qresource>
 </RCC>
