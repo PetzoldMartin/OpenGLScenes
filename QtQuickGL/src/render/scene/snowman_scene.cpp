@@ -34,20 +34,20 @@ void SnowmanScene::Create(){
     m_DownSphere = m_factory->GenSphere(QVector3D(dsize,dsize,dsize),QVector4D(QVector4D(0.9,0.9,0.9,1.0)));
     QMatrix4x4 m_dsphere;
     m_dsphere.setToIdentity();
-    m_dsphere.translate(QVector3D(0.0,0.0,dsize/2-2));
+    m_dsphere.translate(QVector3D(0.0,0.0,dsize/2));
     ground->AddChild(m_DownSphere,m_dsphere);
 
     m_MiddleSphere = m_factory->GenSphere(QVector3D(msize,msize,msize),QVector4D(QVector4D(0.9,0.9,0.9,1.0)));
     QMatrix4x4 m_msphere;
     m_msphere.setToIdentity();
-    m_msphere.translate(QVector3D(0.0,0.0,msize/2+dsize-18));
-    ground->AddChild(m_MiddleSphere,m_msphere);
+    m_msphere.translate(QVector3D(0.0,0.0,msize));
+    m_DownSphere->AddChild(m_MiddleSphere,m_msphere);
 
     m_TopSphere = m_factory->GenSphere(QVector3D(tsize,tsize,tsize),QVector4D(QVector4D(0.9,0.9,0.9,1.0)));
     QMatrix4x4 m_tsphere;
     m_tsphere.setToIdentity();
-    m_tsphere.translate(QVector3D(0.0,0.0,msize+dsize+tsize/2-24));
-    ground->AddChild(m_TopSphere,m_tsphere);
+    m_tsphere.translate(QVector3D(0.0,0.0,tsize));
+    m_MiddleSphere->AddChild(m_TopSphere,m_tsphere);
 
     }
     m_objects.push_back(ground);
