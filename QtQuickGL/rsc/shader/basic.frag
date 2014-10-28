@@ -25,7 +25,11 @@ void main(void)
         gl_FragColor = id;
     } else if (viewMode == 5) { // texture view
         gl_FragColor = texture2D(texture,out_tcoord);
-    } else if (viewMode == 6) { // light view
+    } else if (viewMode == 6) { // texture viewcoor
+        float x= mod(out_tcoord.x + out_tcoord.y , 0.01)*70.0*mod(out_tcoord.x - out_tcoord.y , 0.01)*70.0;
+    gl_FragColor = vec4(x,x,x,1.0);
+    }
+    else if (viewMode == 7) { // light view
         vec3 ray_norm = normalize(lightPosition-out_position.xyz);
         float k=0.01;
         float dist = distance(lightPosition.xyz, out_position.xyz);
