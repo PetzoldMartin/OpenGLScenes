@@ -45,9 +45,11 @@ void main(void)
         //gl_FragColor.xyz *= clamp(dot(ray_norm, out_normal.xyz),0.25,1.0);
         //gl_FragColor.xyz /= clamp(pow(distance(out_position.xyz, lightPosition.xyz),2) * 0.0005, 0.5,1.5);
 
-        vec4 ambient = vec4(0.5, 0.5, 0.5, 1.0);
-        vec4 ambient_direction = vec4(1.0,1.0,1.0,1.0);
+        float ambient_value=1.0;
         float k = 0.009;
+
+        vec4 ambient = vec4(ambient_value, ambient_value, ambient_value, 1.0);
+        vec4 ambient_direction = vec4(-1.0,-1.0,1.0,1.0);
 
         vec3 ray_norm = normalize(lightPosition - out_position.xyz);
 
@@ -55,7 +57,7 @@ void main(void)
         float att = 1.0 / (k + pow(k * dist, 1) + pow(k * dist, 2));
 
         float dot_normal = clamp(dot(ray_norm, out_normal.xyz), 0.0, 1.0);
-        float dot_ambient_normal = clamp(dot(normalize(ambient_direction), out_normal), 0.0, 1.0);
+        float dot_ambient_normal = clamp(dot(normalize(ambient_direction.xyz), out_normal.xyz), 0.0, 1.0);
 
         vec4 defuse = out_color * texture2D(texture, out_tcoord);
 

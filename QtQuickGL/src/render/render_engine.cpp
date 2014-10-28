@@ -64,7 +64,7 @@ void RenderEngine::Render(bool isDrawID)
     if (selectedObject!=NULL){
         cameraCenter = selectedObject->GetSceneMatrix()*QVector3D(0,0,0);
     } else {
-        cameraCenter= QVector3D(0,0,20);
+        cameraCenter= QVector3D(0,0,80);
     }
     QVector3D cameraPosition = cameraTransformation * QVector3D(0, -distance,0 );
 
