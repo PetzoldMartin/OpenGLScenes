@@ -48,7 +48,6 @@ HEADERS += \
     src/render/scene/snowman_scene.h
 
 OTHER_FILES += \
-    rsc/file/*.dat\
     rsc/qml/main.qml \
     rsc/shader/*.frag \
     rsc/shader/*.vert \
