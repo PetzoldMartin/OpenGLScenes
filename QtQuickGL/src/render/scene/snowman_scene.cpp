@@ -13,7 +13,7 @@ SnowmanScene::SnowmanScene(RenderEngine *engine)
     // light
     QMatrix4x4 lightPosition;
     lightPosition.setToIdentity();
-    lightPosition.translate(+100,-100,100);
+    lightPosition.translate(+0,+100,+100);
     m_lightSource->SetTransformMatrix(lightPosition);
     m_lightSource->forceModification();
 }
@@ -137,5 +137,13 @@ void SnowmanScene::Update()
         }
         child->TranslateRelative(change);
     }
+    QMatrix4x4 light_mat = m_lightSource->GetTransformMatrix();
+   // qDebug() << light_mat;
+    QMatrix4x4 rotation;
+    rotation.setToIdentity();
+    rotation.rotate(1,QVector3D(0,1,0));
+    m_lightSource->SetTransformMatrix(rotation*light_mat);
+    m_lightSource->forceModification();
+
     i++;
 }

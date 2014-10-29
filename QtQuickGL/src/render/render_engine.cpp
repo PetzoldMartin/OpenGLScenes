@@ -46,7 +46,7 @@ void RenderEngine::Resize(float width, float height) {
         float x= width*distance/400.0f;
         projectionMatrix.ortho(-x,x,-x*height / width,x*height / width, 1.0f, 5000.0f);
     } else {
-        projectionMatrix.perspective(90.0f, width / height, 1.0f, 5000.0f);
+        projectionMatrix.perspective(60.0f, width / height, 1.0f, 5000.0f);
     }
     glViewport(0, 0, width, height);
 }
