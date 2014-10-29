@@ -129,7 +129,8 @@ void SnowmanScene::Create(){
 void SnowmanScene::Update()
 {
     static int i=15;
-    QVector3D change = QVector3D(0,0,0.05 * (i%60>=30 ? 1 : -1));
+    int c =(i%60>=30 ? 1 : -1);
+    QVector3D change = QVector3D(0,-0.02*c,0.05 * c);
     foreach(Drawable* child , m_Mouth->m_childList) {
         foreach (Drawable* child2, child->m_childList) {
             child2->TranslateRelative(change*2);
