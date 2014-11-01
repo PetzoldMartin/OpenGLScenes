@@ -39,19 +39,19 @@ void SnowmanScene::Create(){
         QVector4D color_carrot = QVector4D(1.0,0.55,0.0,1.0);
 
     // body
-    m_DownSphere = m_factory->GenSphere(QVector3D(dsize,dsize,dsize),color_snow);
+    m_DownSphere = m_factory->GenCollada("sphere", QVector3D(dsize,dsize,dsize), color_snow);
     QMatrix4x4 m_dsphere;
     m_dsphere.setToIdentity();
     m_dsphere.translate(QVector3D(0.0,0.0,dsize/2));
     ground->AddChild(m_DownSphere,m_dsphere);
 
-    m_MiddleSphere = m_factory->GenSphere(QVector3D(msize,msize,msize),color_snow);
+    m_MiddleSphere = m_factory->GenCollada("sphere", QVector3D(msize,msize,msize), color_snow);
     QMatrix4x4 m_msphere;
     m_msphere.setToIdentity();
     m_msphere.translate(QVector3D(0.0,0.0,msize));
     m_DownSphere->AddChild(m_MiddleSphere,m_msphere);
 
-    m_TopSphere = m_factory->GenSphere(QVector3D(tsize,tsize,tsize),color_snow);
+    m_TopSphere = m_factory->GenCollada("sphere", QVector3D(tsize,tsize,tsize), color_snow);
     QMatrix4x4 m_tsphere;
     m_tsphere.setToIdentity();
     m_tsphere.translate(QVector3D(0.0,0.0,tsize));
@@ -71,44 +71,45 @@ void SnowmanScene::Create(){
     m_Hat->AddChild(m_hat_brim,mat_hat_brim);
 
     // eye
-    Drawable *l_eye = m_factory->GenSphere(QVector3D(cole_size,cole_size,cole_size),color_cole);
+    Drawable *l_eye = m_factory->GenCollada("sphere", QVector3D(cole_size,cole_size,cole_size), color_cole);
     QMatrix4x4 m_l_eye;
     m_l_eye.setToIdentity();
     m_l_eye.translate(QVector3D(-tsize/6,-tsize/2,tsize/8));
     m_TopSphere->AddChild(l_eye,m_l_eye);
 
-    Drawable *r_eye = m_factory->GenSphere(QVector3D(cole_size,cole_size,cole_size),color_cole);
+    Drawable *r_eye = m_factory->GenCollada("sphere", QVector3D(cole_size,cole_size,cole_size), color_cole);
     QMatrix4x4 m_r_eye;
     m_r_eye.setToIdentity();
     m_r_eye.translate(QVector3D(+tsize/6,-tsize/2,tsize/8));
     m_TopSphere->AddChild(r_eye,m_r_eye);
 
     // mouth
-    m_Mouth = m_factory->GenSphere(QVector3D(cole_size,cole_size,cole_size),color_cole);
+    m_Mouth = m_factory->GenCollada("sphere", QVector3D(cole_size,cole_size,cole_size), color_cole);
     QMatrix4x4 m_mouth;
     m_mouth.setToIdentity();
     m_mouth.translate(QVector3D(0.0,-tsize/2,-tsize/6));
     m_TopSphere->AddChild(m_Mouth,m_mouth);
 
-    Drawable *mouthl1 = m_factory->GenSphere(QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
+    Drawable *mouthl1 = m_factory->GenCollada("sphere", QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
+
     QMatrix4x4 m_mouthl1;
     m_mouthl1.setToIdentity();
     m_mouthl1.translate(QVector3D(-cole_size*1.2,0.5,0));
     m_Mouth->AddChild(mouthl1,m_mouthl1);
 
-    Drawable *mouthl2 = m_factory->GenSphere(QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
+    Drawable *mouthl2 = m_factory->GenCollada("sphere", QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
     QMatrix4x4 m_mouthl2;
     m_mouthl2.setToIdentity();
     m_mouthl2.translate(QVector3D(-cole_size*0.8,1,0));
     mouthl1->AddChild(mouthl2,m_mouthl2);
 
-    Drawable *mouthr1 = m_factory->GenSphere(QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
+    Drawable *mouthr1 = m_factory->GenCollada("sphere", QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
     QMatrix4x4 m_mouthr1;
     m_mouthr1.setToIdentity();
     m_mouthr1.translate(QVector3D(+cole_size*1.2,0.5,0));
     m_Mouth->AddChild(mouthr1,m_mouthr1);
 
-    Drawable *mouthr2 = m_factory->GenSphere(QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
+    Drawable *mouthr2 = m_factory->GenCollada("sphere", QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
     QMatrix4x4 m_mouthr2;
     m_mouthr2.setToIdentity();
     m_mouthr2.translate(QVector3D(+cole_size*0.8,1,0));
