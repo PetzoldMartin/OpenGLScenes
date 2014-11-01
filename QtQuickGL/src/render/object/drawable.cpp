@@ -11,7 +11,6 @@
 #include <QOpenGLShaderProgram>
 #include <QMatrix4x4>
 #include <qpixmap.h>
-#include <GL/gl.h>
 #include <QOpenGLTexture>
 #include <qcolor.h>
 

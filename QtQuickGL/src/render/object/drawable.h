@@ -4,7 +4,6 @@
 #include <vector>       // container drawable
 #include <QVector4D>    // color
 #include <QMatrix4x4>   // model and transform Matrix
-#include <GL/gl.h>
 #include <QOpenGLTexture>
 
 // Forward Declaration
