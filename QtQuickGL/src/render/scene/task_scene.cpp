@@ -68,7 +68,7 @@ void TaskScene::Create()
 
     m_objects.push_back(m_gestell);
 
-    m_sphere= m_factory->GenSphere(QVector3D(50,50,50),QVector4D(1.0,1.0,1.0,1.0));
+    m_sphere= m_factory->GenCollada("sphere", QVector3D(50,50,50),QVector4D(1.0,1.0,1.0,1.0));
     QMatrix4x4 mSphere;
     mSphere.setToIdentity();
     mSphere.translate(QVector3D(-30,0,80));

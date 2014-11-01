@@ -9,7 +9,7 @@ Scene::Scene(RenderEngine *engine)
 {
     m_engine = engine;
     m_factory = new Factory(m_engine);
-    m_lightSource = m_factory->GenSphere(QVector3D(1,1,1),QVector4D(1,1,1,1));
+    m_lightSource = m_factory->GenCollada("sphere", QVector3D(1,1,1),QVector4D(1,1,1,1));
 }
 
 void Scene::Draw() {
@@ -40,7 +40,7 @@ void Scene::AddBlock(QVector3D size, QVector3D transform, QVector4D color, Drawa
 
 void Scene::AddSphere(QVector3D size, QVector3D transform, QVector4D color, Drawable *parent)
 {
-    Drawable *drawable = m_factory->GenSphere(size, color);
+    Drawable *drawable = m_factory->GenCollada("sphere", size, color);
     AddDrawable(drawable, transform, parent);
 }
 
