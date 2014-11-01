@@ -5,27 +5,27 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.72.0 commit date:2014-10-21, commit time:11:38, hash:9e963ae</authoring_tool>
     </contributor>
-    <created>2014-10-28T13:27:59</created>
-    <modified>2014-10-28T13:27:59</modified>
+    <created>2014-11-01T23:06:44</created>
+    <modified>2014-11-01T23:06:44</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_images>
-    <image id="Snow_Trees_jpg" name="Snow_Trees_jpg">
-      <init_from>Snow%20Trees.jpg</init_from>
+    <image id="tree_png" name="tree_png">
+      <init_from>tree.png</init_from>
     </image>
   </library_images>
   <library_effects>
     <effect id="Material_001-effect">
       <profile_COMMON>
-        <newparam sid="Snow_Trees_jpg-surface">
+        <newparam sid="tree_png-surface">
           <surface type="2D">
-            <init_from>Snow_Trees_jpg</init_from>
+            <init_from>tree_png</init_from>
           </surface>
         </newparam>
-        <newparam sid="Snow_Trees_jpg-sampler">
+        <newparam sid="tree_png-sampler">
           <sampler2D>
-            <source>Snow_Trees_jpg-surface</source>
+            <source>tree_png-surface</source>
           </sampler2D>
         </newparam>
         <technique sid="common">
@@ -37,7 +37,7 @@
               <color sid="ambient">0 0 0 1</color>
             </ambient>
             <diffuse>
-              <texture texture="Snow_Trees_jpg-sampler" texcoord="UVMap"/>
+              <texture texture="tree_png-sampler" texcoord="UVMap"/>
             </diffuse>
             <specular>
               <color sid="specular">0.5 0.5 0.5 1</color>
@@ -82,7 +82,7 @@
           </technique_common>
         </source>
         <source id="Plane-mesh-map-0">
-          <float_array id="Plane-mesh-map-0-array" count="12">1.0004e-4 9.998e-5 0.9999001 9.998e-5 0.9999001 0.9999001 9.998e-5 0.9999001 1.0004e-4 9.998e-5 0.9999001 0.9999001</float_array>
+          <float_array id="Plane-mesh-map-0-array" count="12">0.1115792 0.209986 0.8884208 0.209986 0.8884208 0.790014 0.1115792 0.790014 0.1115792 0.209986 0.8884208 0.790014</float_array>
           <technique_common>
             <accessor source="#Plane-mesh-map-0-array" count="6" stride="2">
               <param name="S" type="float"/>

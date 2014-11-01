@@ -13,15 +13,15 @@ SnowmanScene::SnowmanScene(RenderEngine *engine)
     // light
     QMatrix4x4 lightPosition;
     lightPosition.setToIdentity();
-    lightPosition.translate(+0,+100,+100);
+    lightPosition.translate(+0,-200,+200);
     m_lightSource->SetTransformMatrix(lightPosition);
     m_lightSource->forceModification();
 }
 
 
 void SnowmanScene::Create(){
-    Drawable *ground = m_factory->GenBlock(QVector3D(512,512,3),QVector4D(0.9,0.9,0.9,1.0));
-    {
+    Drawable *ground = m_factory->GenBlock(QVector3D(512,256,3),QVector4D(0.9,0.9,0.9,1.0));
+
 //   Drawable *test = m_factory->GenCollada("test", QVector3D(64,64,64),QVector4D(1.0,0.0,0.25,1.0));
 //   QMatrix4x4 mat_test;
 //   mat_test.setToIdentity();
@@ -123,10 +123,20 @@ void SnowmanScene::Create(){
     m_nose.rotate(90,QVector3D(1,0,0));
     m_TopSphere->AddChild(m_Nose,m_nose);
 
-    }
-    m_objects.push_back(ground);
-}
 
+
+
+    Drawable *background = m_factory->GenCollada("background", QVector3D(512,384,512), QVector4D(1.0,1.0,1.0,1.0) );
+    QMatrix4x4 bm;
+    bm.setToIdentity();
+    bm.translate(0,128,192);
+    bm.rotate(90,QVector3D(1,0,0));
+    ground->AddChild(background,bm);
+
+
+    m_objects.push_back(ground);
+
+}
 void SnowmanScene::Update()
 {
     static int i=15;

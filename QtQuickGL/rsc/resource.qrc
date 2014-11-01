@@ -24,8 +24,8 @@
         <file>model/cone/cone.dae</file>
         <file>model/cone/Untitled.png</file>
         <file>model/background/background.dae</file>
-        <file>model/background/Snow Trees.jpg</file>
         <file>model/sphere/sphere.dae</file>
         <file>model/sphere/defs.png</file>
+        <file>model/background/tree.png</file>
     </qresource>
 </RCC>
