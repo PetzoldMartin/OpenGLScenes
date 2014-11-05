@@ -76,6 +76,10 @@ public:
     void CreateBlock(QVector3D size, QVector3D transform, QVector4D color);
     void CreateSphere(QVector3D size, QVector3D transform, QVector4D color);
 
+    void setFoV(double value) {foV= value;};
+    void setNearClipping(double value) {nearClipping=value;};
+    void setFarClipping(double value) {farClipping=value;};
+
     QObject *GetContext();
 private:
 
@@ -97,6 +101,10 @@ private:
     double beta;
     double distance;
     int m_viewMode;
+
+    double foV;
+    double farClipping;
+    double nearClipping;
     // Camera Class /////////
 
     int m_mouseX;

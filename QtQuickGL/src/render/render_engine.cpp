@@ -32,6 +32,11 @@ RenderEngine::RenderEngine(QObject* parent)
     m_mouseX = 0;
     m_mouseY = 0;
 
+    foV= 60;
+    nearClipping=1.0;
+    farClipping=5000;
+
+
     //scene
     Scene *scene = new SnowmanScene(this);
     scene->Create();
@@ -46,7 +51,7 @@ void RenderEngine::Resize(float width, float height) {
         float x= width*distance/400.0f;
         projectionMatrix.ortho(-x,x,-x*height / width,x*height / width, 1.0f, 5000.0f);
     } else {
-        projectionMatrix.perspective(60.0f, width / height, 1.0f, 5000.0f);
+        projectionMatrix.perspective(foV, width / height, nearClipping, farClipping);
     }
     glViewport(0, 0, width, height);
 }

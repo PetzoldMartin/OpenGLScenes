@@ -126,6 +126,16 @@ void WindowGL::createSphere(float sx, float sy, float sz, float tx, float ty, fl
     m_engine->CreateSphere(QVector3D(sx,sy,sz),QVector3D(tx,ty,tz), QVector4D(cr,cg,cb,1.0));
 }
 
+void WindowGL::setFoV(double value) {
+    m_engine->setFoV(value);
+}
+void WindowGL::setNearClipping(double value)
+{m_engine->setNearClipping(value);
+}
+void WindowGL::setFarClipping(double value) {
+    m_engine->setFarClipping(value);
+}
+
 // Copy the state of the object in the
 // GUI thread into the rendering thread.
 void WindowGL::sync()

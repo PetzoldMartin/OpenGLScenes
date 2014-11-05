@@ -22,7 +22,6 @@ Item {
             //onTriggered: window.update() // SEGMENTAITION FAULT
         }
 
-
         Keys.onPressed: {
             switch(event.key) {
             case Qt.Key_F1:
@@ -169,6 +168,69 @@ Item {
 
                 }
 
+                Slider {
+                    id: foV
+                    value: 0
+                    maximumValue: 180
+                    minimumValue: 0
+                    stepSize: 0.1
+
+                    anchors.bottom: parent.bottom
+                    anchors.left: parent.left
+                    visible: true
+
+                    onValueChanged: {
+                        window.setFoV(foV.value);
+                    }
+                }
+
+                Rectangle {
+                    id: foVMonitor
+                    color: Qt.rgba(0.0,0.0,0.0,0.9)
+                    width: parent.width;
+                    height: parent.componentHeight;
+
+                    anchors.bottom: foV.top
+                    anchors.horizontalCenter: foV.horizontalCenter
+
+                    Text {
+                        anchors.bottom: parent.bottom
+                        color: Qt.rgba(0.1,0.1,0.1,1.0)
+                        font.pointSize: parent.parent.componentTextSize;
+                        text: foV.value                    }
+
+                }
+                SpinBox {
+                    id: nearClipping
+                    minimumValue: 1
+                    maximumValue: 1000
+                    stepSize: 1
+                    value: 1
+
+                    anchors.bottom: parent.bottom
+                    anchors.left: foV.right
+                    visible: true
+
+                    onValueChanged: {
+                        window.setNearClipping(nearClipping.value);
+                    }
+                }
+                SpinBox {
+                    id: farClipping
+                    minimumValue: 1
+                    maximumValue: 10000
+                    stepSize: 10
+                    value: 5000
+
+                    anchors.bottom: parent.bottom
+                    anchors.left: nearClipping.right
+                    visible: true
+
+                    onValueChanged: {
+                        window.setFarClipping(farClipping.value);
+                    }
+                }
+
                 function tapChange(tap) {
                     switch(tap) {
                     case 1: // Show Create Options
@@ -201,5 +263,4 @@ Item {
         }
 
     }
-
 }
