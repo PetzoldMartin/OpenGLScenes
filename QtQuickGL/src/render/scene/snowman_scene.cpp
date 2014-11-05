@@ -90,30 +90,37 @@ void SnowmanScene::Create(){
     m_mouth.translate(QVector3D(0.0,-tsize/2,-tsize/6));
     m_TopSphere->AddChild(m_Mouth,m_mouth);
 
-    Drawable *mouthl1 = m_factory->GenCollada("sphere", QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
-
+    mouthl1 = m_factory->GenCollada("sphere", QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
     QMatrix4x4 m_mouthl1;
     m_mouthl1.setToIdentity();
-    m_mouthl1.translate(QVector3D(-cole_size*1.2,0.5,0));
-    m_Mouth->AddChild(mouthl1,m_mouthl1);
+//    m_mouthl1.translate(QVector3D(-cole_size*1.2,0.5,0));
+//    m_Mouth->AddChild(mouthl1,m_mouthl1);
+    m_mouthl1.rotate(-14,QVector3D(0,0,1));
+    m_mouthl1.translate(QVector3D(0.0,-tsize/2,-tsize/6));
+    m_TopSphere->AddChild(mouthl1,m_mouthl1);
 
-    Drawable *mouthl2 = m_factory->GenCollada("sphere", QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
+    mouthl2 = m_factory->GenCollada("sphere", QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
     QMatrix4x4 m_mouthl2;
     m_mouthl2.setToIdentity();
-    m_mouthl2.translate(QVector3D(-cole_size*0.8,1,0));
-    mouthl1->AddChild(mouthl2,m_mouthl2);
+//    m_mouthl2.translate(QVector3D(-cole_size*0.8,1,0));
+//    mouthl1->AddChild(mouthl2,m_mouthl2);
+    m_mouthl2.rotate(-24,QVector3D(0,0,1));
+    m_mouthl2.translate(QVector3D(0.0,-tsize/2,-tsize/6));
+    m_TopSphere->AddChild(mouthl2,m_mouthl2);
 
-    Drawable *mouthr1 = m_factory->GenCollada("sphere", QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
+    mouthr1 = m_factory->GenCollada("sphere", QVector3D(cole_size*2/3,cole_size*2/3,cole_size*2/3),color_cole);
     QMatrix4x4 m_mouthr1;
     m_mouthr1.setToIdentity();
-    m_mouthr1.translate(QVector3D(+cole_size*1.2,0.5,0));
-    m_Mouth->AddChild(mouthr1,m_mouthr1);
+    m_mouthr1.rotate(14,QVector3D(0,0,1));
+    m_mouthr1.translate(QVector3D(0.0,-tsize/2,-tsize/6));
+    m_TopSphere->AddChild(mouthr1,m_mouthr1);
 
-    Drawable *mouthr2 = m_factory->GenCollada("sphere", QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
+    mouthr2 = m_factory->GenCollada("sphere", QVector3D(cole_size*1/2,cole_size*1/2,cole_size*1/2),color_cole);
     QMatrix4x4 m_mouthr2;
     m_mouthr2.setToIdentity();
-    m_mouthr2.translate(QVector3D(+cole_size*0.8,1,0));
-    mouthr1->AddChild(mouthr2,m_mouthr2);
+    m_mouthr2.rotate(24,QVector3D(0,0,1));
+    m_mouthr2.translate(QVector3D(0.0,-tsize/2,-tsize/6));
+    m_TopSphere->AddChild(mouthr2,m_mouthr2);
 
     // nose
     m_Nose = m_factory->GenCollada("cone",QVector3D(nose_size/3,nose_size/3,nose_size),color_carrot);
@@ -123,9 +130,7 @@ void SnowmanScene::Create(){
     m_nose.rotate(90,QVector3D(1,0,0));
     m_TopSphere->AddChild(m_Nose,m_nose);
 
-
-
-
+    // background
     Drawable *background = m_factory->GenCollada("background", QVector3D(512,384,512), QVector4D(1.0,1.0,1.0,1.0) );
     QMatrix4x4 bm;
     bm.setToIdentity();
@@ -133,21 +138,31 @@ void SnowmanScene::Create(){
     bm.rotate(90,QVector3D(1,0,0));
     ground->AddChild(background,bm);
 
-
+    // root object pushback
     m_objects.push_back(ground);
 
 }
 void SnowmanScene::Update()
 {
-    static int i=15;
+    // mouth switching
+    static long i=15;
     int c =(i%60>=30 ? 1 : -1);
     QVector3D change = QVector3D(0,-0.02*c,0.05 * c);
-    foreach(Drawable* child , m_Mouth->m_childList) {
-        foreach (Drawable* child2, child->m_childList) {
-            child2->TranslateRelative(change*2);
-        }
-        child->TranslateRelative(change);
-    }
+
+//    foreach(Drawable* child , m_Mouth->m_childList) {
+//        foreach (Drawable* child2, child->m_childList) {
+//            child2->TranslateRelative(change*2);
+//        }
+//        child->TranslateRelative(change);
+//    }
+
+    mouthl1->RotateRelative(c*0.8,QVector3D(0,1,0));
+    mouthl2->RotateRelative(c*1.5,QVector3D(0,1,0));
+
+    mouthr1->RotateRelative(-c*0.8,QVector3D(0,1,0));
+    mouthr2->RotateRelative(-c*1.5,QVector3D(0,1,0));
+
+    // light moving
     QMatrix4x4 light_mat = m_lightSource->GetTransformMatrix();
    // qDebug() << light_mat;
     QMatrix4x4 rotation;

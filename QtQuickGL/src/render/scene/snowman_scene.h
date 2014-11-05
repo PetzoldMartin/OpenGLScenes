@@ -20,6 +20,10 @@ private:
     Drawable *m_TopSphere;
     Drawable *m_Hat;
     Drawable *m_Nose;
+    Drawable *mouthl1;
+    Drawable *mouthl2;
+    Drawable *mouthr1;
+    Drawable *mouthr2;
 
 };
 

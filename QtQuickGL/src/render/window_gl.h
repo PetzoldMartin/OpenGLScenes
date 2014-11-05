@@ -40,6 +40,10 @@ public slots:
     void sync();
     void windowChanged();
 
+    void setFoV(double value);
+    void setNearClipping(double value);
+    void setFarClipping(double value);
+
 private slots:
     void handleWindowChanged(QQuickWindow *win);
 

@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import OpenGLUnderQML 1.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.2
 
 Rectangle{
     id: modifyOptions
@@ -274,6 +274,7 @@ Rectangle{
                      }
 
     Button { text: "Accept"
+        id: button
         anchors.top: modifyMonitorShiftConsole.bottom
         //Font.bold: parent.parent.componentTextSize;
         width: parent.width;

@@ -119,7 +119,11 @@ void Drawable::TranslateDirect(QVector3D transform)
 
 void Drawable::TranslateRelative(QVector3D transform)
 {
-    m_transMatrix.translate(transform);
+    QMatrix4x4 translate;
+    translate.setToIdentity();
+    translate.translate(transform);
+    m_transform= translate* m_transform;
+    //m_transMatrix.translate(transform);
 }
 void Drawable::TranslateSelectedRelative(QVector3D transform)
 {
@@ -152,7 +156,11 @@ void Drawable::forceModification(){
 
 void Drawable::RotateRelative(float angle, QVector3D axis)
 {
-    m_transMatrix.rotate(angle, axis);
+    QMatrix4x4 rotate;
+    rotate.setToIdentity();
+    rotate.rotate(angle, axis);
+    m_transMatrix=rotate*m_transMatrix;
+    //m_transMatrix.rotate(angle, axis); why?
 }
 void Drawable::RotateSelectedRelative(int deltax, int deltay, int deltaz){
     xr=deltax;yr=deltay;zr=deltaz;
