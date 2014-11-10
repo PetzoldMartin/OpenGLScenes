@@ -95,7 +95,6 @@ void Collada::readIndexArray(QXmlStreamReader& xml) {
     // convert string to float array
     int i = -1;
     QTextStream ts(&str_array);
-    cout << "blub";
     while(!ts.atEnd()) {
         ts >> indices[++i];
     }
