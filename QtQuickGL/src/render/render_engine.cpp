@@ -223,7 +223,7 @@ void RenderEngine::rotateObject(int deltax,int deltay, int deltaz) {
 
 void RenderEngine::translateObject(int dx,int dy,int dz) {
     if (selectedObject != NULL) {
-        selectedObject->TranslateSelectedRelative(QVector3D((float)dx,(float)dy,(float)dz));
+        selectedObject->TranslateSelectedRelative(QVector3D(dx,dy,dz));
     } else {
         m_sceneEdit->GetLightSource()->TranslateSelectedRelative(QVector3D(dx,dy,dz));
     }
@@ -231,7 +231,7 @@ void RenderEngine::translateObject(int dx,int dy,int dz) {
 }
 void RenderEngine::scaleObject(float factor){
     if (selectedObject != NULL) {
-        selectedObject->scale(factor);
+        selectedObject->scaleSelected(factor);
     }
 }
 
