@@ -65,6 +65,10 @@ public:
     void RotateRelative(float angle, QVector3D axis);
     void RotateSelectedRelative(int deltax, int deltay, int deltaz);
     ///
+    /// \brief ManipulateSelected do the Manipulation of the selected item Temporarly until force is triggert
+    ///
+    void ManipulateSelected();
+    ///
     /// \brief Set the Mesh that is used to draw the Drawable
     /// \param mesh The Mesh
     ///
@@ -151,7 +155,11 @@ public:
     static Drawable* GetDrawableByID(QVector4D ID);
 
     QMatrix4x4 GetSceneMatrix();
-    void scale(float factor);
+    ///
+    /// \brief scale the selected objekt
+    /// \param factor scaling factor
+    ///
+    void scaleSelected(float factor);
     void forceModification();
 
     std::vector<Drawable*> m_childList;                                 ///< List of Childs
@@ -183,7 +191,8 @@ private:
     static QMap<std::vector<unsigned char>,Drawable*> s_drawableMap;
     bool m_isSelected;                                                  ///< Flag for an Selected Drawable
     QMatrix4x4 m_SceneMatrix;
-    int xr,yr,zr;                                                       ///< Buffer for rotation angles as float
+    int xr,yr,zr;
+    float scale_value;                                                       ///< Buffer for rotation angles as float
     QVector3D m_transform;
     QOpenGLTexture *m_texture;                                          ///< QT OpenGL Texture of the Drawable
 };

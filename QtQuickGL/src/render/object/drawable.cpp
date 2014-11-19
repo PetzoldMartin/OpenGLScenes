@@ -29,8 +29,8 @@ Drawable::Drawable(RenderEngine *engine, QMatrix4x4 transform)
     m_engine = engine;
     m_transMatrix = transform;
     m_isSelected = false;
-    yr,zr=0;
-    xr=1;
+    yr=zr=xr=0;
+    scale_value=1.0f;
     m_transform=QVector3D(0.0,0.0,0.0);
     // create new id
     // TODO: make this better
@@ -113,7 +113,7 @@ void Drawable::SetTexture(QOpenGLTexture *texture){
 }
 
 void Drawable::TranslateDirect(QVector3D transform)
-{   m_modelMatrix=m_manipulateMatrix;
+{
     m_modelMatrix.translate(transform);
 }
 
@@ -125,33 +125,59 @@ void Drawable::TranslateRelative(QVector3D transform)
     m_transform= translate* m_transform;
     //m_transMatrix.translate(transform);
 }
+
+void Drawable::RotateDirect(int deltax,int deltay,int deltaz)
+{
+    m_modelMatrix.rotate((static_cast<float>(deltax)), QVector3D(1.0f,0.0f,0.0f));
+    m_modelMatrix.rotate((static_cast<float>(deltay)), QVector3D(0.0f,1.0f,0.0f));
+    m_modelMatrix.rotate((static_cast<float>(deltaz)), QVector3D(0.0f,0.0f,1.0f));
+}
+
 void Drawable::TranslateSelectedRelative(QVector3D transform)
 {
     m_transform=transform;
-    m_transMatrix=m_manipulateRMatrix;
-    m_transMatrix.translate(transform);
-
-    m_transMatrix.rotate(((float)xr), QVector3D(1.0f,0.0f,0.0f));
-    m_transMatrix.rotate(((float)yr), QVector3D(0.0f,1.0f,0.0f));
-    m_transMatrix.rotate(((float)zr), QVector3D(0.0f,0.0f,1.0f));
-
+    ManipulateSelected();
 }
-void Drawable::RotateDirect(int deltax,int deltay,int deltaz)
-{   m_modelMatrix=m_manipulateMatrix;
-    xr=deltax;
-    yr=deltay;
-    zr=deltaz;
-    m_modelMatrix.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
-    m_modelMatrix.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
-    m_modelMatrix.rotate(((float)deltaz), QVector3D(0.0f,0.0f,1.0f));
+
+void Drawable::RotateSelectedRelative(int deltax, int deltay, int deltaz){
+    xr=deltax;yr=deltay;zr=deltaz;
+    ManipulateSelected();
 }
-void Drawable::scale(float factor){
-    m_modelMatrix=m_manipulateMatrix;
-    m_modelMatrix.scale(factor);
+
+void Drawable::scaleSelected(float factor){
+    scale_value=factor;
+    ManipulateSelected();
 }
 void Drawable::forceModification(){
     m_manipulateMatrix=m_modelMatrix;
     m_manipulateRMatrix=m_transMatrix;
+}
+
+void Drawable::ManipulateSelected(){
+    m_transMatrix=m_manipulateRMatrix;
+    m_modelMatrix=m_manipulateMatrix;
+
+    m_transMatrix.translate(m_transform);
+    m_transMatrix.rotate((static_cast<float>(xr)), QVector3D(1.0f,0.0f,0.0f));
+    m_transMatrix.rotate((static_cast<float>(yr)), QVector3D(0.0f,1.0f,0.0f));
+    m_transMatrix.rotate((static_cast<float>(zr)), QVector3D(0.0f,0.0f,0.1f));
+    m_modelMatrix.scale(scale_value);
+}
+
+void Drawable::SetSelected(bool value)
+{
+    m_isSelected = value;
+    if(value){
+        m_manipulateMatrix=m_modelMatrix;
+        m_manipulateRMatrix=m_transMatrix;
+    }
+    else{
+        m_modelMatrix=m_manipulateMatrix;
+        m_transMatrix=m_manipulateRMatrix;
+        yr=zr=xr=0;
+        scale_value=1.0f;
+        m_transform=QVector3D(0.0,0.0,0.0);
+    }
 }
 
 void Drawable::RotateRelative(float angle, QVector3D axis)
@@ -162,15 +188,7 @@ void Drawable::RotateRelative(float angle, QVector3D axis)
     m_transMatrix=rotate*m_transMatrix;
     //m_transMatrix.rotate(angle, axis); why?
 }
-void Drawable::RotateSelectedRelative(int deltax, int deltay, int deltaz){
-    xr=deltax;yr=deltay;zr=deltaz;
-    m_transMatrix=m_manipulateRMatrix;
-    m_transMatrix.translate(m_transform);
 
-    m_transMatrix.rotate(((float)deltax), QVector3D(1.0f,0.0f,0.0f));
-    m_transMatrix.rotate(((float)deltay), QVector3D(0.0f,1.0f,0.0f));
-    m_transMatrix.rotate(((float)deltaz), QVector3D(0.0f,0.0f,0.1f));
-}
 
 void Drawable::SetMesh(Mesh *mesh)
 {
@@ -213,14 +231,7 @@ void Drawable::SetColor(QVector4D color)
     m_color = color;
 }
 
-void Drawable::SetSelected(bool value)
-{
-    m_isSelected = value;
-    if(value){m_manipulateMatrix=m_modelMatrix;
-    m_manipulateRMatrix=m_transMatrix;}
-    else{ m_modelMatrix=m_manipulateMatrix;
-    m_transMatrix=m_manipulateRMatrix;}
-}
+
 
 Drawable *Drawable::GetChild(int index)
 {
